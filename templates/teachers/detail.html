@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+
+{% block title %} School CRM - Teacher Details  {% endblock %}
+
+
+{% block content %}
+ <div class="max-w-4xl mx-auto">
+                    <!-- Header -->
+                    <div class="mb-8 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
+                                <i class="bi bi-person text-3xl text-gray-400"></i>
+                            </div>
+                            <div>
+                                <h1 class="text-2xl font-bold">Dr. Jane Smith</h1>
+                                <p class="text-gray-500">Teacher ID: TCH-001</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                <i class="bi bi-pencil"></i>
+                                <span class="ml-2">Edit</span>
+                            </button>
+                            <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+                                <i class="bi bi-trash"></i>
+                                <span class="ml-2">Delete</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Teacher Info -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <!-- Basic Info -->
+                        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+                            <h2 class="text-lg font-semibold mb-4">Personal Information</h2>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm text-gray-500">First Name</label>
+                                    <p class="text-gray-900">Jane</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Last Name</label>
+                                    <p class="text-gray-900">Smith</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Email</label>
+                                    <p class="text-gray-900">jane.smith@school.com</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Phone</label>
+                                    <p class="text-gray-900">+1 234 567 890</p>
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-sm text-gray-500">Address</label>
+                                    <p class="text-gray-900">456 Oak St, City, Country</p>
+                                </div>
+                            </div>
+
+                            <h2 class="text-lg font-semibold mt-8 mb-4">Professional Information</h2>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm text-gray-500">Department</label>
+                                    <p class="text-gray-900">Science Department</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Position</label>
+                                    <p class="text-gray-900">Physics Professor</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Join Date</label>
+                                    <p class="text-gray-900">1 Sep 2020</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Employment Type</label>
+                                    <p class="text-gray-900">Full Time</p>
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-sm text-gray-500">Qualification</label>
+                                    <p class="text-gray-900">Ph.D. in Physics</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="space-y-6">
+                            <div class="bg-white rounded-lg shadow-sm p-6">
+                                <h3 class="text-lg font-semibold mb-4">Teaching Stats</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Total Classes</label>
+                                        <p class="text-2xl font-bold">6</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Total Students</label>
+                                        <p class="text-2xl font-bold">180</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Average Rating</label>
+                                        <p class="text-2xl font-bold">4.8/5.0</p>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="bg-white rounded-lg shadow-sm p-6">
+                                <h3 class="text-lg font-semibold mb-4">Subjects</h3>
+                                <div class="space-y-2">
+                                    <div class="flex items-center space-x-2">
+                                        <i class="bi bi-check-circle text-green-600"></i>
+                                        <span>Physics 101</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <i class="bi bi-check-circle text-green-600"></i>
+                                        <span>Advanced Physics</span>
+                                    </div>
+                                    <div class="flex items-center space-x-2">
+                                        <i class="bi bi-check-circle text-green-600"></i>
+                                        <span>Quantum Mechanics</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="mb-6">
+                        <div class="border-b">
+                            <nav class="flex space-x-8">
+                                <button class="px-1 py-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600">
+                                    Schedule
+                                </button>
+                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
+                                    Students
+                                </button>
+                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
+                                    Performance
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Schedule -->
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="p-6 border-b">
+                            <h2 class="text-lg font-semibold">Weekly Schedule</h2>
+                        </div>
+                        <div class="p-6">
+                            <div class="space-y-4">
+                                <div class="flex items-center p-4 border rounded-lg">
+                                    <div class="w-16 text-center">
+                                        <p class="font-medium">MON</p>
+                                        <p class="text-sm text-gray-500">9:00</p>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="font-medium">Physics 101</h3>
+                                        <p class="text-sm text-gray-500">Group A - Room 201</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-4 border rounded-lg">
+                                    <div class="w-16 text-center">
+                                        <p class="font-medium">WED</p>
+                                        <p class="text-sm text-gray-500">11:00</p>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="font-medium">Advanced Physics</h3>
+                                        <p class="text-sm text-gray-500">Group B - Room 305</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center p-4 border rounded-lg">
+                                    <div class="w-16 text-center">
+                                        <p class="font-medium">FRI</p>
+                                        <p class="text-sm text-gray-500">14:00</p>
+                                    </div>
+                                    <div class="ml-4">
+                                        <h3 class="font-medium">Quantum Mechanics</h3>
+                                        <p class="text-sm text-gray-500">Group C - Lab 102</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}
+

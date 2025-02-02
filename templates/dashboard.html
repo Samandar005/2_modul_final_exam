@@ -1,0 +1,398 @@
+{% extends 'base.html' %}
+
+
+{% block title %} School CRM - Dashboard  {% endblock %}
+
+
+{% block content %}
+
+{% endblock %}
+
+
+{% block content %}
+                <div class="mb-8 flex justify-between items-center">
+                    <div class="relative">
+                        <input type="search" placeholder="Search..." class="pl-10 pr-4 py-2 border rounded-lg">
+                        <i class="bi bi-search absolute left-3 top-3 text-gray-400"></i>
+                    </div>
+                    <button onclick="openModal()" class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg">
+                        <i class="bi bi-plus"></i>
+                        <span>Add New</span>
+                    </button>
+                </div>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-600">Total Students</p>
+                                <h3 class="text-3xl font-bold mt-2">1,234</h3>
+                            </div>
+                            <div class="p-3 bg-blue-50 rounded-lg">
+                                <i class="bi bi-people text-blue-600"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-green-600 mt-4">
+                            <i class="bi bi-arrow-up"></i>
+                            <span>12% from last month</span>
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-600">Total Teachers</p>
+                                <h3 class="text-3xl font-bold mt-2">48</h3>
+                            </div>
+                            <div class="p-3 bg-green-50 rounded-lg">
+                                <i class="bi bi-person-badge text-green-600"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-green-600 mt-4">
+                            <i class="bi bi-arrow-up"></i>
+                            <span>4 new this month</span>
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-600">Active Groups</p>
+                                <h3 class="text-3xl font-bold mt-2">56</h3>
+                            </div>
+                            <div class="p-3 bg-purple-50 rounded-lg">
+                                <i class="bi bi-collection text-purple-600"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-green-600 mt-4">
+                            <i class="bi bi-arrow-up"></i>
+                            <span>8 new groups</span>
+                        </p>
+                    </div>
+
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <div class="flex justify-between items-start">
+                            <div>
+                                <p class="text-sm text-gray-600">Total Subjects</p>
+                                <h3 class="text-3xl font-bold mt-2">24</h3>
+                            </div>
+                            <div class="p-3 bg-orange-50 rounded-lg">
+                                <i class="bi bi-book text-orange-600"></i>
+                            </div>
+                        </div>
+                        <p class="text-sm text-gray-600 mt-4">
+                            <i class="bi bi-dash"></i>
+                            <span>No change</span>
+                        </p>
+                    </div>
+                </div>
+
+                <!-- Charts -->
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold mb-4">Student Enrollment Trends</h3>
+                        <canvas id="enrollmentChart" height="300"></canvas>
+                    </div>
+                    <div class="bg-white p-6 rounded-lg shadow-sm">
+                        <h3 class="text-lg font-semibold mb-4">Subject Distribution</h3>
+                        <canvas id="subjectChart" height="300"></canvas>
+                    </div>
+                </div>
+
+                <!-- Recent Activity -->
+                <div class="bg-white rounded-lg shadow-sm">
+                    <div class="p-6 border-b">
+                        <h3 class="text-lg font-semibold">Recent Activity</h3>
+                    </div>
+                    <div class="p-6">
+                        <div class="space-y-6">
+                            <div class="flex items-center space-x-4">
+                                <div class="p-3 bg-blue-50 rounded-lg">
+                                    <i class="bi bi-person-plus text-blue-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">New Student Enrolled</p>
+                                    <p class="text-sm text-gray-600">John Doe joined Group A</p>
+                                    <p class="text-sm text-gray-400">2 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="p-3 bg-green-50 rounded-lg">
+                                    <i class="bi bi-check-circle text-green-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">Assignment Completed</p>
+                                    <p class="text-sm text-gray-600">Mathematics Group B submitted their assignments</p>
+                                    <p class="text-sm text-gray-400">4 hours ago</p>
+                                </div>
+                            </div>
+                            <div class="flex items-center space-x-4">
+                                <div class="p-3 bg-purple-50 rounded-lg">
+                                    <i class="bi bi-calendar-event text-purple-600"></i>
+                                </div>
+                                <div>
+                                    <p class="font-medium">New Schedule Added</p>
+                                    <p class="text-sm text-gray-600">Physics class scheduled for Group C</p>
+                                    <p class="text-sm text-gray-400">6 hours ago</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}
+
+
+{% block modal %}
+  <div id="addNewModal" class="hidden fixed inset-0 bg-gray-600 bg-opacity-50 overflow-y-auto h-full w-full">
+        <div class="relative top-20 mx-auto p-5 border w-96 shadow-lg rounded-md bg-white">
+            <div class="mt-3">
+                <div class="flex justify-between items-center pb-3 border-b">
+                    <h3 class="text-lg font-semibold">Add New</h3>
+                    <button onclick="closeModal()" class="text-gray-400 hover:text-gray-500">
+                        <i class="bi bi-x-lg"></i>
+                    </button>
+                </div>
+                <div class="mt-4 space-y-2">
+                    <a href="departments/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                        <div class="p-2 bg-indigo-50 rounded-lg">
+                            <i class="bi bi-building text-indigo-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Add Department</p>
+                            <p class="text-sm text-gray-500">Create a new department</p>
+                        </div>
+                    </a>
+                    <a href="students/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                        <div class="p-2 bg-blue-50 rounded-lg">
+                            <i class="bi bi-people text-blue-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Add Student</p>
+                            <p class="text-sm text-gray-500">Register a new student</p>
+                        </div>
+                    </a>
+                    <a href="teachers/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                        <div class="p-2 bg-green-50 rounded-lg">
+                            <i class="bi bi-person-badge text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Add Teacher</p>
+                            <p class="text-sm text-gray-500">Register a new teacher</p>
+                        </div>
+                    </a>
+                    <a href="groups/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                        <div class="p-2 bg-purple-50 rounded-lg">
+                            <i class="bi bi-collection text-purple-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Add Group</p>
+                            <p class="text-sm text-gray-500">Create a new group</p>
+                        </div>
+                    </a>
+                    <a href="subjects/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                        <div class="p-2 bg-orange-50 rounded-lg">
+                            <i class="bi bi-book text-orange-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Add Subject</p>
+                            <p class="text-sm text-gray-500">Create a new subject</p>
+                        </div>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block script %}
+    <script>
+        // Modal functions
+        function openModal() {
+            document.getElementById('addNewModal').classList.remove('hidden');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling when modal is open
+        }
+
+        function closeModal() {
+            document.getElementById('addNewModal').classList.add('hidden');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('addNewModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Close modal on escape key press
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeModal();
+            }
+        });
+    </script>
+    <script>
+        // Static data for charts
+        const enrollmentData = {
+            labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
+            datasets: [
+                {
+                    label: '2023 Enrollments',
+                    data: [650, 750, 800, 850, 900, 950, 1000, 1050, 1100, 1150, 1200, 1234],
+                    borderColor: '#2563eb',
+                    backgroundColor: 'rgba(37, 99, 235, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                },
+                {
+                    label: '2022 Enrollments',
+                    data: [500, 550, 600, 650, 700, 750, 800, 850, 900, 920, 950, 980],
+                    borderColor: '#9333ea',
+                    backgroundColor: 'rgba(147, 51, 234, 0.1)',
+                    fill: true,
+                    tension: 0.4
+                }
+            ]
+        };
+
+        const subjectData = {
+            labels: ['Science', 'Mathematics', 'Languages', 'Arts', 'Physical Education', 'Social Studies'],
+            datasets: [{
+                data: [30, 25, 20, 10, 8, 7],
+                backgroundColor: [
+                    '#2563eb',
+                    '#9333ea',
+                    '#06b6d4',
+                    '#10b981',
+                    '#f59e0b',
+                    '#ef4444'
+                ]
+            }]
+        };
+
+        // Initialize charts
+        const enrollmentChart = new Chart(document.getElementById('enrollmentChart'), {
+            type: 'line',
+            data: enrollmentData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    }
+                },
+                scales: {
+                    y: {
+                        beginAtZero: true,
+                        grid: {
+                            drawBorder: false
+                        }
+                    },
+                    x: {
+                        grid: {
+                            display: false
+                        }
+                    }
+                }
+            }
+        });
+
+        const subjectChart = new Chart(document.getElementById('subjectChart'), {
+            type: 'doughnut',
+            data: subjectData,
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: {
+                        position: 'right'
+                    }
+                }
+            }
+        });
+    </script>
+{% endblock %}
+
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title></title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        <!-- Sidebar -->
+        <aside class="w-64 bg-white border-r overflow-y-auto">
+            <div class="p-4">
+                <h1 class="text-xl font-bold text-blue-600 mb-8">School CRM</h1>
+                <nav class="space-y-2">
+                    <a href="dashboard.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-50 text-blue-600">
+                        <i class="bi bi-grid"></i>
+                        <span>Dashboard</span>
+                    </a>
+                    <a href="departments/list.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+                        <i class="bi bi-building"></i>
+                        <span>Departments</span>
+                    </a>
+                    <a href="students/list.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+                        <i class="bi bi-people"></i>
+                        <span>Students</span>
+                    </a>
+                    <a href="teachers/list.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+                        <i class="bi bi-person-badge"></i>
+                        <span>Teachers</span>
+                    </a>
+                    <a href="groups/list.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+                        <i class="bi bi-collection"></i>
+                        <span>Groups</span>
+                    </a>
+                    <a href="subjects/list.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+                        <i class="bi bi-book"></i>
+                        <span>Subjects</span>
+                    </a>
+                </nav>
+            </div>
+        </aside>
+
+        <!-- Main content area -->
+        <div class="flex-1 flex flex-col overflow-hidden">
+            <!-- Navbar -->
+            <nav class="bg-white">
+                <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+                    <div class="flex justify-between h-16">
+                        <div class="flex items-center">
+                            <h1 class="text-xl font-bold text-blue-600">Dashboard</h1>
+                        </div>
+                        <div class="flex items-center">
+                            <a href="profile-update.html" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                                <i class="bi bi-person-circle mr-2"></i>Update Profile
+                            </a>
+                            <a href="logout.html" class="text-gray-600 hover:text-gray-900 px-3 py-2 rounded-md text-sm font-medium">
+                                <i class="bi bi-box-arrow-right mr-2"></i>Logout
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </nav>
+
+            <!-- Main content -->
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-8">
+
+            </main>
+        </div>
+    </div>
+
+    <!-- Modal -->
+
+
+</body>
+</html>

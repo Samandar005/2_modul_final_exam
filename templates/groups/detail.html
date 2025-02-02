@@ -1,0 +1,145 @@
+{% extends 'base.html' %}
+
+
+{% block title %}  School CRM - Group Details {% endblock %}
+
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+                    <!-- Header -->
+                    <div class="mb-8 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="p-3 bg-purple-50 rounded-lg">
+                                <i class="bi bi-collection text-2xl text-purple-600"></i>
+                            </div>
+                            <div>
+                                <h1 class="text-2xl font-bold">Group A</h1>
+                                <p class="text-gray-500">Group ID: GRP-001</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                <i class="bi bi-pencil"></i>
+                                <span class="ml-2">Edit</span>
+                            </button>
+                            <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+                                <i class="bi bi-trash"></i>
+                                <span class="ml-2">Delete</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Group Info -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <!-- Basic Info -->
+                        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+                            <h2 class="text-lg font-semibold mb-4">Group Information</h2>
+                            <div class="grid grid-cols-2 gap-6">
+                                <div>
+                                    <label class="block text-sm text-gray-500">Grade Level</label>
+                                    <p class="text-gray-900">Grade 10</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Class Teacher</label>
+                                    <p class="text-gray-900">Dr. Jane Smith</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Schedule</label>
+                                    <p class="text-gray-900">Morning Session</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Academic Year</label>
+                                    <p class="text-gray-900">2023-2024</p>
+                                </div>
+                                <div class="col-span-2">
+                                    <label class="block text-sm text-gray-500">Description</label>
+                                    <p class="text-gray-900">A high-performing group focusing on science and mathematics, with additional emphasis on practical laboratory work.</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="space-y-6">
+                            <div class="bg-white rounded-lg shadow-sm p-6">
+                                <h3 class="text-lg font-semibold mb-4">Group Stats</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Total Students</label>
+                                        <p class="text-2xl font-bold">30</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Average Attendance</label>
+                                        <p class="text-2xl font-bold">95%</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Average GPA</label>
+                                        <p class="text-2xl font-bold">3.8</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="mb-6">
+                        <div class="border-b">
+                            <nav class="flex space-x-8">
+                                <button class="px-1 py-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600">
+                                    Students
+                                </button>
+                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
+                                    Schedule
+                                </button>
+                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
+                                    Subjects
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Students List -->
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="p-6 border-b">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-lg font-semibold">Students</h2>
+                                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                    <i class="bi bi-plus"></i>
+                                    <span class="ml-2">Add Student</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="flex items-center space-x-4 p-4 border rounded-lg">
+                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="bi bi-person text-2xl text-gray-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">John Doe</h3>
+                                        <p class="text-sm text-gray-500">ID: STU-001</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 border rounded-lg">
+                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="bi bi-person text-2xl text-gray-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">Jane Smith</h3>
+                                        <p class="text-sm text-gray-500">ID: STU-002</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 border rounded-lg">
+                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="bi bi-person text-2xl text-gray-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">Mike Johnson</h3>
+                                        <p class="text-sm text-gray-500">ID: STU-003</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}
+

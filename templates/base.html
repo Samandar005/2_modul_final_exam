@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %} {% endblock %}</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
+</head>
+<body class="bg-gray-50">
+    <div class="flex h-screen overflow-hidden">
+        {# SIDEBAR #}
+        {% include 'includes/aside.html' %}
+
+        <div class="flex-1 flex flex-col overflow-hidden">
+            {# NAVBAR #}
+            {% include 'includes/nav.html' %}
+
+            <main class="flex-1 overflow-x-hidden overflow-y-auto bg-gray-50 p-8">
+                {# CONTENT #}
+                {% block content %} {% endblock %}
+            </main>
+        </div>
+    </div>
+
+    {# MODAL #}
+    {% block modal %} {% endblock %}
+
+    {# SCRIPT #}
+    {% block script %} {% endblock %}
+
+</body>
+</html>

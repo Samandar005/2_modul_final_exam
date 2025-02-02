@@ -1,0 +1,146 @@
+{% extends 'base.html' %}
+
+
+{% block title %} School CRM - Department Details  {% endblock %}
+
+
+{% block content %}
+<div class="max-w-4xl mx-auto">
+                    <!-- Header -->
+                    <div class="mb-8 flex items-center justify-between">
+                        <div class="flex items-center space-x-4">
+                            <div class="p-3 bg-indigo-50 rounded-lg">
+                                <i class="bi bi-building text-2xl text-indigo-600"></i>
+                            </div>
+                            <div>
+                                <h1 class="text-2xl font-bold">Science Department</h1>
+                                <p class="text-gray-500">Department ID: DEP-001</p>
+                            </div>
+                        </div>
+                        <div class="flex items-center space-x-4">
+                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                <i class="bi bi-pencil"></i>
+                                <span class="ml-2">Edit</span>
+                            </button>
+                            <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+                                <i class="bi bi-trash"></i>
+                                <span class="ml-2">Delete</span>
+                            </button>
+                        </div>
+                    </div>
+
+                    <!-- Department Info -->
+                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+                        <!-- Basic Info -->
+                        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+                            <h2 class="text-lg font-semibold mb-4">Department Information</h2>
+                            <div class="space-y-4">
+                                <div>
+                                    <label class="block text-sm text-gray-500">Head of Department</label>
+                                    <p class="text-gray-900">Dr. Jane Smith</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Description</label>
+                                    <p class="text-gray-900">The Science Department focuses on delivering high-quality education in physics, chemistry, and biology through innovative teaching methods and practical laboratory work.</p>
+                                </div>
+                                <div>
+                                    <label class="block text-sm text-gray-500">Location</label>
+                                    <p class="text-gray-900">Building A, Floor 2</p>
+                                </div>
+                                <div class="grid grid-cols-2 gap-4">
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Contact Email</label>
+                                        <p class="text-gray-900">science@school.com</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Contact Phone</label>
+                                        <p class="text-gray-900">+1 234 567 890</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Stats -->
+                        <div class="space-y-6">
+                            <div class="bg-white rounded-lg shadow-sm p-6">
+                                <h3 class="text-lg font-semibold mb-4">Department Stats</h3>
+                                <div class="space-y-4">
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Total Teachers</label>
+                                        <p class="text-2xl font-bold">12</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Total Students</label>
+                                        <p class="text-2xl font-bold">245</p>
+                                    </div>
+                                    <div>
+                                        <label class="block text-sm text-gray-500">Active Subjects</label>
+                                        <p class="text-2xl font-bold">8</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Tabs -->
+                    <div class="mb-6">
+                        <div class="border-b">
+                            <nav class="flex space-x-8">
+                                <button class="px-1 py-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600">
+                                    Teachers
+                                </button>
+                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
+                                    Subjects
+                                </button>
+                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
+                                    Students
+                                </button>
+                            </nav>
+                        </div>
+                    </div>
+
+                    <!-- Teachers List -->
+                    <div class="bg-white rounded-lg shadow-sm">
+                        <div class="p-6 border-b">
+                            <div class="flex items-center justify-between">
+                                <h2 class="text-lg font-semibold">Teachers</h2>
+                                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                    <i class="bi bi-plus"></i>
+                                    <span class="ml-2">Add Teacher</span>
+                                </button>
+                            </div>
+                        </div>
+                        <div class="p-6">
+                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                                <div class="flex items-center space-x-4 p-4 border rounded-lg">
+                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="bi bi-person text-2xl text-gray-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">Dr. Jane Smith</h3>
+                                        <p class="text-sm text-gray-500">Physics Professor</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 border rounded-lg">
+                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="bi bi-person text-2xl text-gray-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">Dr. John Doe</h3>
+                                        <p class="text-sm text-gray-500">Chemistry Professor</p>
+                                    </div>
+                                </div>
+                                <div class="flex items-center space-x-4 p-4 border rounded-lg">
+                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                        <i class="bi bi-person text-2xl text-gray-400"></i>
+                                    </div>
+                                    <div>
+                                        <h3 class="font-medium">Prof. Sarah Johnson</h3>
+                                        <p class="text-sm text-gray-500">Biology Professor</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+{% endblock %}

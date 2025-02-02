@@ -1,0 +1,89 @@
+{% extends 'base.html' %}
+
+
+{% block title %}  School CRM - Add Department {% endblock %}
+
+
+{% block content %}
+<div class="max-w-2xl mx-auto">
+                    <div class="mb-8 flex items-center justify-between">
+                        <h1 class="text-2xl font-bold">Add Department</h1>
+                        <a href="list.html" class="text-gray-500 hover:text-gray-700">
+                            <i class="bi bi-x-lg"></i>
+                        </a>
+                    </div>
+
+                    <form class="bg-white rounded-lg shadow-sm p-6">
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Department Name
+                                </label>
+                                <input type="text" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Enter department name">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Head of Department
+                                </label>
+                                <select required class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    <option value="">Select head of department</option>
+                                    <option>Dr. Jane Smith</option>
+                                    <option>Dr. John Doe</option>
+                                    <option>Prof. Sarah Johnson</option>
+                                </select>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Description
+                                </label>
+                                <textarea rows="4" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Enter department description"></textarea>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Location
+                                </label>
+                                <input type="text" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Enter department location">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Contact Email
+                                </label>
+                                <input type="email" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Enter contact email">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-medium text-gray-700 mb-2">
+                                    Contact Phone
+                                </label>
+                                <input type="tel" required
+                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
+                                    placeholder="Enter contact phone">
+                            </div>
+
+                            <div class="flex items-center justify-end space-x-4">
+                                <a href="list.html"
+                                    class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                    Cancel
+                                </a>
+                                <button type="submit"
+                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                    Save Department
+                                </button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+{% endblock %}
+
