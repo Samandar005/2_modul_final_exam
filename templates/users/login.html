@@ -17,46 +17,34 @@
             </div>
 
             <!-- Login Form -->
-            <form class="space-y-6">
+            <form class="space-y-6" method="post">
+                {% csrf_token %}
                 <!-- Email Input -->
                 <div class="space-y-2">
-                    <label for="email" class="block text-sm font-medium text-gray-700">
-                        Email
+                    <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        {{ form.email.label }}
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="bi bi-envelope text-gray-400"></i>
                         </div>
-                        <input
-                            type="email"
-                            id="email"
-                            name="email"
-                            placeholder="name@school.com"
-                            required
-                            class="block w-full pl-10 pr-3 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        >
+                        {{ form.email }}
                     </div>
                 </div>
 
                 <!-- Password Input -->
                 <div class="space-y-2">
-                    <label for="password" class="block text-sm font-medium text-gray-700">
-                        Password
+                    <label for="{{ form.password.id_for_label }}" class="block text-sm font-medium text-gray-700">
+                        {{ form.password.label }}
                     </label>
                     <div class="relative">
                         <div class="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
                             <i class="bi bi-lock text-gray-400"></i>
                         </div>
-                        <input
-                            type="password"
-                            id="password"
-                            name="password"
-                            required
-                            class="block w-full pl-10 pr-10 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                        >
+                        {{ form.password }}
                         <button 
                             type="button" 
-                            id="togglePassword" 
+                            id="password"
                             class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                         >
                             <i class="bi bi-eye"></i>

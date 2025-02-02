@@ -13,30 +13,31 @@
                 <div class="card">
                     <div class="card-body">
                         <h2 class="card-title text-center mb-4">Sign Up</h2>
-                        <form>
+                        <form method="post">
+                            {% csrf_token %}
                             <div class="mb-3">
-                                <label for="firstName" class="form-label">First Name</label>
-                                <input type="text" class="form-control" id="firstName" required>
+                                <label for="{{ form.first_name.id_for_label }}" class="form-label">{{ form.first_name.label }}</label>
+                                {{ form.first_name }}
                             </div>
                             <div class="mb-3">
-                                <label for="lastName" class="form-label">Last Name</label>
-                                <input type="text" class="form-control" id="lastName" required>
+                                <label for="{{ forsm.last_name.id_for_label }}" class="form-label">{{ form.last_name.label }}</label>
+                                {{ form.last_name }}
                             </div>
                             <div class="mb-3">
-                                <label for="username" class="form-label">Username</label>
-                                <input type="text" class="form-control" id="username" required>
+                                <label for="{{ form.username.id_for_label }}" class="form-label">{{ form.username.label }}</label>
+                                {{ form.username }}
                             </div>
                             <div class="mb-3">
-                                <label for="email" class="form-label">Email</label>
-                                <input type="email" class="form-control" id="email" required>
+                                <label for="{{ form.email.id_for_label }}" class="form-label">{{ form.email.label }}</label>
+                                {{ form.email }}
                             </div>
                             <div class="mb-3">
-                                <label for="password" class="form-label">Password</label>
-                                <input type="password" class="form-control" id="password" required>
+                                <label for="{{ form.password1.id_for_label }}" class="form-label">{{ form.password1.label }}</label>
+                                {{ form.password1 }}
                             </div>
                             <div class="mb-3">
-                                <label for="confirmPassword" class="form-label">Confirm Password</label>
-                                <input type="password" class="form-control" id="confirmPassword" required>
+                                <label for="{{ form.password2.id_for_label }}" class="form-label">{{ form.password2.label }}</label>
+                                {{ form.password2 }}
                             </div>
                             <div class="d-grid">
                                 <button type="submit" class="btn btn-primary">Sign Up</button>
