@@ -9,3 +9,6 @@ class Department(BaseModel):
     location = models.TextField()
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=13)
+
+    def __str__(self):
+        return f"{self.name}"

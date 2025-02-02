@@ -1,6 +1,7 @@
 from django.db import models
 from departments.base_models import BaseModel
 from departments.models import Department
+from django.shortcuts import reverse
 
 
 class Subject(BaseModel):
@@ -23,5 +24,18 @@ class Subject(BaseModel):
     description = models.TextField()
     credit_hours = models.PositiveIntegerField()
     grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
-    prerequisites = models.CharField(max_length=9, choices=PREREQUISITE_CHOICES)
+    prerequisites = models.CharField(max_length=255, blank=True)
 
+
+
+    def get_detail_url(self):
+        return reverse('subjects:detail', args=[self.pk])
+
+    def get_update_url(self):
+        return reverse('subjects:update', args=[self.pk])
+
+    def get_delete_url(self):
+        return reverse('subjects:delete', args=[self.pk])
+
+    def __str__(self):
+        return f"{self.name}"
