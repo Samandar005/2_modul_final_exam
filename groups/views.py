@@ -1,3 +1,36 @@
-from django.shortcuts import render
+from django.urls import reverse_lazy
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView, DetailView
+from .models import Group
+from .forms import GroupForm
 
-# Create your views here.
+
+class GroupListView(ListView):
+    model = Group
+    template_name = 'groups/list.html'
+    context_object_name = 'groups'
+
+class GroupDetailView(DetailView):
+    model = Group
+    template_name = 'groups/detail.html'
+    context_object_name = 'group'
+
+class GroupCreateView(CreateView):
+    model = Group
+    form_class = GroupForm
+    template_name = 'groups/form.html'
+    success_url = reverse_lazy('groups:list')
+
+    def form_invalid(self, form):
+        print(form.errors)  # Xatoliklarni terminalga chiqarish
+        return super().form_invalid(form)
+
+class GroupUpdateView(UpdateView):
+    model = Group
+    form_class = GroupForm
+    template_name = 'groups/form.html'
+    success_url = reverse_lazy('groups:list')
+
+class GroupDeleteView(DeleteView):
+    model = Group
+    template_name = 'groups/confirm_delete.html'
+    success_url = reverse_lazy('groups:list')

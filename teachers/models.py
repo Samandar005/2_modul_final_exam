@@ -14,8 +14,6 @@ class Teacher(BaseModel):
 
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
-    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='teachers', null=True, blank=True)
-    subjects = models.ManyToManyField(Subject, related_name='teachers', null=True, blank=True)
     qualification = models.CharField(max_length=50)
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=13)
@@ -23,6 +21,9 @@ class Teacher(BaseModel):
     join_date = models.DateField()
     employment_type = models.CharField(max_length=8, choices=EMPLOYMENT_TYPE_CHOICES)
     image = models.ImageField(upload_to='teachers/')
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='teachers', null=True, blank=True)
+    subjects = models.ManyToManyField(Subject, related_name='teachers', blank=True)
+
 
     def get_detail_url(self):
         return reverse('teachers:detail', args=[self.pk])

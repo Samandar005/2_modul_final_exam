@@ -6,15 +6,15 @@
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="#" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
-                <i class="bi bi-person-badge"></i><i class="bi bi-building"></i>
+            <a href="{% url 'head_of_departments:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+                <i class="bi bi-person-badge"></i>
                 <span>Head of Departments</span>
             </a>
-            <a href="departments/list.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+            <a href="{% url 'departments:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
                 <i class="bi bi-building"></i>
                 <span>Departments</span>
             </a>
-            <a href="students/list.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+            <a href="{% url 'students:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
                 <i class="bi bi-people"></i>
                 <span>Students</span>
             </a>
@@ -22,7 +22,7 @@
                 <i class="bi bi-person-badge"></i>
                 <span>Teachers</span>
             </a>
-            <a href="groups/list.html" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+            <a href="{% url 'groups:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
                 <i class="bi bi-collection"></i>
                 <span>Groups</span>
             </a>

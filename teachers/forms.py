@@ -48,7 +48,7 @@ class TeacherForm(forms.ModelForm):
             'employment_type': forms.Select(choices=Teacher.EMPLOYMENT_TYPE_CHOICES, attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
             }),
-            'image': forms.ClearableFileInput(attrs={
+            'image': forms.FileInput(attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
             }),
         }

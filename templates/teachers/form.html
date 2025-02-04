@@ -21,7 +21,13 @@
                 </label>
                 <div class="flex items-center space-x-4">
                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
-                        <i class="bi bi-person text-3xl text-gray-400"></i>
+                        {% if form.instance.image %}
+                            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                                <img src="{{ form.instance.image.url }}" alt="image" class="w-full h-full object-cover">
+                            </div>
+                        {% else %}
+                            <i class="bi bi-person text-3xl text-gray-400"></i>
+                        {% endif %}
                     </div>
                     {{ form.image }}
                 </div>

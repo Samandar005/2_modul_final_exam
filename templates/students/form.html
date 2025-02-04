@@ -13,153 +13,104 @@
                         </a>
                     </div>
 
-                    <form class="bg-white rounded-lg shadow-sm p-6">
+                    <form class="bg-white rounded-lg shadow-sm p-6" method="post" enctype="multipart/form-data">
+                        {% csrf_token %}
                         <div class="space-y-6">
-                            <!-- Profile Photo -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Profile Photo
+                                <label for="{{ form.image.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    {{ form.image.label }}
                                 </label>
                                 <div class="flex items-center space-x-4">
                                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
                                         <i class="bi bi-person text-3xl text-gray-400"></i>
                                     </div>
-                                    <button type="button" class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                        Upload Photo
-                                    </button>
+                                    {{ form.image }}
                                 </div>
                             </div>
-
-                            <!-- Personal Information -->
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        First Name
+                                    <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ form.first_name.label }}
                                     </label>
-                                    <input type="text" required
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="Enter first name">
+                                    {{ form.first_name }}
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        Last Name
+                                    <label  for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ form.last_name.label }}
                                     </label>
-                                    <input type="text" required
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="Enter last name">
+                                    {{ form.last_name }}
                                 </div>
                             </div>
 
                             <div class="grid grid-cols-2 gap-4">
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        Date of Birth
+                                    <label for="{{ form.dob.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ form.dob.label }}
                                     </label>
-                                    <input type="date" required
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                                    {{ form.dob }}
                                 </div>
                                 <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        Gender
+                                    <label for="{{ form.gender.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                        {{ form.gender.label }}
                                     </label>
-                                    <select required
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                        <option value="">Select gender</option>
-                                        <option>Male</option>
-                                        <option>Female</option>
-                                        <option>Other</option>
-                                    </select>
+                                    {{ form.gender }}
                                 </div>
                             </div>
-
-                            <!-- Contact Information -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Email
+                                <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    {{ form.email.label }}
                                 </label>
-                                <input type="email" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Enter email address">
+                                {{ form.email }}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Phone Number
+                                <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    {{ form.phone_number.label }}
                                 </label>
-                                <input type="tel" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Enter phone number">
+                                {{ form.phone_number }}
                             </div>
-
-                            <!-- Academic Information -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Group
+                                <label for="{{ form.group.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    {{ form.group.label }}
                                 </label>
-                                <select required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <option value="">Select group</option>
-                                    <option>Group A</option>
-                                    <option>Group B</option>
-                                    <option>Group C</option>
-                                </select>
+                                {{ form.group }}
                             </div>
 
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Grade
+                                <label for="{{ form.grade.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    {{ form.grade.label }}
                                 </label>
-                                <select required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <option value="">Select grade</option>
-                                    <option>Grade 9</option>
-                                    <option>Grade 10</option>
-                                    <option>Grade 11</option>
-                                    <option>Grade 12</option>
-                                </select>
+                                {{ form.grade }}
                             </div>
-
-                            <!-- Address -->
                             <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Address
+                                <label for="{{ form.address.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    {{ form.address.label }}
                                 </label>
-                                <textarea rows="3" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Enter full address"></textarea>
+                                {{ form.address }}
                             </div>
-
-                            <!-- Parent/Guardian Information -->
                             <div>
-                                <h3 class="text-lg font-medium mb-4">Parent/Guardian Information</h3>
+                                <h3 class="text-lg font-medium mb-4">Parent Information</h3>
                                 <div class="space-y-4">
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                                            Parent/Guardian Name
+                                        <label  for="{{ form.parent_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                            {{ form.parent_name.label }}
                                         </label>
-                                        <input type="text" required
-                                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            placeholder="Enter parent/guardian name">
+                                        {{ form.parent_name }}
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                                            Parent/Guardian Phone
+                                        <label for="{{ form.parent_phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                            {{ form.parent_phone_number.label }}
                                         </label>
-                                        <input type="tel" required
-                                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            placeholder="Enter parent/guardian phone">
+                                        {{ form.parent_phone_number }}
                                     </div>
                                     <div>
-                                        <label class="block text-sm font-medium text-gray-700 mb-2">
-                                            Parent/Guardian Email
+                                        <label for="{{ form.parent_email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                            {{ form.parent_email.label }}
                                         </label>
-                                        <input type="email" required
-                                            class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                            placeholder="Enter parent/guardian email">
+                                        {{ form.parent_email }}
                                     </div>
                                 </div>
                             </div>
-
                             <div class="flex items-center justify-end space-x-4">
                                 <a href="list.html"
                                     class="px-4 py-2 border rounded-lg hover:bg-gray-50">

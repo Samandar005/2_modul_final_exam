@@ -1,11 +1,19 @@
 from django.db import models
-from django.db.models import CASCADE, ManyToManyField
 from subjects.models import Subject
 from teachers.models import Teacher
+from django.shortcuts import reverse
 
 
 class Group(models.Model):
     GRADE_LEVEL_CHOICES = [
+        ('1', 'Grade 1'),
+        ('2', 'Grade 2'),
+        ('3', 'Grade 3'),
+        ('4', 'Grade 4'),
+        ('5', 'Grade 5'),
+        ('6', 'Grade 6'),
+        ('7', 'Grade 7'),
+        ('8', 'Grade 8'),
         ('9', 'Grade 9'),
         ('10', 'Grade 10'),
         ('11', 'Grade 11'),
@@ -20,12 +28,24 @@ class Group(models.Model):
 
     name = models.CharField(max_length=100)
     grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
-    teacher = models.ManyToManyField(Teacher, related_name='groups', null=True, blank=True)
     schedule = models.CharField(max_length=2, choices=SCHEDULE_CHOICES)
     academic_year = models.CharField(max_length=30)
     max_students = models.PositiveIntegerField()
     description = models.TextField()
-    subjects = ManyToManyField(Subject, related_name='groups')
+    subjects = models.ManyToManyField(Subject, related_name='groups', blank=True)
+    teachers = models.ManyToManyField(Teacher, related_name='groups', blank=True)
+
+    def get_detail_url(self):
+        return reverse('groups:detail', args=[self.pk])
+
+    def get_update_url(self):
+        return reverse('groups:update', args=[self.pk])
+
+    def get_delete_url(self):
+        return reverse('groups:delete', args=[self.pk])
+
+    def __str__(self):
+        return f"{self.name}"
 
 
 

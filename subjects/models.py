@@ -20,11 +20,12 @@ class Subject(BaseModel):
     ]
 
     name = models.CharField(max_length=200)
-    department = models.ForeignKey(Department,  on_delete=models.CASCADE, related_name='subjects', null=True, blank=True)
     description = models.TextField()
     credit_hours = models.PositiveIntegerField()
     grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
     prerequisites = models.CharField(max_length=255, blank=True)
+    department = models.ForeignKey(Department,  on_delete=models.CASCADE, related_name='subjects', null=True, blank=True)
+
 
     @property
     def prerequisite_list(self):
