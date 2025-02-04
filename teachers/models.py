@@ -1,5 +1,5 @@
 from django.db import models
-
+from django.shortcuts import reverse
 from departments.base_models import BaseModel
 from departments.models import Department
 from subjects.models import Subject
@@ -23,3 +23,16 @@ class Teacher(BaseModel):
     join_date = models.DateField()
     employment_type = models.CharField(max_length=8, choices=EMPLOYMENT_TYPE_CHOICES)
     image = models.ImageField(upload_to='teachers/')
+
+    def get_detail_url(self):
+        return reverse('teachers:detail', args=[self.pk])
+
+    def get_update_url(self):
+        return reverse('teachers:update', args=[self.pk])
+
+    def get_delete_url(self):
+        return reverse('teachers:delete', args=[self.pk])
+
+    def __str__(self):
+        return f"{self.first_name} {self.last_name}"
+

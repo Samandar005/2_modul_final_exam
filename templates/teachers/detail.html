@@ -9,22 +9,24 @@
                     <!-- Header -->
                     <div class="mb-8 flex items-center justify-between">
                         <div class="flex items-center space-x-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
-                                <i class="bi bi-person text-3xl text-gray-400"></i>
-                            </div>
-                            <div>
-                                <h1 class="text-2xl font-bold">Dr. Jane Smith</h1>
-                                <p class="text-gray-500">Teacher ID: TCH-001</p>
+                          <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                            <img src="{{ teacher.image.url }}" alt="{{ teacher.first_name }} {{ teacher.last_name }}" class="w-full h-full object-cover">
+                        </div>
+                                                    <div>
+                                <h1 class="text-2xl font-bold">{{ teacher.first_name }} {{ teacher.last_name }}</h1>
+                                <p class="text-gray-500">Teacher ID: {{ teacher.id }}</p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-4">
-                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                            <a href="{{ teacher.get_update_url }}">
+                                <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
                                 <i class="bi bi-pencil"></i>
                                 <span class="ml-2">Edit</span>
                             </button>
+                            </a>
                             <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
                                 <i class="bi bi-trash"></i>
-                                <span class="ml-2">Delete</span>
+                                <span class="ml-2"><a href="{{ teacher.get_delete_url }}">Delete</a></span>
                             </button>
                         </div>
                     </div>
@@ -37,23 +39,23 @@
                             <div class="grid grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm text-gray-500">First Name</label>
-                                    <p class="text-gray-900">Jane</p>
+                                    <p class="text-gray-900">{{ teacher.first_name }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm text-gray-500">Last Name</label>
-                                    <p class="text-gray-900">Smith</p>
+                                    <p class="text-gray-900">{{ teacher.last_name }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm text-gray-500">Email</label>
-                                    <p class="text-gray-900">jane.smith@school.com</p>
+                                    <p class="text-gray-900">{{ teacher.email }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm text-gray-500">Phone</label>
-                                    <p class="text-gray-900">+1 234 567 890</p>
+                                    <p class="text-gray-900">{{ teacher.phone_number }}</p>
                                 </div>
                                 <div class="col-span-2">
                                     <label class="block text-sm text-gray-500">Address</label>
-                                    <p class="text-gray-900">456 Oak St, City, Country</p>
+                                    <p class="text-gray-900">{{ teacher.address }}</p>
                                 </div>
                             </div>
 
@@ -61,7 +63,7 @@
                             <div class="grid grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm text-gray-500">Department</label>
-                                    <p class="text-gray-900">Science Department</p>
+                                    <p class="text-gray-900">{{ teacher.department }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm text-gray-500">Position</label>
@@ -69,11 +71,11 @@
                                 </div>
                                 <div>
                                     <label class="block text-sm text-gray-500">Join Date</label>
-                                    <p class="text-gray-900">1 Sep 2020</p>
+                                    <p class="text-gray-900">{{ teacher.join_date }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm text-gray-500">Employment Type</label>
-                                    <p class="text-gray-900">Full Time</p>
+                                    <p class="text-gray-900">{{ teacher.get_employment_type_display }}</p>
                                 </div>
                                 <div class="col-span-2">
                                     <label class="block text-sm text-gray-500">Qualification</label>
@@ -89,7 +91,7 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm text-gray-500">Total Classes</label>
-                                        <p class="text-2xl font-bold">6</p>
+                                        <p class="text-2xl font-bold">{{ teacher.groups.count }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-500">Total Students</label>
@@ -105,18 +107,12 @@
                             <div class="bg-white rounded-lg shadow-sm p-6">
                                 <h3 class="text-lg font-semibold mb-4">Subjects</h3>
                                 <div class="space-y-2">
-                                    <div class="flex items-center space-x-2">
-                                        <i class="bi bi-check-circle text-green-600"></i>
-                                        <span>Physics 101</span>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <i class="bi bi-check-circle text-green-600"></i>
-                                        <span>Advanced Physics</span>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <i class="bi bi-check-circle text-green-600"></i>
-                                        <span>Quantum Mechanics</span>
-                                    </div>
+                                    {% for subject in teacher.subjects.all %}
+                                        <div class="flex items-center space-x-2">
+                                            <i class="bi bi-check-circle text-green-600"></i>
+                                            <span>{{ subject.name }}</span>
+                                        </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>

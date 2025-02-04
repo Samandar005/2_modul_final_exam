@@ -6,155 +6,103 @@
 
 {% block content %}
 <div class="max-w-2xl mx-auto">
-                    <div class="mb-8 flex items-center justify-between">
-                        <h1 class="text-2xl font-bold">Add Teacher</h1>
-                        <a href="list.html" class="text-gray-500 hover:text-gray-700">
-                            <i class="bi bi-x-lg"></i>
-                        </a>
+    <div class="mb-8 flex items-center justify-between">
+        <h1 class="text-2xl font-bold">Add Teacher</h1>
+        <a href="list.html" class="text-gray-500 hover:text-gray-700">
+            <i class="bi bi-x-lg"></i>
+        </a>
+    </div>
+    <form class="bg-white rounded-lg shadow-sm p-6" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        <div class="space-y-6">
+            <div>
+                <label class="block text-sm font-medium text-gray-700 mb-2" for="{{ form.image.id_for_label }}">
+                    {{ form.image.label }}
+                </label>
+                <div class="flex items-center space-x-4">
+                    <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
+                        <i class="bi bi-person text-3xl text-gray-400"></i>
                     </div>
-
-                    <form class="bg-white rounded-lg shadow-sm p-6">
-                        <div class="space-y-6">
-                            <!-- Profile Photo -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Profile Photo
-                                </label>
-                                <div class="flex items-center space-x-4">
-                                    <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
-                                        <i class="bi bi-person text-3xl text-gray-400"></i>
-                                    </div>
-                                    <button type="button" class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                        Upload Photo
-                                    </button>
-                                </div>
-                            </div>
-
-                            <!-- Personal Information -->
-                            <div class="grid grid-cols-2 gap-4">
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        First Name
-                                    </label>
-                                    <input type="text" required
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="Enter first name">
-                                </div>
-                                <div>
-                                    <label class="block text-sm font-medium text-gray-700 mb-2">
-                                        Last Name
-                                    </label>
-                                    <input type="text" required
-                                        class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                        placeholder="Enter last name">
-                                </div>
-                            </div>
-
-                            <!-- Professional Information -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Department
-                                </label>
-                                <select required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <option value="">Select department</option>
-                                    <option>Science</option>
-                                    <option>Mathematics</option>
-                                    <option>Languages</option>
-                                </select>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Subjects
-                                </label>
-                                <div class="space-y-2">
-                                    <div class="flex items-center space-x-2">
-                                        <input type="checkbox" id="physics" class="rounded text-blue-600">
-                                        <label for="physics">Physics</label>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="checkbox" id="chemistry" class="rounded text-blue-600">
-                                        <label for="chemistry">Chemistry</label>
-                                    </div>
-                                    <div class="flex items-center space-x-2">
-                                        <input type="checkbox" id="biology" class="rounded text-blue-600">
-                                        <label for="biology">Biology</label>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Qualification
-                                </label>
-                                <input type="text" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Enter qualification">
-                            </div>
-
-                            <!-- Contact Information -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Email
-                                </label>
-                                <input type="email" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Enter email address">
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Phone Number
-                                </label>
-                                <input type="tel" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Enter phone number">
-                            </div>
-
-                            <!-- Address -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Address
-                                </label>
-                                <textarea rows="3" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                                    placeholder="Enter full address"></textarea>
-                            </div>
-
-                            <!-- Employment Details -->
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Join Date
-                                </label>
-                                <input type="date" required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                            </div>
-
-                            <div>
-                                <label class="block text-sm font-medium text-gray-700 mb-2">
-                                    Employment Type
-                                </label>
-                                <select required
-                                    class="w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
-                                    <option value="">Select employment type</option>
-                                    <option>Full Time</option>
-                                    <option>Part Time</option>
-                                    <option>Contract</option>
-                                </select>
-                            </div>
-
-                            <div class="flex items-center justify-end space-x-4">
-                                <a href="list.html"
-                                    class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                    Cancel
-                                </a>
-                                <button type="submit"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                    Save Teacher
-                                </button>
-                            </div>
-                        </div>
-                    </form>
+                    {{ form.image }}
                 </div>
+            </div>
+            <div class="grid grid-cols-2 gap-4">
+                <div>
+                    <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.first_name.label }}
+                    </label>
+                    {{ form.first_name }}
+                </div>
+                <div>
+                    <label for="{{ form.last_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                        {{ form.last_name.label }}
+                    </label>
+                    {{ form.last_name }}
+                </div>
+            </div>
+            <div>
+                <label for="{{ form.department.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.department.label }}
+                </label>
+                {{ form.department }}
+            </div>
+            <div>
+                <label for="{{ form.subjects.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.subjects.label }}
+                </label>
+                <div class="space-y-2">
+                    <div class="flex items-center space-x-2">
+                        {{ form.subjects }}
+                    </div>
+                </div>
+            </div>
+            <div>
+                <label for="{{ form.qualification.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.qualification.label }}
+                </label>
+                {{ form.qualification }}
+            </div>
+            <div>
+                <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.email.label }}
+                </label>
+                {{ form.email }}
+            </div>
+            <div>
+                <label for="{{ form.phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.phone_number.label }}
+                </label>
+                {{ form.phone_number }}
+            </div>
+            <div>
+                <label for="{{ form.address.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.address.label }}
+                </label>
+                {{ form.address }}
+            </div>
+            <div>
+                <label for="{{ form.join_date.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.join_date.label }}
+                </label>
+                {{ form.join_date }}
+            </div>
+            <div>
+                <label for="{{ form.employment_type.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.employment_type.label }}
+                </label>
+                {{ form.employment_type }}
+            </div>
+            <div class="flex items-center justify-end space-x-4">
+                <a href="list.html"
+                    class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                    Cancel
+                </a>
+                <button type="submit"
+                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    Save Teacher
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}

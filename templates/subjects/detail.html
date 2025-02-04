@@ -57,12 +57,14 @@
                                     <label class="block text-sm text-gray-500">Description</label>
                                     <p class="text-gray-900">{{ subject.description }}</p>
                                 </div>
-                                <div class="col-span-2">
-                                    <label class="block text-sm text-gray-500">Prerequisites</label>
-                                    <div class="space-y-1 mt-1">
-                                        <p class="text-gray-900">• Basic Mathematics</p>
-                                        <p class="text-gray-900">• Introduction to Science</p>
-                                    </div>
+                                <div class="space-y-1 mt-1">
+                                    {% if subject.prerequisite_list %}
+                                        {% for prerequisite in subject.prerequisite_list %}
+                                            <p class="text-gray-900">• {{ prerequisite }}</p>
+                                        {% endfor %}
+                                    {% else %}
+                                        <p class="text-gray-900">No prerequisites specified.</p>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

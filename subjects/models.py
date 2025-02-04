@@ -26,7 +26,9 @@ class Subject(BaseModel):
     grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
     prerequisites = models.CharField(max_length=255, blank=True)
 
-
+    @property
+    def prerequisite_list(self):
+        return [prerequisite.strip() for prerequisite in self.prerequisites.split(',')] if self.prerequisites else []
 
     def get_detail_url(self):
         return reverse('subjects:detail', args=[self.pk])
