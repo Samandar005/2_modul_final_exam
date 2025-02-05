@@ -8,7 +8,8 @@ class StudentForm(forms.ModelForm):
         fields = (
             'first_name', 'last_name', 'dob', 'gender', 'email',
             'phone_number', 'grade', 'address', 'parent_name',
-            'parent_phone_number', 'parent_email', 'image', 'group'
+            'parent_phone_number', 'parent_email', 'image', 'group',
+            'status'
         )
         widgets = {
             'first_name': forms.TextInput(attrs={
@@ -23,6 +24,9 @@ class StudentForm(forms.ModelForm):
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
                 'placeholder': 'Select date of birth',
                 'type': 'date',
+            }),
+            'status': forms.Select(attrs={
+                'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500'
             }),
             'gender': forms.Select(attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',

@@ -1,71 +1,7 @@
- body {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        .confirm-card {
-            width: 100%;
-            max-width: 450px;
-            background: rgba(255, 255, 255, 0.9);
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
-            backdrop-filter: blur(10px);
-            border: 1px solid rgba(255, 255, 255, 0.3);
-        }
-        .card-header {
-            background: linear-gradient(60deg, #ff6b6b, #feca57);
-            color: white;
-            text-align: center;
-            padding: 30px;
-            position: relative;
-            overflow: hidden;
-        }
-        .card-header::before {
-            content: "";
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255,255,255,0.3) 0%, transparent 60%);
-            transform: rotate(30deg);
-        }
-        .btn-custom-danger {
-            background: linear-gradient(60deg, #ff6b6b, #ff4757);
-            border: none;
-            color: white;
-            transition: all 0.3s;
-        }
-        .btn-custom-danger:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(255,107,107,0.4);
-        }
-        .btn-custom-secondary {
-            background: linear-gradient(60deg, #5f27cd, #341f97);
-            border: none;
-            color: white;
-            transition: all 0.3s;
-        }
-        .btn-custom-secondary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 5px 15px rgba(95,39,205,0.4);
-        }
-        .icon-warning {
-            font-size: 4rem;
-            color: white;
-            position: relative;
-            z-index: 1;
-        }
-        .card-body {
-            padding: 40px;
-        }
-        .card-title {
-            color: #333;
-            font-weight: 700;
-        }
-        .card-text {
-            color: #666;
-        }
+.text-gray-900 {
+    max-height: 200px;
+    overflow-y: auto;
+    border: 1px solid #ccc;
+    padding: 10px;
+    display: block;
+}

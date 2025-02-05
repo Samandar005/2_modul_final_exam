@@ -13,18 +13,18 @@
                                 <i class="bi bi-building text-2xl text-indigo-600"></i>
                             </div>
                             <div>
-                                <h1 class="text-2xl font-bold">Science Department</h1>
-                                <p class="text-gray-500">Department ID: DEP-001</p>
+                                <h1 class="text-2xl font-bold">{{ department.name }}</h1>
+                                <p class="text-gray-500">Department ID: {{ department.id }}</p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-4">
                             <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
                                 <i class="bi bi-pencil"></i>
-                                <span class="ml-2">Edit</span>
+                                <span class="ml-2"><a href="{{ department.get_update_url }}">Edit</a></span>
                             </button>
                             <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
                                 <i class="bi bi-trash"></i>
-                                <span class="ml-2">Delete</span>
+                                <span class="ml-2"><a href="{{ department.get_delete_url }}">Delete</a></span>
                             </button>
                         </div>
                     </div>
@@ -37,24 +37,26 @@
                             <div class="space-y-4">
                                 <div>
                                     <label class="block text-sm text-gray-500">Head of Department</label>
-                                    <p class="text-gray-900">Dr. Jane Smith</p>
+                                    <p class="text-gray-900">{{ department.head_of_department }}</p>
                                 </div>
-                                <div>
+                                 <div>
                                     <label class="block text-sm text-gray-500">Description</label>
-                                    <p class="text-gray-900">The Science Department focuses on delivering high-quality education in physics, chemistry, and biology through innovative teaching methods and practical laboratory work.</p>
+                                    <p class="text-gray-900 overflow-auto" style="max-height: 200px; overflow-y: auto;">
+                                        {{ department.description }}
+                                    </p>
                                 </div>
-                                <div>
+                                    <div>
                                     <label class="block text-sm text-gray-500">Location</label>
-                                    <p class="text-gray-900">Building A, Floor 2</p>
+                                    <p class="text-gray-900">{{ department.location }}</p>
                                 </div>
                                 <div class="grid grid-cols-2 gap-4">
                                     <div>
                                         <label class="block text-sm text-gray-500">Contact Email</label>
-                                        <p class="text-gray-900">science@school.com</p>
+                                        <p class="text-gray-900">{{ department.email }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-500">Contact Phone</label>
-                                        <p class="text-gray-900">+1 234 567 890</p>
+                                        <p class="text-gray-900">{{ department.phone_number }}</p>
                                     </div>
                                 </div>
                             </div>
@@ -67,16 +69,22 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm text-gray-500">Total Teachers</label>
-                                        <p class="text-2xl font-bold">12</p>
+                                        <p class="text-2xl font-bold">{{ department.teachers.count }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-500">Total Students</label>
                                         <p class="text-2xl font-bold">245</p>
                                     </div>
+                                   {% if department.status == 'ac' %}
                                     <div>
                                         <label class="block text-sm text-gray-500">Active Subjects</label>
-                                        <p class="text-2xl font-bold">8</p>
+                                        <p class="text-2xl font-bold">
+                                            {% for subject in department.subjects.all %}
+                                                {{ subject.name }}{% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        </p>
                                     </div>
+                                    {% endif %}
                                 </div>
                             </div>
                         </div>

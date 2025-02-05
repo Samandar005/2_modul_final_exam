@@ -70,6 +70,12 @@
                                 {{ form.phone_number }}
                             </div>
                             <div>
+                                <label for="{{ form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                                    {{ form.status.label }}
+                                </label>
+                                {{ form.status }}
+                            </div>
+                            <div>
                                 <label for="{{ form.group.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                                     {{ form.group.label }}
                                 </label>

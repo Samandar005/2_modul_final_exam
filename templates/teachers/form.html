@@ -52,6 +52,13 @@
                 </label>
                 {{ form.department }}
             </div>
+
+            <div>
+                <label for="{{ form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.status.label }}
+                </label>
+                {{ form.status }}
+            </div>
             <div>
                 <label for="{{ form.subjects.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                     {{ form.subjects.label }}
@@ -99,7 +106,7 @@
                 {{ form.employment_type }}
             </div>
             <div class="flex items-center justify-end space-x-4">
-                <a href="list.html"
+                <a href="{% url 'teachers:list' %}"
                     class="px-4 py-2 border rounded-lg hover:bg-gray-50">
                     Cancel
                 </a>

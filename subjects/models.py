@@ -19,11 +19,18 @@ class Subject(BaseModel):
         ('english', 'English Language'),
     ]
 
+    STATUS_CHOICES = [
+        ('ac', 'Active'),
+        ('in', 'Inactive'),
+        ('pd', 'Pending'),
+    ]
+
     name = models.CharField(max_length=200)
     description = models.TextField()
     credit_hours = models.PositiveIntegerField()
-    grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
     prerequisites = models.CharField(max_length=255, blank=True)
+    grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     department = models.ForeignKey(Department,  on_delete=models.CASCADE, related_name='subjects', null=True, blank=True)
 
 

@@ -105,9 +105,19 @@
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-500">Status</label>
-                                        <span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-green-100 text-green-800">
-                                            Active
-                                        </span>
+                                            {% if student.status == 'ac' %}
+                                                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                                    {{ student.get_status_display }}
+                                                </span>
+                                            {% elif student.status == 'in' %}
+                                                <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+                                                    {{ student.get_status_display }}
+                                                </span>
+                                            {% elif student.status == 'pd' %}
+                                                <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                                                    {{ student.get_status_display }}
+                                                </span>
+                                            {% endif %}
                                     </div>
                                 </div>
                             </div>

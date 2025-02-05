@@ -5,11 +5,18 @@ from django.shortcuts import reverse
 
 
 class Department(BaseModel):
+    STATUS_CHOICES = [
+        ('ac', 'Active'),
+        ('in', 'Inactive'),
+        ('pd', 'Pending'),
+    ]
+
     name = models.CharField(max_length=100)
     description = models.TextField()
     location = models.TextField()
     email = models.EmailField(unique=True)
     phone_number = models.CharField(max_length=13)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     head_of_department = models.ForeignKey(HeadDepartment, on_delete=models.CASCADE, related_name='departments', null=True, blank=True)
 
     def get_detail_url(self):

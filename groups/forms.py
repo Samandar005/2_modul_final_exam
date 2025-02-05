@@ -13,12 +13,15 @@ class GroupForm(forms.ModelForm):
         model = Group
         fields = (
             'name', 'grade_level', 'schedule', 'academic_year',
-            'max_students', 'description', 'subjects', 'teachers'
+            'max_students', 'description', 'subjects', 'teachers', 'status'
         )
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'w-full px-3 py-2 border rounded-md',
                 'placeholder': 'Enter group name',
+            }),
+            'status': forms.Select(attrs={
+                'class': 'w-full px-3 py-2 border rounded-md',
             }),
             'grade_level': forms.Select(attrs={
                 'class': 'w-full px-3 py-2 border rounded-md',

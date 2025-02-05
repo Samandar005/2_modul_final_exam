@@ -63,6 +63,7 @@
                                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
                                 </tr>
                             </thead>
+                            {% for group in groups %}
                             <tbody class="divide-y">
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-6 py-4">
@@ -71,34 +72,53 @@
                                                 <i class="bi bi-collection text-purple-600"></i>
                                             </div>
                                             <div>
-                                                <p class="font-medium">Group A</p>
+                                                <p class="font-medium">{{ group.name }}</p>
                                                 <p class="text-sm text-gray-500">Science Focus</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm">Grade 10</td>
-                                    <td class="px-6 py-4 text-sm">25 students</td>
-                                    <td class="px-6 py-4 text-sm">Dr. Jane Smith</td>
+                                    <td class="px-6 py-4 text-sm">{{ group.get_grade_level_display }}</td>
+                                    <td class="px-6 py-4 text-sm">{{ group.students.count }} students</td>
+                                    <td class="px-6 py-4 text-sm">
+                                        {% if group.teachers.all %}
+                                            {% for teacher in group.teachers.all %}
+                                                {{ teacher.first_name }} {{ teacher.last_name }}{% if not forloop.last %}, {% endif %}
+                                            {% endfor %}
+                                        {% else %}
+                                            No Added Teachers
+                                        {% endif %}
+                                    </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                                            Active
-                                        </span>
+                                        {% if group.status == 'ac' %}
+                                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                                {{ group.get_status_display }}
+                                            </span>
+                                        {% elif group.status == 'in' %}
+                                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+                                                {{ group.get_status_display }}
+                                            </span>
+                                        {% elif group.status == 'pd' %}
+                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                                                {{ group.get_status_display }}
+                                            </span>
+                                        {% endif %}
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center space-x-3">
-                                            <a href="detail.html" class="text-blue-600 hover:text-blue-800">
+                                            <a href="{{ group.get_detail_url }}" class="text-blue-600 hover:text-blue-800">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <a href="form.html" class="text-gray-600 hover:text-gray-800">
+                                            <a href="{{ group.get_update_url }}" class="text-gray-600 hover:text-gray-800">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             <button class="text-red-600 hover:text-red-800">
-                                                <i class="bi bi-trash"></i>
+                                                <a href="{{ group.get_delete_url }}"><i class="bi bi-trash"></i></a>
                                             </button>
                                         </div>
                                     </td>
                                 </tr>
                             </tbody>
+                            {% endfor %}
                         </table>
                     </div>
 

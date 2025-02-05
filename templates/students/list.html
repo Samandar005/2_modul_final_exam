@@ -69,48 +69,59 @@
                                     <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
                                 </tr>
                             </thead>
+                            {% for student in students %}
                             <tbody class="divide-y">
                                 <tr class="hover:bg-gray-50">
                                     <td class="px-6 py-4">
                                         <div class="flex items-center space-x-3">
-                                            <img src="https://placekitten.com/32/32" class="rounded-full w-8 h-8">
+                                            <img src="{{ student.image.url }}"  class="rounded-full w-8 h-8">
                                             <div>
-                                                <p class="font-medium">John Doe</p>
-                                                <p class="text-sm text-gray-500">john@example.com</p>
+                                                <p class="font-medium">{{ student.first_name }} {{ student.last_name }}</p>
+                                                <p class="text-sm text-gray-500">{{ student.email }}</p>
                                             </div>
                                         </div>
                                     </td>
-                                    <td class="px-6 py-4 text-sm">STU001</td>
-                                    <td class="px-6 py-4 text-sm">Group A</td>
-                                    <td class="px-6 py-4 text-sm">Grade 10</td>
+                                    <td class="px-6 py-4 text-sm">{{ student.id }}</td>
+                                    <td class="px-6 py-4 text-sm">{{ student.group }}</td>
+                                    <td class="px-6 py-4 text-sm">{{ student.get_grade_display }}</td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                                            Active
-                                        </span>
+                                        {% if student.status == 'ac' %}
+                                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                                {{ student.get_status_display }}
+                                            </span>
+                                        {% elif student.status == 'in' %}
+                                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+                                                {{ student.get_status_display }}
+                                            </span>
+                                        {% elif student.status == 'pd' %}
+                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                                                {{ student.get_status_display }}
+                                            </span>
+                                        {% endif %}
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center space-x-3">
-                                            <a href="detail.html" class="text-blue-600 hover:text-blue-800">
+                                            <a href="{{ student.get_detail_url }}" class="text-blue-600 hover:text-blue-800">
                                                 <i class="bi bi-eye"></i>
                                             </a>
-                                            <a href="form.html" class="text-gray-600 hover:text-gray-800">
+                                            <a href="{{ student.get_update_url }}" class="text-gray-600 hover:text-gray-800">
                                                 <i class="bi bi-pencil"></i>
                                             </a>
                                             <button class="text-red-600 hover:text-red-800">
-                                                <i class="bi bi-trash"></i>
+                                                <a href="{{ student.get_delete_url }}"><i class="bi bi-trash"></i></a>
                                             </button>
                                         </div>
                                     </td>
                                 </tr>
-                                <!-- More student rows... -->
                             </tbody>
+                            {% endfor %}
                         </table>
                     </div>
 
                     <!-- Pagination -->
                     <div class="px-6 py-4 border-t">
                         <div class="flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Showing 1 to 10 of 100 students</p>
+                            <p class="text-sm text-gray-600">Showing 1 to 10 of {{ students.count }} students</p>
                             <div class="flex space-x-2">
                                 <button class="px-3 py-1 border rounded hover:bg-gray-50">Previous</button>
                                 <button class="px-3 py-1 border rounded bg-blue-600 text-white">1</button>

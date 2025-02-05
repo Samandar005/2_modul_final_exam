@@ -57,7 +57,7 @@ class CustomLogoutView(LogoutView):
 def profile_view(request):
     if not request.user.is_authenticated:
         messages.warning(request, "Для доступа к профилю необходимо войти в систему!")
-        return redirect('login')
+        return redirect('users:login')
     return render(request, 'users/signup.html')
 
 

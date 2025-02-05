@@ -21,7 +21,7 @@ class StudentCreateView(CreateView):
     template_name = 'students/form.html'
     success_url = reverse_lazy('students:list')
 
-class StudentUpdateView(CreateView):
+class StudentUpdateView(UpdateView):
     model = Student
     form_class = StudentForm
     template_name = 'students/form.html'

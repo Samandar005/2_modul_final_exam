@@ -10,7 +10,7 @@ class SubjectForm(forms.ModelForm):
     )
     class Meta:
         model = Subject
-        fields = ('name', 'department', 'description', 'credit_hours', 'grade_level', 'prerequisites')
+        fields = ('name', 'department', 'description', 'credit_hours', 'grade_level', 'prerequisites', 'status')
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
@@ -20,6 +20,9 @@ class SubjectForm(forms.ModelForm):
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
                 'required': False,
             }),
+            'status': forms.Select(attrs={
+                'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
+            }),
             'description': forms.Textarea(attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
                 'placeholder': 'Enter subject description',
@@ -27,7 +30,7 @@ class SubjectForm(forms.ModelForm):
             }),
             'credit_hours': forms.NumberInput(attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
-                'placeholder': 'Enter credit hours',
+                'placeholder': 'Enter credit hheadours',
             }),
             'grade_level': forms.Select(attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',

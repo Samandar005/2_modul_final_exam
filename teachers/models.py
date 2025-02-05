@@ -12,6 +12,12 @@ class Teacher(BaseModel):
         ('contract', 'Contract'),
     ]
 
+    STATUS_CHOICES = [
+        ('ac', 'Active'),
+        ('in', 'Inactive'),
+        ('pd', 'Pending'),
+    ]
+
     first_name = models.CharField(max_length=200)
     last_name = models.CharField(max_length=200)
     qualification = models.CharField(max_length=50)
@@ -19,11 +25,11 @@ class Teacher(BaseModel):
     phone_number = models.CharField(max_length=13)
     address = models.TextField()
     join_date = models.DateField()
-    employment_type = models.CharField(max_length=8, choices=EMPLOYMENT_TYPE_CHOICES)
     image = models.ImageField(upload_to='teachers/')
+    employment_type = models.CharField(max_length=8, choices=EMPLOYMENT_TYPE_CHOICES)
+    status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='teachers', null=True, blank=True)
     subjects = models.ManyToManyField(Subject, related_name='teachers', blank=True)
-
 
     def get_detail_url(self):
         return reverse('teachers:detail', args=[self.pk])

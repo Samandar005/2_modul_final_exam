@@ -26,12 +26,19 @@ class Group(models.Model):
         ('ev', 'Evening Session'),
     ]
 
+    STATUS_CHOICES = [
+        ('ac', 'Active'),
+        ('in', 'Inactive'),
+        ('pd', 'Pending'),
+    ]
+
     name = models.CharField(max_length=100)
-    grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
-    schedule = models.CharField(max_length=2, choices=SCHEDULE_CHOICES)
     academic_year = models.CharField(max_length=30)
     max_students = models.PositiveIntegerField()
     description = models.TextField()
+    status =models.CharField(max_length=2, choices=STATUS_CHOICES)
+    grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
+    schedule = models.CharField(max_length=2, choices=SCHEDULE_CHOICES, default='in')
     subjects = models.ManyToManyField(Subject, related_name='groups', blank=True)
     teachers = models.ManyToManyField(Teacher, related_name='groups', blank=True)
 

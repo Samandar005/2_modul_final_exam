@@ -18,6 +18,18 @@
                         </a>
                     </div>
                 </div>
+                <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
+                    <div class="flex flex-wrap gap-4">
+                        <select class="border rounded-lg px-4 py-2">
+                            <option>Status</option>
+                            <option>Active</option>
+                            <option>Inactive</option>
+                        </select>
+                        <button class="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                            Clear Filters
+                        </button>
+                    </div>
+                </div>
                 <!-- Subjects Table -->
                 <div class="bg-white rounded-lg shadow-sm">
                     <div class="overflow-x-auto">
@@ -50,9 +62,19 @@
                                     </td>
                                     <td class="px-6 py-4 text-sm">{{ head.departments.count }} Department</td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                                            Active
-                                        </span>
+                                        {% if head.status == 'ac' %}
+                                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                                {{ head.get_status_display }}
+                                            </span>
+                                        {% elif head.status == 'in' %}
+                                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+                                                {{ head.get_status_display }}
+                                            </span>
+                                        {% elif head.status == 'pd' %}
+                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                                                {{ head.get_status_display }}
+                                            </span>
+                                        {% endif %}
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center space-x-3">

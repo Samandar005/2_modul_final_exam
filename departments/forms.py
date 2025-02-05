@@ -4,7 +4,7 @@ from .models import Department
 class DepartmentForm(forms.ModelForm):
     class Meta:
         model = Department
-        fields = ('name', 'head_of_department', 'description', 'location', 'email', 'phone_number')
+        fields = ('name', 'head_of_department', 'description', 'status', 'location', 'email', 'phone_number')
         widgets = {
             'name': forms.TextInput(attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
@@ -13,6 +13,9 @@ class DepartmentForm(forms.ModelForm):
             'head_of_department': forms.Select(attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
                 'required': False,
+            }),
+            'status': forms.Select(attrs={
+                'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
             }),
             'description': forms.Textarea(attrs={
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',

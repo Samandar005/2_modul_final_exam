@@ -84,9 +84,19 @@
                                         {% endfor %}
                                     </td>
                                     <td class="px-6 py-4">
-                                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                                            Active
-                                        </span>
+                                        {% if teacher.status == 'ac' %}
+                                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                                {{ teacher.get_status_display }}
+                                            </span>
+                                        {% elif teacher.status == 'in' %}
+                                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+                                                {{ teacher.get_status_display }}
+                                            </span>
+                                        {% elif teacher.status == 'pd' %}
+                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                                                {{ teacher.get_status_display }}
+                                            </span>
+                                        {% endif %}
                                     </td>
                                     <td class="px-6 py-4">
                                         <div class="flex items-center space-x-3">
