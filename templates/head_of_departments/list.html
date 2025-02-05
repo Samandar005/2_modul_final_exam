@@ -93,11 +93,9 @@
                             {% endfor %}
                         </table>
                     </div>
-
-                    <!-- Pagination -->
                     <div class="px-6 py-4 border-t">
                         <div class="flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Showing 1 to 10 of 24 subjects</p>
+                            <p class="text-sm text-gray-600">Showing 1 to 10 of {{ heads.count }} subjects</p>
                             <div class="flex space-x-2">
                                 <button class="px-3 py-1 border rounded hover:bg-gray-50">Previous</button>
                                 <button class="px-3 py-1 border rounded bg-blue-600 text-white">1</button>

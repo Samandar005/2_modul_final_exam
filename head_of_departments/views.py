@@ -20,6 +20,8 @@ class HeadOfDepartmentUpdateView(UpdateView):
     form_class = HeadOfDepartmentForm
     template_name = 'head_of_departments/form.html'
     success_url = reverse_lazy('head_of_departments:list')
+    context_object_name = 'head'
+
 
 class HeadOfDepartmentDeleteView(DeleteView):
     model = HeadDepartment

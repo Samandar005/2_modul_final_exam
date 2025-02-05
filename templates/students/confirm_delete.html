@@ -7,7 +7,7 @@
     <title>Confirm Delete - School CRM</title>
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css" rel="stylesheet">
-    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="stylesheet" href="{% static 'css/confirm_delete.css' %}">
 </head>
 <body>
 
@@ -22,12 +22,12 @@
                     <h3 class="card-title mb-4">Are you sure?</h3>
                     <p class="card-text mb-5">You are about to delete this item. This action cannot be undone and may have serious consequences.</p>
 
-                    <form method="post" action="{{ head.get_delete_url }}">
+                    <form method="post" action="{{ student.get_delete_url }}">
                         {% csrf_token %}
                         <div class="d-flex justify-content-center">
                             <button type="submit" class="btn btn-custom-danger me-4 px-5 py-2">Delete</button>
                             <button type="button" class="btn btn-custom-secondary px-5 py-2">
-                                <a href="{% url 'head_of_departments:list' %}" class="text-decoration-none text-white">Cancel</a>
+                                <a href="{% url 'students:list' %}" class="text-decoration-none text-white">Cancel</a>
                             </button>
                         </div>
                     </form>

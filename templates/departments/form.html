@@ -1,13 +1,13 @@
 {% extends 'base.html' %}
 
 
-{% block title %}  School CRM - Add Department {% endblock %}
+{% block title %} {% if department %} School CRM - Update Department {% else %} School CRM - Add Department {% endif %}{% endblock %}
 
 
 {% block content %}
 <div class="max-w-2xl mx-auto">
                     <div class="mb-8 flex items-center justify-between">
-                        <h1 class="text-2xl font-bold">Add Department</h1>
+                        <h1 class="text-2xl font-bold">{% if department %} Update Department {% else %} Add Department {% endif %}</h1>
                         <a href="{% url 'departments:list' %}" class="text-gray-500 hover:text-gray-700">
                             <i class="bi bi-x-lg"></i>
                         </a>
@@ -65,13 +65,23 @@
                                 {{ form.phone_number }}
                             </div>
                             <div class="flex items-center justify-end space-x-4">
-                                <a href="{% url 'departments:list' %}" class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                    Cancel
-                                </a>
-                                <button type="submit"
-                                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                    Save Department
-                                </button>
+                                {% if department %}
+                                    <a href="{{ department.get_detail_url }}" class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                        Cancel
+                                    </a>
+                                    <button type="submit"
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                        Update Department
+                                    </button>
+                                {% else %}
+                                    <a href="{% url 'departments:list' %}" class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                        Cancel
+                                    </a>
+                                    <button type="submit"
+                                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                        Save Department
+                                    </button>
+                                {% endif %}
                             </div>
                         </div>
                     </form>

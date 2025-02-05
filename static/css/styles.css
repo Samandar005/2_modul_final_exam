@@ -1,7 +1,34 @@
 .text-gray-900 {
-    max-height: 200px;
+    max-height: 256px; /* Increased from 200px for better visibility */
     overflow-y: auto;
-    border: 1px solid #ccc;
-    padding: 10px;
+    border: 1px solid #e5e7eb; /* Lighter border color */
+    border-radius: 8px; /* Rounded corners */
+    padding: 16px; /* Increased padding */
     display: block;
+    background-color: white;
+    color: #1f2937; /* Dark gray text color */
+    box-shadow: 0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06); /* Subtle shadow */
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif; /* Improved font stack */
+    line-height: 1.5; /* Better line spacing */
+}
+
+.text-gray-900::-webkit-scrollbar {
+    width: 8px;
+}
+
+.text-gray-900::-webkit-scrollbar-track {
+    background: #f3f4f6;
+    border-radius: 8px;
+}
+
+.text-gray-900::-webkit-scrollbar-thumb {
+    background-color: #d1d5db;
+    border-radius: 8px;
+    border: 2px solid #f3f4f6;
+}
+
+/* For Firefox */
+.text-gray-900 {
+    scrollbar-width: thin;
+    scrollbar-color: #d1d5db #f3f4f6;
 }

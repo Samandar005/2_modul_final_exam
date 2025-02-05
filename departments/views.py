@@ -30,6 +30,7 @@ class DepartmentUpdateView(UpdateView):
     form_class = DepartmentForm
     template_name = 'departments/form.html'
     success_url = reverse_lazy('departments:list')
+    context_object_name = 'department'
 
 class DepartmentDeleteView(DeleteView):
     model = Department

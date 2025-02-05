@@ -34,7 +34,6 @@ class Student(BaseModel):
         ('pd', 'Pending'),
     ]
 
-
     first_name = models.CharField(max_length=100)
     last_name = models.CharField(max_length=150)
     dob = models.DateField()
@@ -42,6 +41,7 @@ class Student(BaseModel):
     phone_number = models.CharField(max_length=13)
     address = models.TextField()
     parent_name = models.CharField(max_length=100)
+    relationship = models.CharField(max_length=100)
     parent_phone_number = models.CharField(max_length=13)
     parent_email = models.EmailField(unique=True)
     image = models.ImageField(upload_to='students/')
