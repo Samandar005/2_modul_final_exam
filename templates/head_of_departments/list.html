@@ -1,109 +1,114 @@
 {% extends 'base.html' %}
 
 
-{% block title %}  School CRM - Subjects List {% endblock %}
+{% block title %}  School CRM - Head of Department List {% endblock %}
 
 
 {% block content %}
 <div class="mb-8 flex justify-between items-center">
-                    <h1 class="text-2xl font-bold">Head of Department</h1>
-                    <div class="flex items-center space-x-4">
-                        <div class="relative">
-                            <input type="search" placeholder="Search subjects..." class="pl-10 pr-4 py-2 border rounded-lg">
-                            <i class="bi bi-search absolute left-3 top-3 text-gray-400"></i>
-                        </div>
-                        <a href="{% url 'head_of_departments:create' %}" class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg">
-                            <i class="bi bi-plus"></i>
-                            <span>Add Subject</span>
-                        </a>
+    <h1 class="text-2xl font-bold">Head of Department</h1>
+    <div class="flex items-center space-x-4">
+        <div class="relative">
+            <input type="search" placeholder="Search head of departments..." class="pl-10 pr-4 py-2 border rounded-lg">
+            <i class="bi bi-search absolute left-3 top-3 text-gray-400"></i>
+        </div>
+        <a href="{% url 'head_of_departments:create' %}"
+           class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg">
+            <i class="bi bi-plus"></i>
+            <span>Add Head of Department</span>
+        </a>
+    </div>
+</div>
+<div class="bg-white p-4 rounded-lg shadow-sm mb-6">
+    <div class="flex flex-wrap gap-4">
+        <select class="border rounded-lg px-4 py-2">
+            <option>Status</option>
+            <option>Active</option>
+            <option>Inactive</option>
+        </select>
+        <button class="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+            Clear Filters
+        </button>
+    </div>
+</div>
+<!-- Subjects Table -->
+{% if heads %}
+<div class="bg-white rounded-lg shadow-sm">
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50 border-b">
+            <tr>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">
+                    <div class="flex items-center space-x-1">
+                        <span>Subject Name</span>
+                        <i class="bi bi-arrow-down-up"></i>
                     </div>
-                </div>
-                <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
-                    <div class="flex flex-wrap gap-4">
-                        <select class="border rounded-lg px-4 py-2">
-                            <option>Status</option>
-                            <option>Active</option>
-                            <option>Inactive</option>
-                        </select>
-                        <button class="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
-                            Clear Filters
+                </th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Department</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Status</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
+            </tr>
+            </thead>
+            {% for head in heads %}
+            <tbody class="divide-y">
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="h-8 w-8 rounded-full bg-orange-100 flex items-center justify-center">
+                            <i class="bi bi-book text-orange-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">{{ head.name }}</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 text-sm">{{ head.departments.count }} Department</td>
+                <td class="px-6 py-4">
+                    {% if head.status == 'ac' %}
+                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                                {{ head.get_status_display }}
+                                            </span>
+                    {% elif head.status == 'in' %}
+                    <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+                                                {{ head.get_status_display }}
+                                            </span>
+                    {% elif head.status == 'pd' %}
+                    <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                                                {{ head.get_status_display }}
+                                            </span>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4">
+                    <div class="flex items-center space-x-3">
+                        <a href="{{ head.get_update_url }}" class="text-gray-600 hover:text-gray-800">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <button class="text-red-600 hover:text-red-800">
+                            <a href="{{ head.get_delete_url }}">
+                                <i class="bi bi-trash"></i>
+                            </a>
                         </button>
                     </div>
-                </div>
-                <!-- Subjects Table -->
-                <div class="bg-white rounded-lg shadow-sm">
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="bg-gray-50 border-b">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">
-                                        <div class="flex items-center space-x-1">
-                                            <span>Subject Name</span>
-                                            <i class="bi bi-arrow-down-up"></i>
-                                        </div>
-                                    </th>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Department</th>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Status</th>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
-                                </tr>
-                            </thead>
-                            {% for head in heads %}
-                            <tbody class="divide-y">
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="h-8 w-8 rounded-full bg-orange-100 flex items-center justify-center">
-                                                <i class="bi bi-book text-orange-600"></i>
-                                            </div>
-                                            <div>
-                                                <p class="font-medium">{{ head.name }}</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm">{{ head.departments.count }} Department</td>
-                                    <td class="px-6 py-4">
-                                        {% if head.status == 'ac' %}
-                                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                                                {{ head.get_status_display }}
-                                            </span>
-                                        {% elif head.status == 'in' %}
-                                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
-                                                {{ head.get_status_display }}
-                                            </span>
-                                        {% elif head.status == 'pd' %}
-                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
-                                                {{ head.get_status_display }}
-                                            </span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center space-x-3">
-                                            <a href="{{ head.get_update_url }}" class="text-gray-600 hover:text-gray-800">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <button class="text-red-600 hover:text-red-800">
-                                                <a href="{{ head.get_delete_url }}" >
-                                                    <i class="bi bi-trash"></i>
-                                                </a>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            {% endfor %}
-                        </table>
-                    </div>
-                    <div class="px-6 py-4 border-t">
-                        <div class="flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Showing 1 to 10 of {{ heads.count }} subjects</p>
-                            <div class="flex space-x-2">
-                                <button class="px-3 py-1 border rounded hover:bg-gray-50">Previous</button>
-                                <button class="px-3 py-1 border rounded bg-blue-600 text-white">1</button>
-                                <button class="px-3 py-1 border rounded hover:bg-gray-50">2</button>
-                                <button class="px-3 py-1 border rounded hover:bg-gray-50">3</button>
-                                <button class="px-3 py-1 border rounded hover:bg-gray-50">Next</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+                </td>
+            </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
+    <div class="px-6 py-4 border-t">
+        <div class="flex justify-between items-center">
+            <p class="text-sm text-gray-600">Showing 1 to 10 of {{ heads.count }} subjects</p>
+            <div class="flex space-x-2">
+                <button class="px-3 py-1 border rounded hover:bg-gray-50">Previous</button>
+                <button class="px-3 py-1 border rounded bg-blue-600 text-white">1</button>
+                <button class="px-3 py-1 border rounded hover:bg-gray-50">2</button>
+                <button class="px-3 py-1 border rounded hover:bg-gray-50">3</button>
+                <button class="px-3 py-1 border rounded hover:bg-gray-50">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+    <h3>No added Head of Department</h3>
+{% endif %}
 {% endblock %}

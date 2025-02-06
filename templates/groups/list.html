@@ -6,134 +6,131 @@
 
 {% block content %}
 <div class="mb-8 flex justify-between items-center">
-                    <h1 class="text-2xl font-bold">Groups</h1>
-                    <div class="flex items-center space-x-4">
-                        <div class="relative">
-                            <input type="search" placeholder="Search groups..." class="pl-10 pr-4 py-2 border rounded-lg">
-                            <i class="bi bi-search absolute left-3 top-3 text-gray-400"></i>
-                        </div>
-                        <a href="{% url 'groups:create' %}" class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg">
-                            <i class="bi bi-plus"></i>
-                            <span>Add Group</span>
-                        </a>
-                    </div>
-                </div>
+    <h1 class="text-2xl font-bold">Groups</h1>
+    <div class="flex items-center space-x-4">
+        <div class="relative">
+            <input type="search" placeholder="Search groups..." class="pl-10 pr-4 py-2 border rounded-lg">
+            <i class="bi bi-search absolute left-3 top-3 text-gray-400"></i>
+        </div>
+        <a href="{% url 'groups:create' %}"
+           class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg">
+            <i class="bi bi-plus"></i>
+            <span>Add Group</span>
+        </a>
+    </div>
+</div>
 
-                <!-- Filters -->
-                <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
-                    <div class="flex flex-wrap gap-4">
-                        <select class="border rounded-lg px-4 py-2">
-                            <option>All Grades</option>
-                            <option>Grade 9</option>
-                            <option>Grade 10</option>
-                            <option>Grade 11</option>
-                        </select>
-                        <select class="border rounded-lg px-4 py-2">
-                            <option>All Teachers</option>
-                            <option>Dr. Jane Smith</option>
-                            <option>Mr. John Doe</option>
-                        </select>
-                        <select class="border rounded-lg px-4 py-2">
-                            <option>Status</option>
-                            <option>Active</option>
-                            <option>Inactive</option>
-                        </select>
-                        <button class="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
-                            Clear Filters
+<!-- Filters -->
+<div class="bg-white p-4 rounded-lg shadow-sm mb-6">
+    <div class="flex flex-wrap gap-4">
+        <select class="border rounded-lg px-4 py-2">
+            <option>All Grades</option>
+            <option>Grade 9</option>
+            <option>Grade 10</option>
+            <option>Grade 11</option>
+        </select>
+        <select class="border rounded-lg px-4 py-2">
+            <option>All Teachers</option>
+            <option>Dr. Jane Smith</option>
+            <option>Mr. John Doe</option>
+        </select>
+        <select class="border rounded-lg px-4 py-2">
+            <option>Status</option>
+            <option>Active</option>
+            <option>Inactive</option>
+        </select>
+        <button class="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+            Clear Filters
+        </button>
+    </div>
+</div>
+
+<!-- Groups Table -->
+{% if groups %}
+<div class="bg-white rounded-lg shadow-sm">
+    <div class="overflow-x-auto">
+        <table class="w-full">
+            <thead class="bg-gray-50 border-b">
+            <tr>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">
+                    <div class="flex items-center space-x-1">
+                        <span>Group Name</span>
+                        <i class="bi bi-arrow-down-up"></i>
+                    </div>
+                </th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Grade</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Students</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Teacher</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Status</th>
+                <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
+            </tr>
+            </thead>
+            {% for group in groups %}
+            <tbody class="divide-y">
+            <tr class="hover:bg-gray-50">
+                <td class="px-6 py-4">
+                    <div class="flex items-center space-x-3">
+                        <div class="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
+                            <i class="bi bi-collection text-purple-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">{{ group.name }}</p>
+                            <p class="text-sm text-gray-500">Science Focus</p>
+                        </div>
+                    </div>
+                </td>
+                <td class="px-6 py-4 text-sm">{{ group.get_grade_level_display }}</td>
+                <td class="px-6 py-4 text-sm">{{ group.students.count }} students</td>
+                <td class="px-6 py-4 text-sm">{{ group.teacher }}</td>
+                <td class="px-6 py-4">
+                    {% if group.status == 'ac' %}
+                    <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                                                {{ group.get_status_display }}
+                                            </span>
+                    {% elif group.status == 'in' %}
+                    <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+                                                {{ group.get_status_display }}
+                                            </span>
+                    {% elif group.status == 'pd' %}
+                    <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                                                {{ group.get_status_display }}
+                                            </span>
+                    {% endif %}
+                </td>
+                <td class="px-6 py-4">
+                    <div class="flex items-center space-x-3">
+                        <a href="{{ group.get_detail_url }}" class="text-blue-600 hover:text-blue-800">
+                            <i class="bi bi-eye"></i>
+                        </a>
+                        <a href="{{ group.get_update_url }}" class="text-gray-600 hover:text-gray-800">
+                            <i class="bi bi-pencil"></i>
+                        </a>
+                        <button class="text-red-600 hover:text-red-800">
+                            <a href="{{ group.get_delete_url }}"><i class="bi bi-trash"></i></a>
                         </button>
                     </div>
-                </div>
+                </td>
+            </tr>
+            </tbody>
+            {% endfor %}
+        </table>
+    </div>
 
-                <!-- Groups Table -->
-                <div class="bg-white rounded-lg shadow-sm">
-                    <div class="overflow-x-auto">
-                        <table class="w-full">
-                            <thead class="bg-gray-50 border-b">
-                                <tr>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">
-                                        <div class="flex items-center space-x-1">
-                                            <span>Group Name</span>
-                                            <i class="bi bi-arrow-down-up"></i>
-                                        </div>
-                                    </th>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Grade</th>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Students</th>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Teacher</th>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Status</th>
-                                    <th class="px-6 py-3 text-left text-sm font-medium text-gray-500">Actions</th>
-                                </tr>
-                            </thead>
-                            {% for group in groups %}
-                            <tbody class="divide-y">
-                                <tr class="hover:bg-gray-50">
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center space-x-3">
-                                            <div class="h-8 w-8 rounded-full bg-purple-100 flex items-center justify-center">
-                                                <i class="bi bi-collection text-purple-600"></i>
-                                            </div>
-                                            <div>
-                                                <p class="font-medium">{{ group.name }}</p>
-                                                <p class="text-sm text-gray-500">Science Focus</p>
-                                            </div>
-                                        </div>
-                                    </td>
-                                    <td class="px-6 py-4 text-sm">{{ group.get_grade_level_display }}</td>
-                                    <td class="px-6 py-4 text-sm">{{ group.students.count }} students</td>
-                                    <td class="px-6 py-4 text-sm">
-                                        {% if group.teachers.all %}
-                                            {% for teacher in group.teachers.all %}
-                                                {{ teacher.first_name }} {{ teacher.last_name }}{% if not forloop.last %}, {% endif %}
-                                            {% endfor %}
-                                        {% else %}
-                                            No Added Teachers
-                                        {% endif %}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        {% if group.status == 'ac' %}
-                                            <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
-                                                {{ group.get_status_display }}
-                                            </span>
-                                        {% elif group.status == 'in' %}
-                                            <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
-                                                {{ group.get_status_display }}
-                                            </span>
-                                        {% elif group.status == 'pd' %}
-                                            <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
-                                                {{ group.get_status_display }}
-                                            </span>
-                                        {% endif %}
-                                    </td>
-                                    <td class="px-6 py-4">
-                                        <div class="flex items-center space-x-3">
-                                            <a href="{{ group.get_detail_url }}" class="text-blue-600 hover:text-blue-800">
-                                                <i class="bi bi-eye"></i>
-                                            </a>
-                                            <a href="{{ group.get_update_url }}" class="text-gray-600 hover:text-gray-800">
-                                                <i class="bi bi-pencil"></i>
-                                            </a>
-                                            <button class="text-red-600 hover:text-red-800">
-                                                <a href="{{ group.get_delete_url }}"><i class="bi bi-trash"></i></a>
-                                            </button>
-                                        </div>
-                                    </td>
-                                </tr>
-                            </tbody>
-                            {% endfor %}
-                        </table>
-                    </div>
-
-                    <!-- Pagination -->
-                    <div class="px-6 py-4 border-t">
-                        <div class="flex justify-between items-center">
-                            <p class="text-sm text-gray-600">Showing 1 to 10 of 56 groups</p>
-                            <div class="flex space-x-2">
-                                <button class="px-3 py-1 border rounded hover:bg-gray-50">Previous</button>
-                                <button class="px-3 py-1 border rounded bg-blue-600 text-white">1</button>
-                                <button class="px-3 py-1 border rounded hover:bg-gray-50">2</button>
-                                <button class="px-3 py-1 border rounded hover:bg-gray-50">3</button>
-                                <button class="px-3 py-1 border rounded hover:bg-gray-50">Next</button>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+    <!-- Pagination -->
+    <div class="px-6 py-4 border-t">
+        <div class="flex justify-between items-center">
+            <p class="text-sm text-gray-600">Showing 1 to 10 of {{ groups.count }} groups</p>
+            <div class="flex space-x-2">
+                <button class="px-3 py-1 border rounded hover:bg-gray-50">Previous</button>
+                <button class="px-3 py-1 border rounded bg-blue-600 text-white">1</button>
+                <button class="px-3 py-1 border rounded hover:bg-gray-50">2</button>
+                <button class="px-3 py-1 border rounded hover:bg-gray-50">3</button>
+                <button class="px-3 py-1 border rounded hover:bg-gray-50">Next</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% else %}
+    <h3>No added Groups</h3>
+{% endif %}
 {% endblock %}

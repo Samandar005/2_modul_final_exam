@@ -1,19 +1,12 @@
 from django import forms
 from .models import Group
-from teachers.models import Teacher
 
 class GroupForm(forms.ModelForm):
-    teachers = forms.ModelMultipleChoiceField(
-        queryset=Teacher.objects.all(),
-        widget=forms.SelectMultiple(attrs={
-            'class': 'w-full px-3 py-2 border rounded-md',
-        })
-    )
     class Meta:
         model = Group
         fields = (
             'name', 'grade_level', 'schedule', 'academic_year',
-            'max_students', 'description', 'subjects', 'teachers', 'status'
+            'max_students', 'description', 'subjects', 'teacher', 'status'
         )
         widgets = {
             'name': forms.TextInput(attrs={
@@ -27,6 +20,9 @@ class GroupForm(forms.ModelForm):
                 'class': 'w-full px-3 py-2 border rounded-md',
             }),
             'schedule': forms.Select(attrs={
+                'class': 'w-full px-3 py-2 border rounded-md',
+            }),
+            'teacher': forms.Select(attrs={
                 'class': 'w-full px-3 py-2 border rounded-md',
             }),
             'academic_year': forms.TextInput(attrs={

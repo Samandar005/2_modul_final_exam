@@ -2,31 +2,31 @@
     <div class="p-4">
         <h1 class="text-xl font-bold text-blue-600 mb-8">School CRM</h1>
         <nav class="space-y-2">
-            <a href="{% url 'home' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg bg-blue-50 text-blue-600">
+            <a href="{% url 'home' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg {% if request.path == '/' %}bg-blue-100 text-blue-600{% else %}hover:bg-gray-50{% endif %}">
                 <i class="bi bi-grid"></i>
                 <span>Dashboard</span>
             </a>
-            <a href="{% url 'head_of_departments:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+            <a href="{% url 'head_of_departments:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg {% if request.path == '/head_of_departments/list/' %}bg-blue-100 text-blue-600{% else %}hover:bg-gray-50{% endif %}">
                 <i class="bi bi-person-badge"></i>
                 <span>Head of Departments</span>
             </a>
-            <a href="{% url 'departments:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+            <a href="{% url 'departments:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg {% if request.path == '/departments/list/' %}bg-blue-100 text-blue-600{% else %}hover:bg-gray-50{% endif %}">
                 <i class="bi bi-building"></i>
                 <span>Departments</span>
             </a>
-            <a href="{% url 'students:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+            <a href="{% url 'students:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg {% if request.path == '/students/list/' %}bg-blue-100 text-blue-600{% else %}hover:bg-gray-50{% endif %}">
                 <i class="bi bi-people"></i>
                 <span>Students</span>
             </a>
-            <a href="{% url 'teachers:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+            <a href="{% url 'teachers:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg {% if request.path == '/teachers/list/' %}bg-blue-100 text-blue-600{% else %}hover:bg-gray-50{% endif %}">
                 <i class="bi bi-person-badge"></i>
                 <span>Teachers</span>
             </a>
-            <a href="{% url 'groups:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+            <a href="{% url 'groups:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg {% if request.path == '/groups/list/' %}bg-blue-100 text-blue-600{% else %}hover:bg-gray-50{% endif %}">
                 <i class="bi bi-collection"></i>
                 <span>Groups</span>
             </a>
-            <a href="{% url 'subjects:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg hover:bg-gray-50">
+            <a href="{% url 'subjects:list' %}" class="flex items-center space-x-2 px-4 py-2 rounded-lg {% if request.path == '/subjects/list/' %}bg-blue-100 text-blue-600{% else %}hover:bg-gray-50{% endif %}">
                 <i class="bi bi-book"></i>
                 <span>Subjects</span>
             </a>

@@ -147,7 +147,16 @@
                     </button>
                 </div>
                 <div class="mt-4 space-y-2">
-                    <a href="departments/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                    <a href="{% url 'head_of_departments:create' %}" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                        <div class="p-2 bg-green-50 rounded-lg">
+                            <i class="bi bi-person-badge text-green-600"></i>
+                        </div>
+                        <div>
+                            <p class="font-medium">Add Head of Department</p>
+                            <p class="text-sm text-gray-500">Register a new teacher</p>
+                        </div>
+                    </a>
+                    <a href="{% url 'departments:create' %}" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
                         <div class="p-2 bg-indigo-50 rounded-lg">
                             <i class="bi bi-building text-indigo-600"></i>
                         </div>
@@ -156,7 +165,7 @@
                             <p class="text-sm text-gray-500">Create a new department</p>
                         </div>
                     </a>
-                    <a href="students/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                    <a href="{% url 'students:create' %}" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
                         <div class="p-2 bg-blue-50 rounded-lg">
                             <i class="bi bi-people text-blue-600"></i>
                         </div>
@@ -165,7 +174,7 @@
                             <p class="text-sm text-gray-500">Register a new student</p>
                         </div>
                     </a>
-                    <a href="teachers/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                    <a href="{% url 'teachers:create' %}" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
                         <div class="p-2 bg-green-50 rounded-lg">
                             <i class="bi bi-person-badge text-green-600"></i>
                         </div>
@@ -174,7 +183,7 @@
                             <p class="text-sm text-gray-500">Register a new teacher</p>
                         </div>
                     </a>
-                    <a href="groups/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                    <a href="{% url 'groups:create' %}" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
                         <div class="p-2 bg-purple-50 rounded-lg">
                             <i class="bi bi-collection text-purple-600"></i>
                         </div>
@@ -183,7 +192,7 @@
                             <p class="text-sm text-gray-500">Create a new group</p>
                         </div>
                     </a>
-                    <a href="subjects/form.html" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
+                    <a href="{% url 'subjects:create' %}" class="flex items-center space-x-3 p-3 rounded-lg hover:bg-gray-50">
                         <div class="p-2 bg-orange-50 rounded-lg">
                             <i class="bi bi-book text-orange-600"></i>
                         </div>

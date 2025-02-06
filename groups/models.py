@@ -40,7 +40,7 @@ class Group(models.Model):
     grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
     schedule = models.CharField(max_length=2, choices=SCHEDULE_CHOICES, default='in')
     subjects = models.ManyToManyField(Subject, related_name='groups', blank=True)
-    teachers = models.ManyToManyField(Teacher, related_name='groups', blank=True)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='groups', blank=True)
 
     def get_detail_url(self):
         return reverse('groups:detail', args=[self.pk])

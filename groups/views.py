@@ -20,15 +20,13 @@ class GroupCreateView(CreateView):
     template_name = 'groups/form.html'
     success_url = reverse_lazy('groups:list')
 
-    def form_invalid(self, form):
-        print(form.errors)  # Xatoliklarni terminalga chiqarish
-        return super().form_invalid(form)
-
 class GroupUpdateView(UpdateView):
     model = Group
     form_class = GroupForm
     template_name = 'groups/form.html'
     success_url = reverse_lazy('groups:list')
+    context_object_name = 'group'
+
 
 class GroupDeleteView(DeleteView):
     model = Group

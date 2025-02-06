@@ -120,13 +120,13 @@
             </div>
             <div class="flex items-center justify-end space-x-4">
                 {% if teacher %}
-                    <a href="{{ teacher. }}"
+                    <a href="{{ teacher.get_detail_url }}"
                         class="px-4 py-2 border rounded-lg hover:bg-gray-50">
                         Cancel
                     </a>
                     <button type="submit"
                         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                        Save Teacher
+                        Update Teacher
                     </button>
                 {% else %}
                     <a href="{% url 'teachers:list' %}"

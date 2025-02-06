@@ -13,18 +13,28 @@
                                 <i class="bi bi-collection text-2xl text-purple-600"></i>
                             </div>
                             <div>
-                                <h1 class="text-2xl font-bold">Group A</h1>
-                                <p class="text-gray-500">Group ID: GRP-001</p>
+                                <h1 class="text-2xl font-bold">{{ group.name }}</h1>
+                                <p class="text-gray-500">Group ID: {{ group.id }}</p>
                             </div>
                         </div>
                         <div class="flex items-center space-x-4">
                             <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                <i class="bi bi-pencil"></i>
-                                <span class="ml-2">Edit</span>
+                                <a href="{% url 'groups:list' %}">
+                                    <i class="bi bi-box-arrow-right"></i>
+                                    <span class="ml-2">Exit</span>
+                                </a>
+                            </button>
+                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                <a href="{{ group.get_update_url }}">
+                                    <i class="bi bi-pencil"></i>
+                                    <span class="ml-2">Edit</span>
+                                </a>
                             </button>
                             <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
-                                <i class="bi bi-trash"></i>
-                                <span class="ml-2">Delete</span>
+                                <a href="{{ group.get_delete_url }}">
+                                    <i class="bi bi-trash"></i>
+                                    <span class="ml-2">Delete</span>
+                                </a>
                             </button>
                         </div>
                     </div>
@@ -37,23 +47,23 @@
                             <div class="grid grid-cols-2 gap-6">
                                 <div>
                                     <label class="block text-sm text-gray-500">Grade Level</label>
-                                    <p class="text-gray-900">Grade 10</p>
+                                    <p class="text-gray-900">{{ group.get_grade_level_display }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm text-gray-500">Class Teacher</label>
-                                    <p class="text-gray-900">Dr. Jane Smith</p>
+                                    <p class="text-gray-900">{{ group.teacher }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm text-gray-500">Schedule</label>
-                                    <p class="text-gray-900">Morning Session</p>
+                                    <p class="text-gray-900">{{ group.get_schedule_display }}</p>
                                 </div>
                                 <div>
                                     <label class="block text-sm text-gray-500">Academic Year</label>
-                                    <p class="text-gray-900">2023-2024</p>
+                                    <p class="text-gray-900">{{ group.academic_year }}</p>
                                 </div>
                                 <div class="col-span-2">
                                     <label class="block text-sm text-gray-500">Description</label>
-                                    <p class="text-gray-900">A high-performing group focusing on science and mathematics, with additional emphasis on practical laboratory work.</p>
+                                    <p class="text-gray-900">{{ group.description }}</p>
                                 </div>
                             </div>
                         </div>
@@ -65,7 +75,7 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm text-gray-500">Total Students</label>
-                                        <p class="text-2xl font-bold">30</p>
+                                        <p class="text-2xl font-bold">{{ group.students.count }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-500">Average Attendance</label>
@@ -110,33 +120,17 @@
                         </div>
                         <div class="p-6">
                             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                <div class="flex items-center space-x-4 p-4 border rounded-lg">
-                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-                                        <i class="bi bi-person text-2xl text-gray-400"></i>
+                                {% for student in group.students.all %}
+                                    <div class="flex items-center space-x-4 p-4 border rounded-lg">
+                                        <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
+                                            <i class="bi bi-person text-2xl text-gray-400"></i>
+                                        </div>
+                                        <div>
+                                            <h3 class="font-medium">{{ student.first_name  }} {{ student.last_name }}</h3>
+                                            <p class="text-sm text-gray-500">ID: {{ student.id }}</p>
+                                        </div>
                                     </div>
-                                    <div>
-                                        <h3 class="font-medium">John Doe</h3>
-                                        <p class="text-sm text-gray-500">ID: STU-001</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center space-x-4 p-4 border rounded-lg">
-                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-                                        <i class="bi bi-person text-2xl text-gray-400"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-medium">Jane Smith</h3>
-                                        <p class="text-sm text-gray-500">ID: STU-002</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center space-x-4 p-4 border rounded-lg">
-                                    <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-                                        <i class="bi bi-person text-2xl text-gray-400"></i>
-                                    </div>
-                                    <div>
-                                        <h3 class="font-medium">Mike Johnson</h3>
-                                        <p class="text-sm text-gray-500">ID: STU-003</p>
-                                    </div>
-                                </div>
+                                {% endfor %}
                             </div>
                         </div>
                     </div>
