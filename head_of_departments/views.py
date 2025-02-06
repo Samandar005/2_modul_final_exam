@@ -9,6 +9,17 @@ class HeadOfDepartmentListView(ListView):
     template_name = 'head_of_departments/list.html'
     context_object_name = 'heads'
 
+    def get_queryset(self):
+        heads = HeadDepartment.objects.all()
+        status = self.request.GET.get('status')
+        search_query = self.request.GET.get('search')
+
+        if status:
+            heads = heads.filter(status=status)
+        if search_query:
+            heads = heads.filter(name__icontains=search_query)
+        return heads
+
 class HeadOfDepartmentCreateView(CreateView):
     model = HeadDepartment
     form_class = HeadOfDepartmentForm

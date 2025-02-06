@@ -5,6 +5,7 @@
 
 
 {% block content %}
+{% load static %}
 <div class="max-w-2xl mx-auto">
     <div class="mb-8 flex items-center justify-between">
         <h1 class="text-2xl font-bold">{% if teacher %} Update Teacher {% else %} Add Teacher {% endif %}</h1>
@@ -81,7 +82,7 @@
                     {{ form.position.label }}
                 </label>
                 {{ form.position }}
-            </div>
+            </div></script>
             <div>
                 <label for="{{ form.qualification.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                     {{ form.qualification.label }}
@@ -142,33 +143,7 @@
         </div>
     </form>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const fileInput = document.querySelector("input[name='image']");
-    const imagePreview = document.getElementById("imagePreview");
-    const placeholderIcon = document.getElementById("placeholderIcon");
-
-    fileInput.addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                imagePreview.classList.remove("hidden");
-                if (placeholderIcon) {
-                    placeholderIcon.classList.add("hidden");
-                }
-            };
-            reader.readAsDataURL(file);
-        } else {
-            imagePreview.classList.add("hidden");
-            if (placeholderIcon) {
-                placeholderIcon.classList.remove("hidden");
-            }
-        }
-    });
-});
-</script>
+<script src="{% static 'js/scripts.js' %}"></script>
 {% endblock %}
 
 

@@ -5,6 +5,7 @@
 
 
 {% block content %}
+{% load static %}
 <div class="max-w-2xl mx-auto">
     <div class="mb-8 flex items-center justify-between">
         <h1 class="text-2xl font-bold">{% if student %} Update Student {% else %} Add Student {% endif %}</h1>
@@ -151,7 +152,7 @@
                 </a>
                 <button type="submit"
                         class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                    Update Student
+                    Updatscriptse Student
                 </button>
                 {% else %}
                 <a href="{% url 'students:list' %}"
@@ -167,31 +168,5 @@
         </div>
     </form>
 </div>
-<script>
-document.addEventListener("DOMContentLoaded", function() {
-    const fileInput = document.querySelector("input[name='image']");
-    const imagePreview = document.getElementById("imagePreview");
-    const placeholderIcon = document.getElementById("placeholderIcon");
-
-    fileInput.addEventListener("change", function(event) {
-        const file = event.target.files[0];
-        if (file) {
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                imagePreview.src = e.target.result;
-                imagePreview.classList.remove("hidden");
-                if (placeholderIcon) {
-                    placeholderIcon.classList.add("hidden");
-                }
-            };
-            reader.readAsDataURL(file);
-        } else {
-            imagePreview.classList.add("hidden");
-            if (placeholderIcon) {
-                placeholderIcon.classList.remove("hidden");
-            }
-        }
-    });
-});
-</script>
+<script src="{% static 'css/scripts.js' %}"></script>
 {% endblock %}
