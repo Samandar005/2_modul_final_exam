@@ -23,16 +23,25 @@
         {% csrf_token %}
         <div class="space-y-6">
             <div>
-                <label for="{{ form.image.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                <label class="block text-sm font-medium text-gray-700 mb-2" for="{{ form.image.id_for_label }}">
                     {{ form.image.label }}
                 </label>
                 <div class="flex items-center space-x-4">
-                    <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center">
-                        <i class="bi bi-person text-3xl text-gray-400"></i>
+                    <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                            {% if form.instance.image %}
+                            <img id="imagePreview" src="{{ form.instance.image.url }}" alt="image"
+                                 class="w-full h-full object-cover">
+                            {% else %}
+                            <img id="imagePreview" src="" alt="image" class="w-full h-full object-cover hidden">
+                            <i id="placeholderIcon" class="bi bi-person text-3xl text-gray-400"></i>
+                            {% endif %}
+                        </div>
                     </div>
                     {{ form.image }}
                 </div>
             </div>
+
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label for="{{ form.first_name.id_for_label }}"
@@ -111,7 +120,7 @@
                         </label>
                         {{ form.parent_name }}
                     </div>
-                     <div>
+                    <div>
                         <label for="{{ form.relationship.id_for_label }}"
                                class="block text-sm font-medium text-gray-700 mb-2">
                             {{ form.relationship.label }}
@@ -158,4 +167,31 @@
         </div>
     </form>
 </div>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const fileInput = document.querySelector("input[name='image']");
+    const imagePreview = document.getElementById("imagePreview");
+    const placeholderIcon = document.getElementById("placeholderIcon");
+
+    fileInput.addEventListener("change", function(event) {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                imagePreview.src = e.target.result;
+                imagePreview.classList.remove("hidden");
+                if (placeholderIcon) {
+                    placeholderIcon.classList.add("hidden");
+                }
+            };
+            reader.readAsDataURL(file);
+        } else {
+            imagePreview.classList.add("hidden");
+            if (placeholderIcon) {
+                placeholderIcon.classList.remove("hidden");
+            }
+        }
+    });
+});
+</script>
 {% endblock %}

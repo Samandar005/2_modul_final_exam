@@ -25,6 +25,7 @@ class TeacherUpdateView(UpdateView):
     form_class = TeacherForm
     template_name = 'teachers/form.html'
     success_url = reverse_lazy('teachers:list')
+    context_object_name = 'teacher'
 
 class TeacherDeleteView(DeleteView):
     model = Teacher

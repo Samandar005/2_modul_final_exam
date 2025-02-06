@@ -9,8 +9,8 @@
                     <!-- Header -->
                     <div class="mb-8 flex items-center justify-between">
                         <div class="flex items-center space-x-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center">
-                                <i class="bi bi-person text-3xl text-gray-400"></i>
+                            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                                <img src="{{ student.image.url }}" alt="image" class="w-full h-full object-cover">
                             </div>
                             <div>
                                 <h1 class="text-2xl font-bold">{{ student.first_name }} {{ student.last_name }}</h1>
@@ -101,15 +101,15 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm text-gray-500">Grade</label>
-                                        <p class="text-gray-900">Grade 10</p>
+                                        <p class="text-gray-900">{{ student.get_grade_display }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-500">Group</label>
-                                        <p class="text-gray-900">Group A</p>
+                                        <p class="text-gray-900">{{ student.group }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-500">Enrollment Date</label>
-                                        <p class="text-gray-900">1 Sep 2023</p>
+                                        <p class="text-gray-900">{{ student.created_at|date:"Y-m-d" }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-500">Status</label>

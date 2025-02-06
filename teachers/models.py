@@ -25,6 +25,7 @@ class Teacher(BaseModel):
     phone_number = models.CharField(max_length=13)
     address = models.TextField()
     join_date = models.DateField()
+    position = models.CharField(max_length=100)
     image = models.ImageField(upload_to='teachers/')
     employment_type = models.CharField(max_length=8, choices=EMPLOYMENT_TYPE_CHOICES)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')

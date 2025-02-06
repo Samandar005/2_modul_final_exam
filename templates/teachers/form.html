@@ -1,16 +1,22 @@
 {% extends 'base.html' %}
 
 
-{% block title %} School CRM - Add Teacher  {% endblock %}
+{% block title %} {% if teacher %} School CRM - Update Teacher {% else %} School CRM - Add Teacher  {% endif %}{% endblock %}
 
 
 {% block content %}
 <div class="max-w-2xl mx-auto">
     <div class="mb-8 flex items-center justify-between">
-        <h1 class="text-2xl font-bold">Add Teacher</h1>
-        <a href="list.html" class="text-gray-500 hover:text-gray-700">
-            <i class="bi bi-x-lg"></i>
-        </a>
+        <h1 class="text-2xl font-bold">{% if teacher %} Update Teacher {% else %} Add Teacher {% endif %}</h1>
+        {% if teacher %}
+            <a href="{{ teacher.get_detail_url }}" class="text-gray-500 hover:text-gray-700">
+                <i class="bi bi-x-lg"></i>
+            </a>
+        {% else %}
+            <a href="{% url 'teachers:list' %}" class="text-gray-500 hover:text-gray-700">
+                <i class="bi bi-x-lg"></i>
+            </a>
+        {% endif %}
     </div>
     <form class="bg-white rounded-lg shadow-sm p-6" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -33,9 +39,6 @@
                     {{ form.image }}
                 </div>
             </div>
-
-
-
             <div class="grid grid-cols-2 gap-4">
                 <div>
                     <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
@@ -74,6 +77,12 @@
                 </div>
             </div>
             <div>
+                <label for="{{ form.position.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.position.label }}
+                </label>
+                {{ form.position }}
+            </div>
+            <div>
                 <label for="{{ form.qualification.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                     {{ form.qualification.label }}
                 </label>
@@ -110,14 +119,25 @@
                 {{ form.employment_type }}
             </div>
             <div class="flex items-center justify-end space-x-4">
-                <a href="{% url 'teachers:list' %}"
+                {% if teacher %}
+                    <a href="{{ teacher. }}"
+                        class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                        Cancel
+                    </a>
+                    <button type="submit"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Save Teacher
+                    </button>
+                {% else %}
+                    <a href="{% url 'teachers:list' %}"
                     class="px-4 py-2 border rounded-lg hover:bg-gray-50">
                     Cancel
-                </a>
-                <button type="submit"
-                    class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                    Save Teacher
-                </button>
+                    </a>
+                    <button type="submit"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                        Save Teacher
+                    </button>
+                {% endif %}
             </div>
         </div>
     </form>

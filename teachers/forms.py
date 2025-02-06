@@ -9,7 +9,7 @@ class TeacherForm(forms.ModelForm):
         fields = (
             'first_name', 'last_name', 'department', 'subjects',
             'qualification', 'email', 'phone_number', 'address',
-            'join_date', 'employment_type', 'image', 'status'
+            'join_date', 'employment_type', 'image', 'status', 'position'
         )
         widgets = {
             'first_name': forms.TextInput(attrs={
@@ -33,6 +33,10 @@ class TeacherForm(forms.ModelForm):
             }),
             'email': forms.EmailInput(attrs={
                 'placeholder': 'Enter email address',
+                'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
+            }),
+            'position': forms.TextInput(attrs={
+                'placeholder': 'Enter a Position',
                 'class': 'w-full px-3 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500',
             }),
             'phone_number': forms.TextInput(attrs={
