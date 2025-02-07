@@ -1,17 +1,29 @@
-from re import search
-
 from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
-from django.views import  View
 from .models import Department
 from .forms import DepartmentForm
 from head_of_departments.models import HeadDepartment
+from teachers.models import Teacher
+from students.models import Student
+from groups.models import Group
+from subjects.models import Subject
 
 
-class HomePageView(View):
-    def get(self, request):
-        return render(request, 'dashboard.html')
+class HomePageView(ListView):
+    model = Student
+    template_name = 'dashboard.html'
+    context_object_name = 'students'
+
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['teachers'] = Teacher.objects.all()
+        ctx['groups'] = Group.objects.all()
+        ctx['subjects'] = Subject.objects.all()
+        ctx['groups_count'] = Group.objects.filter(status='ac').count()
+        ctx['subject_names'] = list(Subject.objects.values_list('name', flat=True))
+        ctx['subject_teachers_counts'] = [subject.teachers.count() for subject in Subject.objects.all()]
+        return ctx
 
 class DepartmentListView(ListView):
     model = Department

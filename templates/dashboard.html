@@ -20,7 +20,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-sm text-gray-600">Total Students</p>
-                                <h3 class="text-3xl font-bold mt-2">1,234</h3>
+                                <h3 class="text-3xl font-bold mt-2">{{ students.count }}</h3>
                             </div>
                             <div class="p-3 bg-blue-50 rounded-lg">
                                 <i class="bi bi-people text-blue-600"></i>
@@ -36,7 +36,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-sm text-gray-600">Total Teachers</p>
-                                <h3 class="text-3xl font-bold mt-2">48</h3>
+                                <h3 class="text-3xl font-bold mt-2">{{ teachers.count }}</h3>
                             </div>
                             <div class="p-3 bg-green-50 rounded-lg">
                                 <i class="bi bi-person-badge text-green-600"></i>
@@ -52,7 +52,9 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-sm text-gray-600">Active Groups</p>
-                                <h3 class="text-3xl font-bold mt-2">56</h3>
+                                <h3 class="text-3xl font-bold mt-2">
+                                    {{ groups_count }}
+                                </h3>
                             </div>
                             <div class="p-3 bg-purple-50 rounded-lg">
                                 <i class="bi bi-collection text-purple-600"></i>
@@ -68,7 +70,7 @@
                         <div class="flex justify-between items-start">
                             <div>
                                 <p class="text-sm text-gray-600">Total Subjects</p>
-                                <h3 class="text-3xl font-bold mt-2">24</h3>
+                                <h3 class="text-3xl font-bold mt-2">{{ subjects.count }}</h3>
                             </div>
                             <div class="p-3 bg-orange-50 rounded-lg">
                                 <i class="bi bi-book text-orange-600"></i>
@@ -237,8 +239,13 @@
             }
         });
     </script>
-    <script>
-        // Static data for charts
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        // Django context-dan kelayotgan data
+        const subjectNames = {{ subject_names|safe }};
+        const subjectTeachersCounts = {{ subject_teachers_counts|safe }};
+
+        // Line chart data (Statik enrollment data)
         const enrollmentData = {
             labels: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
             datasets: [
@@ -261,23 +268,21 @@
             ]
         };
 
+        // Generate dynamic colors for subjects
+        const colors = ['#2563eb', '#9333ea', '#06b6d4', '#10b981', '#f59e0b', '#ef4444'];
+        const subjectColors = subjectNames.map((_, i) => colors[i % colors.length]);
+
+        // Dynamic subject data for the pie chart
         const subjectData = {
-            labels: ['Science', 'Mathematics', 'Languages', 'Arts', 'Physical Education', 'Social Studies'],
+            labels: subjectNames,
             datasets: [{
-                data: [30, 25, 20, 10, 8, 7],
-                backgroundColor: [
-                    '#2563eb',
-                    '#9333ea',
-                    '#06b6d4',
-                    '#10b981',
-                    '#f59e0b',
-                    '#ef4444'
-                ]
+                data: subjectTeachersCounts,
+                backgroundColor: subjectColors
             }]
         };
 
-        // Initialize charts
-        const enrollmentChart = new Chart(document.getElementById('enrollmentChart'), {
+        // Initialize Enrollment Chart
+        new Chart(document.getElementById('enrollmentChart'), {
             type: 'line',
             data: enrollmentData,
             options: {
@@ -303,7 +308,8 @@
             }
         });
 
-        const subjectChart = new Chart(document.getElementById('subjectChart'), {
+        // Initialize Subject Distribution Chart
+        new Chart(document.getElementById('subjectChart'), {
             type: 'doughnut',
             data: subjectData,
             options: {
@@ -315,5 +321,7 @@
                 }
             }
         });
-    </script>
+    });
+</script>
+
 {% endblock %}
