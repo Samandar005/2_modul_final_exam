@@ -8,9 +8,15 @@
 <div class="mb-8 flex justify-between items-center">
     <h1 class="text-2xl font-bold">Subjects</h1>
     <div class="flex items-center space-x-4">
-        <div class="relative">
-            <input type="search" placeholder="Search subjects..." class="pl-10 pr-4 py-2 border rounded-lg">
-            <i class="bi bi-search absolute left-3 top-3 text-gray-400"></i>
+        <div>
+            <form method="get" action="{% url 'subjects:list' %}" id="searchForm" class="relative">
+                <button type="submit">
+                    <i class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500"></i>
+                </button>
+                <input type="text" name="search" placeholder="Search Student..."
+                    class="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    value="{{ request.GET.search|default:'' }}">
+            </form>
         </div>
         <a href="{% url 'subjects:create' %}"
            class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg">
@@ -23,26 +29,40 @@
 <!-- Filters -->
 <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
     <div class="flex flex-wrap gap-4">
-        <select class="border rounded-lg px-4 py-2">
-            <option>All Departments</option>
-            <option>Science</option>
-            <option>Mathematics</option>
-            <option>Languages</option>
-        </select>
-        <select class="border rounded-lg px-4 py-2">
-            <option>All Grades</option>
-            <option>Grade 9</option>
-            <option>Grade 10</option>
-            <option>Grade 11</option>
-        </select>
-        <select class="border rounded-lg px-4 py-2">
-            <option>Status</option>
-            <option>Active</option>
-            <option>Inactive</option>
-        </select>
-        <button class="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
-            Clear Filters
-        </button>
+        <form method="get" action="{% url 'subjects:list' %}" id="filterForm">
+            <select name="department" class="border rounded-lg px-4 py-2" onchange="document.getElementById('filterForm').submit();">
+                <option value="">All Departments</option>
+                    {% for department in departments %}
+                <option value="{{ department.pk }}" {% if request.GET.department == department.pk|slugify %}selected{% endif %}>
+                    {{ department }}
+                </option>
+            {% endfor %}
+            </select>
+            <select name="grade_level" class="border rounded-lg px-4 py-2" onchange="document.getElementById('filterForm').submit();">
+                <option value="">All Grades</option>
+                <option value="1" {% if request.GET.grade_level == '1' %}selected{% endif %}>Grade 1</option>
+                <option value="2" {% if request.GET.grade_level == '2' %}selected{% endif %}>Grade 2</option>
+                <option value="3" {% if request.GET.grade_level == '3' %}selected{% endif %}>Grade 3</option>
+                <option value="4" {% if request.GET.grade_level == '4' %}selected{% endif %}>Grade 4</option>
+                <option value="5" {% if request.GET.grade_level == '5' %}selected{% endif %}>Grade 5</option>
+                <option value="6" {% if request.GET.grade_level == '6' %}selected{% endif %}>Grade 6</option>
+                <option value="7" {% if request.GET.grade_level == '7' %}selected{% endif %}>Grade 7</option>
+                <option value="8" {% if request.GET.grade_level == '8' %}selected{% endif %}>Grade 8</option>
+                <option value="9" {% if request.GET.grade_level == '9' %}selected{% endif %}>Grade 9</option>
+                <option value="10" {% if request.GET.grade_level == '10' %}selected{% endif %}>Grade 10</option>
+                <option value="11" {% if request.GET.grade_level == '11' %}selected{% endif %}>Grade 11</option>
+                <option value="12" {% if request.GET.grade_level == '12' %}selected{% endif %}>Grade 12</option>
+            </select>
+            <select name="status" class="border rounded-lg px-4 py-2" onchange="document.getElementById('filterForm').submit();">
+                <option value="">Status</option>
+                <option value="ac" {% if request.GET.status == 'ac' %}selected{% endif %}>Active</option>
+                <option value="in" {% if request.GET.status == 'in' %}selected{% endif %}>Inactive</option>
+                <option value="pd" {% if request.GET.status == 'pd' %}selected{% endif %}>Pending</option>
+            </select>
+            <button class="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                <a href="{% url 'subjects:list' %}">Clear Filters</a>
+            </button>
+        </form>
     </div>
 </div>
 

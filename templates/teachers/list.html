@@ -8,9 +8,16 @@
 <div class="mb-8 flex justify-between items-center">
     <h1 class="text-2xl font-bold">Teachers</h1>
     <div class="flex items-center space-x-4">
-        <div class="relative">
-            <input type="search" placeholder="Search teachers..." class="pl-10 pr-4 py-2 border rounded-lg">
-            <i class="bi bi-search absolute left-3 top-3 text-gray-400"></i>
+         <div>
+            <form method="get" action="{% url 'teachers:list' %}" id="searchForm" class="relative">
+                <button type="submit">
+                    <i class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500"></i>
+                </button>
+
+                <input type="text" name="search" placeholder="Search Teachers..."
+                    class="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
+                    value="{{ request.GET.search|default:'' }}">
+            </form>
         </div>
         <a href="{% url 'teachers:create' %}"
            class="flex items-center space-x-2 px-4 py-2 bg-blue-600 text-white rounded-lg">
@@ -23,26 +30,34 @@
 <!-- Filters -->
 <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
     <div class="flex flex-wrap gap-4">
-        <select class="border rounded-lg px-4 py-2">
-            <option>All Departments</option>
-            <option>Science</option>
-            <option>Mathematics</option>
-            <option>Languages</option>
-        </select>
-        <select class="border rounded-lg px-4 py-2">
-            <option>All Subjects</option>
-            <option>Physics</option>
-            <option>Chemistry</option>
-            <option>Biology</option>
-        </select>
-        <select class="border rounded-lg px-4 py-2">
-            <option>Status</option>
-            <option>Active</option>
-            <option>On Leave</option>
-        </select>
-        <button class="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
-            Clear Filters
-        </button>
+        <form method="get" action="{% url 'teachers:list' %}" id="filterForm">
+            <select name="department" class="border rounded-lg px-4 py-2" onchange="document.getElementById('filterForm').submit();">
+                <option value="">All Departments</option>
+                {% for department in departments %}
+                    <option value="{{ department.pk }}" {% if request.GET.department == department.pk|slugify %}selected{% endif %}>
+                        {{ department.name }}
+                    </option>
+                {% endfor %}
+            </select>
+            <select name="subject" class="border rounded-lg px-4 py-2" onchange="document.getElementById('filterForm').submit();">
+                <option value="">All Subjects</option>
+                {% for subject in subjects %}
+                    <option value="{{ subject.pk }}" {% if request.GET.subject == subject.pk|slugify %}selected{% endif %}>
+                        {{ subject.name }}
+                    </option>
+                {% endfor %}
+            </select>
+               <select name="status" class="border rounded-lg px-4 py-2" onchange="document.getElementById('filterForm').submit();">
+                <option value="">Status</option>
+                <option value="ac" {% if request.GET.status == 'ac' %}selected{% endif %}>Active</option>
+                <option value="in" {% if request.GET.status == 'in' %}selected{% endif %}>Inactive</option>
+                <option value="pd" {% if request.GET.status == 'pd' %}selected{% endif %}>Pending</option>
+            </select>
+
+            <button class="px-4 py-2 text-blue-600 hover:bg-blue-50 rounded-lg">
+                <a href="{% url 'teachers:list' %}">Clear Filters</a>
+            </button>
+        </form>
     </div>
 </div>
 

@@ -14,7 +14,7 @@
                     <i class="bi bi-search absolute left-3 top-1/2 transform -translate-y-1/2 text-blue-500"></i>
                 </button>
 
-                <input type="text" name="search" placeholder="Search head of departments..."
+                <input type="text" name="search" placeholder="Search departments..."
                     class="pl-10 pr-4 py-2 border rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition"
                     value="{{ request.GET.search|default:'' }}">
             </form>
@@ -31,14 +31,15 @@
 <div class="bg-white p-4 rounded-lg shadow-sm mb-6">
     <div class="flex flex-wrap gap-4">
         <form method="get" action="{% url 'departments:list' %}" id="filterForm">
-            <select name="head_of_department" class="border rounded-lg px-4 py-2" onchange="document.getElementById('filterForm').submit();">
-                <option value="">All Heads</option>
-                {% for head in heads %}
-                    <option value="{{ head.pk }}" {% if request.GET.head_of_department == head.pk %}selected{% endif %}>
-                        {{ head.name }}
-                    </option>
-                {% endfor %}
-            </select>
+       <select name="head_of_department" class="border rounded-lg px-4 py-2" onchange="document.getElementById('filterForm').submit();">
+            <option value="">All Heads</option>
+            {% for head in heads %}
+                <option value="{{ head.pk }}" {% if request.GET.head_of_department == head.pk|slugify %}selected{% endif %}>
+                    {{ head.name }}
+                </option>
+            {% endfor %}
+        </select>
+
             <select name="status" class="border rounded-lg px-4 py-2" onchange="document.getElementById('filterForm').submit();">
                 <option value="">Status</option>
                 <option value="ac" {% if request.GET.status == 'ac' %}selected{% endif %}>Active</option>
