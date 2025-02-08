@@ -1,8 +1,6 @@
 {% extends 'base.html' %}
 
-
-{% block title %} School CRM - Add/Edit Group  {% endblock %}
-
+{% block title %} School CRM - Add/Edit Group {% endblock %}
 
 {% block content %}
 <div class="max-w-3xl mx-auto">
@@ -11,6 +9,7 @@
         <h1 class="text-2xl font-bold">Add New Group</h1>
         <p class="text-gray-500">Create a new group or edit an existing one</p>
     </div>
+
     <form class="bg-white rounded-lg shadow-sm p-6" method="post">
         {% csrf_token %}
 
@@ -24,8 +23,9 @@
 
         <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
             <div>
-                <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{
-                    form.name.label }}</label>
+                <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.name.label }}
+                </label>
                 {{ form.name }}
                 {% if form.name.errors %}
                 <p class="text-red-500 text-sm mt-1">
@@ -37,8 +37,9 @@
             </div>
 
             <div>
-                <label for="{{ form.grade_level.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{
-                    form.grade_level.label }}</label>
+                <label for="{{ form.grade_level.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.grade_level.label }}
+                </label>
                 {{ form.grade_level }}
                 {% if form.grade_level.errors %}
                 <p class="text-red-500 text-sm mt-1">
@@ -50,8 +51,9 @@
             </div>
 
             <div>
-                <label for="{{ form.teacher.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{
-                    form.teacher.label }}</label>
+                <label for="{{ form.teacher.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.teacher.label }}
+                </label>
                 {{ form.teacher }}
                 {% if form.teacher.errors %}
                 <p class="text-red-500 text-sm mt-1">
@@ -63,8 +65,9 @@
             </div>
 
             <div>
-                <label for="{{ form.schedule.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{
-                    form.schedule.label }}</label>
+                <label for="{{ form.schedule.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.schedule.label }}
+                </label>
                 {{ form.schedule }}
                 {% if form.schedule.errors %}
                 <p class="text-red-500 text-sm mt-1">
@@ -76,8 +79,9 @@
             </div>
 
             <div>
-                <label for="{{ form.academic_year.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{
-                    form.academic_year.label }}</label>
+                <label for="{{ form.academic_year.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.academic_year.label }}
+                </label>
                 {{ form.academic_year }}
                 {% if form.academic_year.errors %}
                 <p class="text-red-500 text-sm mt-1">
@@ -89,8 +93,9 @@
             </div>
 
             <div>
-                <label for="{{ form.max_students.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">{{
-                    form.max_students.label }}</label>
+                <label for="{{ form.max_students.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.max_students.label }}
+                </label>
                 {{ form.max_students }}
                 {% if form.max_students.errors %}
                 <p class="text-red-500 text-sm mt-1">
@@ -100,9 +105,56 @@
                 </p>
                 {% endif %}
             </div>
+
+            <div>
+                <label for="{{ form.description.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.description.label }}
+                </label>
+                {{ form.description }}
+                {% if form.description.errors %}
+                <p class="text-red-500 text-sm mt-1">
+                    {% for error in form.description.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.subjects.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.subjects.label }}
+                </label>
+                {{ form.subjects }}
+                {% if form.subjects.errors %}
+                <p class="text-red-500 text-sm mt-1">
+                    {% for error in form.subjects.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-1">
+                    {{ form.status.label }}
+                </label>
+                {{ form.status }}
+                {% if form.status.errors %}
+                <p class="text-red-500 text-sm mt-1">
+                    {% for error in form.status.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </div>
         </div>
 
-        <div class="mb-6">
-
+        <div class="flex justify-end">
+            <button type="submit"
+                class="px-4 py-2 bg-blue-500 text-white rounded-md shadow-sm hover:bg-blue-600">
+                Save Group
+            </button>
         </div>
-        {% endblock %}
+    </form>
+</div>
+{% endblock %}

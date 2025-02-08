@@ -56,7 +56,7 @@ class DepartmentListView(ListView):
 
         context['departments'] = departments_page
         context['paginator'] = paginator
-        context['heads'] = HeadDepartment.objects.all()  # Barcha boshliqlar
+        context['heads'] = HeadDepartment.objects.all()
         return context
 
 

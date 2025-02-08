@@ -178,3 +178,21 @@ body {
          .clearable-file-input {
             display: none !important;
         }
+             .form-group {
+            position: relative;
+            margin-bottom: 1.5rem;
+        }
+        .form-group label {
+            position: absolute;
+            top: -15px;
+            left: 10px;
+            font-size: 14px;
+            color: var(--primary-color);
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        .form-control {
+            padding: 10px;
+            border-radius: 5px;
+            border: 2px solid var(--secondary-color);
+        }
