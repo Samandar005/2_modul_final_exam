@@ -1,7 +1,8 @@
-from django.shortcuts import render
+from django.core.paginator import Paginator
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Department
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import DepartmentForm
 from head_of_departments.models import HeadDepartment
 from teachers.models import Teacher
@@ -21,19 +22,16 @@ class HomePageView(ListView):
         ctx['groups'] = Group.objects.all()
         ctx['subjects'] = Subject.objects.all()
         ctx['groups_count'] = Group.objects.filter(status='ac').count()
-        ctx['subject_names'] = list(Subject.objects.values_list('name', flat=True))
+        ctx['subject_names'] = [subject.name for subject in Subject.objects.all()]
         ctx['subject_teachers_counts'] = [subject.teachers.count() for subject in Subject.objects.all()]
         return ctx
+
 
 class DepartmentListView(ListView):
     model = Department
     template_name = 'departments/list.html'
     context_object_name = 'departments'
-
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-        context['heads'] = HeadDepartment.objects.all()
-        return context
+    paginate_by = 10
 
     def get_queryset(self):
         departments = Department.objects.all()
@@ -50,26 +48,54 @@ class DepartmentListView(ListView):
 
         return departments
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        page = self.request.GET.get('page')
+        paginator = Paginator(self.get_queryset(), self.paginate_by)
+        departments_page = paginator.get_page(page)
+
+        context['departments'] = departments_page
+        context['paginator'] = paginator
+        context['heads'] = HeadDepartment.objects.all()  # Barcha boshliqlar
+        return context
+
+
 
 class DepartmentDetailView(DetailView):
     model = Department
     template_name = 'departments/detail.html'
     context_object_name = 'department'
 
-class DepartmentCreateView(CreateView):
+class DepartmentCreateView(LoginRequiredMixin, CreateView):
     model = Department
     form_class = DepartmentForm
     template_name = 'departments/form.html'
     success_url = reverse_lazy('departments:list')
 
-class DepartmentUpdateView(UpdateView):
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class DepartmentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Department
     form_class = DepartmentForm
     template_name = 'departments/form.html'
     success_url = reverse_lazy('departments:list')
     context_object_name = 'department'
 
-class DepartmentDeleteView(DeleteView):
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        department = self.get_object()
+        return self.request.user == department.author
+
+class DepartmentDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Department
     template_name = 'departments/confirm_delete.html'
     success_url = reverse_lazy('departments:list')
+
+    def test_func(self):
+        department = self.get_object()
+        return self.request.user == department.author

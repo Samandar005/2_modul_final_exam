@@ -2,6 +2,7 @@ from django.db import models
 from subjects.models import Subject
 from teachers.models import Teacher
 from django.shortcuts import reverse
+from django.conf import settings
 
 
 class Group(models.Model):
@@ -41,6 +42,8 @@ class Group(models.Model):
     schedule = models.CharField(max_length=2, choices=SCHEDULE_CHOICES, default='in')
     subjects = models.ManyToManyField(Subject, related_name='groups', blank=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='groups', blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
 
     def get_detail_url(self):
         return reverse('groups:detail', args=[self.pk])

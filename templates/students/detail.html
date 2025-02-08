@@ -6,193 +6,195 @@
 
 {% block content %}
 <div class="max-w-4xl mx-auto">
-                    <!-- Header -->
-                    <div class="mb-8 flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
-                                <img src="{{ student.image.url }}" alt="image" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h1 class="text-2xl font-bold">{{ student.first_name }} {{ student.last_name }}</h1>
-                                <p class="text-gray-500">Student ID: {{ student.id }}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                <a href="{% url 'students:list' %}">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                    <span class="ml-2">Exit</span>
-                                </a>
-                            </button>
-                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                <a href="{{ student.get_update_url }}">
-                                    <i class="bi bi-pencil"></i>
-                                    <span class="ml-2">Edit</span>
-                                </a>
-                            </button>
-                            <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
-                                <a href="{{ student.get_delete_url }}">
-                                    <i class="bi bi-trash"></i>
-                                    <span class="ml-2">Delete</span>
-                                </a>
-                            </button>
-                        </div>
+    <!-- Header -->
+    <div class="mb-8 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img src="{{ student.image.url }}" alt="image" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold">{{ student.first_name }} {{ student.last_name }}</h1>
+                <p class="text-gray-500">Student ID: {{ student.id }}</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                <a href="{% url 'students:list' %}">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span class="ml-2">Exit</span>
+                </a>
+            </button>
+            {% if user == student.author %}
+            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                <a href="{{ student.get_update_url }}">
+                    <i class="bi bi-pencil"></i>
+                    <span class="ml-2">Edit</span>
+                </a>
+            </button>
+            <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+                <a href="{{ student.get_delete_url }}">
+                    <i class="bi bi-trash"></i>
+                    <span class="ml-2">Delete</span>
+                </a>
+            </button>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Student Info -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Basic Info -->
+        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-lg font-semibold mb-4">Personal Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm text-gray-500">First Name</label>
+                    <p class="text-gray-900">{{ student.first_name }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Last Name</label>
+                    <p class="text-gray-900">{{ student.last_name }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Date of Birth</label>
+                    <p class="text-gray-900">{{ student.dob }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Gender</label>
+                    <p class="text-gray-900">{{ student.get_gender_display }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Email</label>
+                    <p class="text-gray-900">{{ student.email }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Phone</label>
+                    <p class="text-gray-900">{{ student.phone_number }}</p>
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-sm text-gray-500">Address</label>
+                    <p class="text-gray-900">{{ student.address }}</p>
+                </div>
+            </div>
+
+            <h2 class="text-lg font-semibold mt-8 mb-4">Parent Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm text-gray-500">Parent Name</label>
+                    <p class="text-gray-900">{{ student.parent_name }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Relationship</label>
+                    <p class="text-gray-900">{{ student.relationship }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Parent Phone</label>
+                    <p class="text-gray-900">{{ student.parent_phone_number }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Parent Email</label>
+                    <p class="text-gray-900">{{ student.parent_email }}</p>
+                </div>
+            </div>
+        </div>
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-semibold mb-4">Academic Information</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-500">Grade</label>
+                        <p class="text-gray-900">{{ student.get_grade_display }}</p>
                     </div>
-
-                    <!-- Student Info -->
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                        <!-- Basic Info -->
-                        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
-                            <h2 class="text-lg font-semibold mb-4">Personal Information</h2>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm text-gray-500">First Name</label>
-                                        <p class="text-gray-900">{{ student.first_name }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Last Name</label>
-                                    <p class="text-gray-900">{{ student.last_name }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Date of Birth</label>
-                                    <p class="text-gray-900">{{ student.dob }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Gender</label>
-                                    <p class="text-gray-900">{{ student.get_gender_display }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Email</label>
-                                    <p class="text-gray-900">{{ student.email }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Phone</label>
-                                    <p class="text-gray-900">{{ student.phone_number }}</p>
-                                </div>
-                                <div class="col-span-2">
-                                    <label class="block text-sm text-gray-500">Address</label>
-                                    <p class="text-gray-900">{{ student.address }}</p>
-                                </div>
-                            </div>
-
-                            <h2 class="text-lg font-semibold mt-8 mb-4">Parent Information</h2>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm text-gray-500">Parent Name</label>
-                                    <p class="text-gray-900">{{ student.parent_name }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Relationship</label>
-                                    <p class="text-gray-900">{{ student.relationship }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Parent Phone</label>
-                                    <p class="text-gray-900">{{ student.parent_phone_number }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Parent Email</label>
-                                    <p class="text-gray-900">{{ student.parent_email }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="space-y-6">
-                            <div class="bg-white rounded-lg shadow-sm p-6">
-                                <h3 class="text-lg font-semibold mb-4">Academic Information</h3>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Grade</label>
-                                        <p class="text-gray-900">{{ student.get_grade_display }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Group</label>
-                                        <p class="text-gray-900">{{ student.group }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Enrollment Date</label>
-                                        <p class="text-gray-900">{{ student.created_at|date:"Y-m-d" }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Status</label>
-                                            {% if student.status == 'ac' %}
-                                                <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
+                    <div>
+                        <label class="block text-sm text-gray-500">Group</label>
+                        <p class="text-gray-900">{{ student.group }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-500">Enrollment Date</label>
+                        <p class="text-gray-900">{{ student.created_at|date:"Y-m-d" }}</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-500">Status</label>
+                        {% if student.status == 'ac' %}
+                        <span class="px-2 py-1 bg-green-100 text-green-800 rounded-full text-sm">
                                                     {{ student.get_status_display }}
                                                 </span>
-                                            {% elif student.status == 'in' %}
-                                                <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
+                        {% elif student.status == 'in' %}
+                        <span class="px-2 py-1 bg-red-100 text-red-800 rounded-full text-sm">
                                                     {{ student.get_status_display }}
                                                 </span>
-                                            {% elif student.status == 'pd' %}
-                                                <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
+                        {% elif student.status == 'pd' %}
+                        <span class="px-2 py-1 bg-yellow-100 text-yellow-800 rounded-full text-sm">
                                                     {{ student.get_status_display }}
                                                 </span>
-                                            {% endif %}
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="bg-white rounded-lg shadow-sm p-6">
-                                <h3 class="text-lg font-semibold mb-4">Performance</h3>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm text-gray-500">GPA</label>
-                                        <p class="text-2xl font-bold">3.8</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Attendance</label>
-                                        <p class="text-2xl font-bold">95%</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tabs -->
-                    <div class="mb-6">
-                        <div class="border-b">
-                            <nav class="flex space-x-8">
-                                <button class="px-1 py-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600">
-                                    Subjects
-                                </button>
-                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
-                                    Attendance
-                                </button>
-                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
-                                    Grades
-                                </button>
-                            </nav>
-                        </div>
-                    </div>
-
-                    <!-- Subjects List -->
-                    <div class="bg-white rounded-lg shadow-sm">
-                        <div class="p-6 border-b">
-                            <h2 class="text-lg font-semibold">Current Subjects</h2>
-                        </div>
-                        <div class="p-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                <div class="p-4 border rounded-lg">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h3 class="font-medium">Physics</h3>
-                                        <span class="text-sm text-gray-500">Grade: A</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500">Dr. Jane Smith</p>
-                                </div>
-                                <div class="p-4 border rounded-lg">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h3 class="font-medium">Mathematics</h3>
-                                        <span class="text-sm text-gray-500">Grade: A+</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500">Prof. Michael Brown</p>
-                                </div>
-                                <div class="p-4 border rounded-lg">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h3 class="font-medium">Chemistry</h3>
-                                        <span class="text-sm text-gray-500">Grade: B+</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500">Dr. John Doe</p>
-                                </div>
-                            </div>
-                        </div>
+                        {% endif %}
                     </div>
                 </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-semibold mb-4">Performance</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-500">GPA</label>
+                        <p class="text-2xl font-bold">3.8</p>
+                    </div>
+                    <div>
+                        <label class="block text-sm text-gray-500">Attendance</label>
+                        <p class="text-2xl font-bold">95%</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="mb-6">
+        <div class="border-b">
+            <nav class="flex space-x-8">
+                <button class="px-1 py-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600">
+                    Subjects
+                </button>
+                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
+                    Attendance
+                </button>
+                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
+                    Grades
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Subjects List -->
+    <div class="bg-white rounded-lg shadow-sm">
+        <div class="p-6 border-b">
+            <h2 class="text-lg font-semibold">Current Subjects</h2>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <div class="p-4 border rounded-lg">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-medium">Physics</h3>
+                        <span class="text-sm text-gray-500">Grade: A</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Dr. Jane Smith</p>
+                </div>
+                <div class="p-4 border rounded-lg">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-medium">Mathematics</h3>
+                        <span class="text-sm text-gray-500">Grade: A+</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Prof. Michael Brown</p>
+                </div>
+                <div class="p-4 border rounded-lg">
+                    <div class="flex items-center justify-between mb-2">
+                        <h3 class="font-medium">Chemistry</h3>
+                        <span class="text-sm text-gray-500">Grade: B+</span>
+                    </div>
+                    <p class="text-sm text-gray-500">Dr. John Doe</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
 {% endblock %}

@@ -1,43 +1,35 @@
 {% extends 'base.html' %}
 
-
-{% block title %}  {% if student %} School CRM - Update Student {% else %} School CRM - Add Student {% endif %} {% endblock %}
-
+{% block title %}
+    {% if student %} School CRM - Update Student {% else %} School CRM - Add Student {% endif %}
+{% endblock %}
 
 {% block content %}
 {% load static %}
 <div class="max-w-2xl mx-auto">
     <div class="mb-8 flex items-center justify-between">
         <h1 class="text-2xl font-bold">{% if student %} Update Student {% else %} Add Student {% endif %}</h1>
-        {% if student %}
-        <a href="{{ student.get_detail_url }}" class="text-gray-500 hover:text-gray-700">
+        <a href="{% if student %}{{ student.get_detail_url }}{% else %}{% url 'students:list' %}{% endif %}" class="text-gray-500 hover:text-gray-700">
             <i class="bi bi-x-lg"></i>
         </a>
-        {% else %}
-        <a href="{% url 'students:list' %}" class="text-gray-500 hover:text-gray-700">
-            <i class="bi bi-x-lg"></i>
-        </a>
-        {% endif %}
     </div>
 
     <form class="bg-white rounded-lg shadow-sm p-6" method="post" enctype="multipart/form-data">
         {% csrf_token %}
+
         <div class="space-y-6">
             <div>
-                <label class="block text-sm font-medium text-gray-700 mb-2" for="{{ form.image.id_for_label }}">
+                <label for="{{ form.image.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                     {{ form.image.label }}
                 </label>
                 <div class="flex items-center space-x-4">
                     <div class="w-20 h-20 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
-                        <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
-                            {% if form.instance.image %}
-                            <img id="imagePreview" src="{{ form.instance.image.url }}" alt="image"
-                                 class="w-full h-full object-cover">
-                            {% else %}
+                        {% if form.instance.image %}
+                            <img id="imagePreview" src="{{ form.instance.image.url }}" alt="image" class="w-full h-full object-cover">
+                        {% else %}
                             <img id="imagePreview" src="" alt="image" class="w-full h-full object-cover hidden">
                             <i id="placeholderIcon" class="bi bi-person text-3xl text-gray-400"></i>
-                            {% endif %}
-                        </div>
+                        {% endif %}
                     </div>
                     {{ form.image }}
                 </div>
@@ -45,8 +37,7 @@
 
             <div class="grid grid-cols-2 gap-4">
                 <div>
-                    <label for="{{ form.first_name.id_for_label }}"
-                           class="block text-sm font-medium text-gray-700 mb-2">
+                    <label for="{{ form.first_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                         {{ form.first_name.label }}
                     </label>
                     {{ form.first_name }}
@@ -73,6 +64,7 @@
                     {{ form.gender }}
                 </div>
             </div>
+
             <div>
                 <label for="{{ form.email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                     {{ form.email.label }}
@@ -86,12 +78,14 @@
                 </label>
                 {{ form.phone_number }}
             </div>
+
             <div>
                 <label for="{{ form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                     {{ form.status.label }}
                 </label>
                 {{ form.status }}
             </div>
+
             <div>
                 <label for="{{ form.group.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                     {{ form.group.label }}
@@ -105,65 +99,51 @@
                 </label>
                 {{ form.grade }}
             </div>
+
             <div>
                 <label for="{{ form.address.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                     {{ form.address.label }}
                 </label>
                 {{ form.address }}
             </div>
+
             <div>
                 <h3 class="text-lg font-medium mb-4">Parent Information</h3>
                 <div class="space-y-4">
                     <div>
-                        <label for="{{ form.parent_name.id_for_label }}"
-                               class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="{{ form.parent_name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                             {{ form.parent_name.label }}
                         </label>
                         {{ form.parent_name }}
                     </div>
                     <div>
-                        <label for="{{ form.relationship.id_for_label }}"
-                               class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="{{ form.relationship.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                             {{ form.relationship.label }}
                         </label>
                         {{ form.relationship }}
                     </div>
                     <div>
-                        <label for="{{ form.parent_phone_number.id_for_label }}"
-                               class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="{{ form.parent_phone_number.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                             {{ form.parent_phone_number.label }}
                         </label>
                         {{ form.parent_phone_number }}
                     </div>
                     <div>
-                        <label for="{{ form.parent_email.id_for_label }}"
-                               class="block text-sm font-medium text-gray-700 mb-2">
+                        <label for="{{ form.parent_email.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
                             {{ form.parent_email.label }}
                         </label>
                         {{ form.parent_email }}
                     </div>
                 </div>
             </div>
+
             <div class="flex items-center justify-end space-x-4">
-                {% if student %}
-                <a href="{{ student.get_detail_url }}"
-                   class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                <a href="{% if student %}{{ student.get_detail_url }}{% else %}{% url 'students:list' %}{% endif %}" class="px-4 py-2 border rounded-lg hover:bg-gray-50">
                     Cancel
                 </a>
-                <button type="submit"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                    Updatscriptse Student
+                <button type="submit" class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    {% if student %} Update Student {% else %} Save Student {% endif %}
                 </button>
-                {% else %}
-                <a href="{% url 'students:list' %}"
-                   class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                    Cancel
-                </a>
-                <button type="submit"
-                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                    Save Student
-                </button>
-                {% endif %}
             </div>
         </div>
     </form>

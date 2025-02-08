@@ -114,12 +114,14 @@
                         <a href="{{ department.get_detail_url }}" class="text-blue-600 hover:text-blue-800">
                             <i class="bi bi-eye"></i>
                         </a>
-                        <a href="{{ department.get_update_url }}" class="text-gray-600 hover:text-gray-800">
-                            <i class="bi bi-pencil"></i>
-                        </a>
-                        <button class="text-red-600 hover:text-red-800">
-                            <a href="{{ department.get_delete_url }}"><i class="bi bi-trash"></i></a>
-                        </button>
+                        {% if user == department.author %}
+                            <a href="{{ department.get_update_url }}" class="text-gray-600 hover:text-gray-800">
+                                <i class="bi bi-pencil"></i>
+                            </a>
+                            <button class="text-red-600 hover:text-red-800">
+                                <a href="{{ department.get_delete_url }}"><i class="bi bi-trash"></i></a>
+                            </button>
+                        {% endif %}
                     </div>
                 </td>
             </tr>
@@ -127,17 +129,34 @@
             {% endfor %}
         </table>
     </div>
-    <div class="px-6 py-4 border-t">
-        <div class="flex justify-between items-center">
-            <p class="text-sm text-gray-600">Showing 1 to 10 of {{ departments.count }} departments</p>
-            <div class="flex space-x-2">
-                <button class="px-3 py-1 border rounded hover:bg-gray-50">Previous</button>
-                <button class="px-3 py-1 border rounded bg-blue-600 text-white">1</button>
-                <button class="px-3 py-1 border rounded hover:bg-gray-50">2</button>
-                <button class="px-3 py-1 border rounded hover:bg-gray-50">Next</button>
-            </div>
+  <div class="px-6 py-4 border-t">
+    <div class="flex justify-between items-center">
+        <p class="text-sm text-gray-600">
+            Showing {{ departments.start_index }} to {{ departments.end_index }} of {{ departments.paginator.count }} departments
+        </p>
+
+        <div class="flex space-x-2">
+            {% if departments.has_previous %}
+                <a href="?page=1" class="px-3 py-1 border rounded hover:bg-gray-50">First</a>
+                <a href="?page={{ departments.previous_page_number }}" class="px-3 py-1 border rounded hover:bg-gray-50">Previous</a>
+            {% endif %}
+
+            {% for num in departments.paginator.page_range %}
+                {% if num == departments.number %}
+                    <span class="px-3 py-1 border rounded bg-blue-600 text-white">{{ num }}</span>
+                {% elif num > departments.number|add:"-3" and num < departments.number|add:"3" %}
+                    <a href="?page={{ num }}" class="px-3 py-1 border rounded hover:bg-gray-50">{{ num }}</a>
+                {% endif %}
+            {% endfor %}
+
+            {% if departments.has_next %}
+                <a href="?page={{ departments.next_page_number }}" class="px-3 py-1 border rounded hover:bg-gray-50">Next</a>
+                <a href="?page={{ departments.paginator.num_pages }}" class="px-3 py-1 border rounded hover:bg-gray-50">Last</a>
+            {% endif %}
         </div>
     </div>
+</div>
+
 </div>
 {% else %}
     <h3>No added Department</h3>

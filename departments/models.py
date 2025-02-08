@@ -2,6 +2,7 @@ from django.db import models
 from head_of_departments.models import HeadDepartment
 from .base_models import BaseModel
 from django.shortcuts import reverse
+from django.conf import settings
 
 
 class Department(BaseModel):
@@ -18,6 +19,8 @@ class Department(BaseModel):
     phone_number = models.CharField(max_length=13)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     head_of_department = models.ForeignKey(HeadDepartment, on_delete=models.CASCADE, related_name='departments', null=True, blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
 
     def get_detail_url(self):
         return reverse('departments:detail', args=[self.pk])

@@ -1,63 +1,68 @@
+from django.contrib.auth import login, authenticate
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.shortcuts import render, redirect
-from django.contrib.auth import authenticate, login, logout
-from django.contrib.auth.views import LoginView, LogoutView
-from django.views.generic import CreateView
+from django.views.generic import CreateView, FormView, UpdateView
 from django.urls import reverse_lazy
-from django.contrib import messages
-from .forms import SignupForm, LoginForm
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserProfileForm
+from django.views import View
+from  .models import UserProfile
+from django.contrib.auth import logout
 
 
-class SignupView(CreateView):
+class SignUpView(CreateView):
+    form_class = CustomUserCreationForm
     template_name = 'users/signup.html'
-    form_class = SignupForm
     success_url = reverse_lazy('home')
 
     def form_valid(self, form):
         response = super().form_valid(form)
-        messages.success(self.request, "Регистрация успешно завершена!")
+        user = form.save()
+        login(self.request, user)
         return response
 
-    def form_invalid(self, form):
-        messages.error(self.request, "Ошибка при регистрации. Пожалуйста, проверьте введенные данные!")
-        return super().form_invalid(form)
-
-
-class CustomLoginView(LoginView):
+class UserLoginView(FormView):
+    form_class = CustomAuthenticationForm
     template_name = 'users/login.html'
-    form_class = LoginForm
-    redirect_authenticated_user = True
-
-    def get_success_url(self):
-        return reverse_lazy('home')
+    success_url = reverse_lazy('home')
 
     def form_valid(self, form):
-        email = form.cleaned_data.get('email')
+        email = form.cleaned_data.get('username')
         password = form.cleaned_data.get('password')
-        user = authenticate(request=self.request, username=email, password=password)
+        user = authenticate(email=email, password=password)
         if user is not None:
             login(self.request, user)
-            remember_me = form.cleaned_data.get('remember_me', False)
-            if not remember_me:
-                self.request.session.set_expiry(0)
-            messages.success(self.request, "Вы успешно вошли в систему!")
             return super().form_valid(form)
-        else:
-            messages.error(self.request, "Неверный email или пароль. Попробуйте снова!")
-            return self.form_invalid(form)
+        return self.form_invalid(form)
+
+class ProfileView(LoginRequiredMixin, UpdateView):
+    form_class = UserProfileForm
+    template_name = 'users/profile.html'
+    success_url = reverse_lazy('users:profile')
+
+    def get_object(self, queryset=None):
+        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        return profile
+
+class UpdateProfileView(LoginRequiredMixin, UpdateView):
+    model = UserProfile
+    form_class = UserProfileForm
+    template_name = 'users/update_profile.html'
+    success_url = reverse_lazy('users:profile')
+
+    def get_object(self, queryset=None):
+        return self.request.user.profile
+
+    def get_form_kwargs(self):
+        kwargs = super().get_form_kwargs()
+        kwargs['user'] = self.request.user
+        return kwargs
 
 
-class CustomLogoutView(LogoutView):
-    next_page = reverse_lazy('login')
+class CustomLogoutView(View):
+    def post(self, request):
+        logout(request)
+        return redirect('users:success_logout')
 
-    def dispatch(self, request, *args, **kwargs):
-        messages.info(request, "Вы успешно вышли из системы!")
-        return super().dispatch(request, *args, **kwargs)
-
-
-def profile_view(request):
-    if not request.user.is_authenticated:
-        messages.warning(request, "Для доступа к профилю необходимо войти в систему!")
-        return redirect('users:login')
-    return render(request, 'users/signup.html')
-
-
+class SuccessLogoutView(View):
+    def get(self, request):
+        return render(request, 'users/success_logout.html')

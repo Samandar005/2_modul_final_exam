@@ -23,7 +23,7 @@
                                     <span class="ml-2">Exit</span>
                                 </a>
                             </button>
-
+                        {% if user == department.author %}
                             <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
                                 <a href="{{ department.get_update_url }}">
                                     <i class="bi bi-pencil"></i>
@@ -36,6 +36,7 @@
                                     <span class="ml-2">Delete</span>
                                 </a>
                             </button>
+                        {% endif %}
                         </div>
                     </div>
                     <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
@@ -117,10 +118,12 @@
                         <div class="p-6 border-b">
                             <div class="flex items-center justify-between">
                                 <h2 class="text-lg font-semibold">Teachers</h2>
-                                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                    <i class="bi bi-plus"></i>
-                                    <span class="ml-2"><a href="{% url 'teachers:create' %}">Add Teacher</a></span>
-                                </button>
+                                {% if user == department.author %}
+                                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                        <i class="bi bi-plus"></i>
+                                        <span class="ml-2"><a href="{% url 'teachers:create' %}">Add Teacher</a></span>
+                                    </button>
+                                {% endif %}
                             </div>
                         </div>
 

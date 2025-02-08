@@ -1,7 +1,6 @@
 from django.db import models
 from django.db.models import CASCADE
-from django.utils.http import content_disposition_header
-
+from django.conf import settings
 from departments.base_models import BaseModel
 from groups.models import Group
 from django.shortcuts import reverse
@@ -49,6 +48,8 @@ class Student(BaseModel):
     gender = models.CharField(max_length=3, choices=SELECT_GENDER)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     group = models.ForeignKey(Group, on_delete=CASCADE, related_name='students', blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+
 
     def get_detail_url(self):
         return reverse('students:detail', args=[self.pk])

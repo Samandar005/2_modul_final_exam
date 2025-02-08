@@ -24,18 +24,20 @@
                                     <span class="ml-2">Exit</span>
                                 </a>
                             </button>
-                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                <a href="{{ group.get_update_url }}">
-                                    <i class="bi bi-pencil"></i>
-                                    <span class="ml-2">Edit</span>
-                                </a>
-                            </button>
-                            <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
-                                <a href="{{ group.get_delete_url }}">
-                                    <i class="bi bi-trash"></i>
-                                    <span class="ml-2">Delete</span>
-                                </a>
-                            </button>
+                            {% if user == group.author %}
+                                <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                    <a href="{{ group.get_update_url }}">
+                                        <i class="bi bi-pencil"></i>
+                                        <span class="ml-2">Edit</span>
+                                    </a>
+                                </button>
+                                <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+                                    <a href="{{ group.get_delete_url }}">
+                                        <i class="bi bi-trash"></i>
+                                        <span class="ml-2">Delete</span>
+                                    </a>
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
 
@@ -112,10 +114,12 @@
                         <div class="p-6 border-b">
                             <div class="flex items-center justify-between">
                                 <h2 class="text-lg font-semibold">Students</h2>
-                                <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                    <i class="bi bi-plus"></i>
-                                    <span class="ml-2">Add Student</span>
-                                </button>
+                                {% if user == group.author %}
+                                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                                        <i class="bi bi-plus"></i>
+                                        <a href="{% url 'students:create' %}"><span class="ml-2">Add Student</span></a>
+                                    </button>
+                                {% endif %}
                             </div>
                         </div>
                         <div class="p-6">

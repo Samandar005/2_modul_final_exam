@@ -2,6 +2,7 @@ from django.db import models
 from departments.base_models import BaseModel
 from departments.models import Department
 from django.shortcuts import reverse
+from django.conf import settings
 
 
 class Subject(BaseModel):
@@ -40,7 +41,7 @@ class Subject(BaseModel):
     grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     department = models.ForeignKey(Department,  on_delete=models.CASCADE, related_name='subjects', null=True, blank=True)
-
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     @property
     def prerequisite_list(self):

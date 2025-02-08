@@ -24,16 +24,18 @@
                                            <span class="ml-2">Exit</span>
                                 </a>
                             </button>
-                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                <a href="{{ teacher.get_update_url }}">
-                                    <i class="bi bi-pencil"></i>
-                                    <span class="ml-2">Edit</span>
-                                </a>
-                            </button>
-                            <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
-                                <i class="bi bi-trash"></i>
-                                <span class="ml-2"><a href="{{ teacher.get_delete_url }}">Delete</a></span>
-                            </button>
+                            {% if user == teacher.author %}
+                                <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                                    <a href="{{ teacher.get_update_url }}">
+                                        <i class="bi bi-pencil"></i>
+                                        <span class="ml-2">Edit</span>
+                                    </a>
+                                </button>
+                                <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+                                    <i class="bi bi-trash"></i>
+                                    <span class="ml-2"><a href="{{ teacher.get_delete_url }}">Delete</a></span>
+                                </button>
+                            {% endif %}
                         </div>
                     </div>
 

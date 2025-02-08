@@ -1,57 +1,77 @@
 {% extends 'base.html' %}
 
-
-{% block title %}  {% if head %} School CRM - Update Head of Department {% else %} School CRM - Add Head of Department {% endif %}{% endblock %}
-
+{% block title %}
+{% if head %}
+School CRM - Update Head of Department
+{% else %}
+School CRM - Add Head of Department
+{% endif %}
+{% endblock %}
 
 {% block content %}
 <div class="max-w-2xl mx-auto">
-                    <div class="mb-8 flex items-center justify-between">
-                        <h1 class="text-2xl font-bold">{% if head %} Update Head of Department {% else %} Add Head of Department {% endif %}</h1>
-                        <a href="{% url 'head_of_departments:list' %}" class="text-gray-500 hover:text-gray-700">
-                            <i class="bi bi-x-lg"></i>
-                        </a>
-                    </div>
+    <!-- Header -->
+    <div class="mb-8 flex items-center justify-between">
+        <h1 class="text-2xl font-bold">
+            {% if head %} Update Head of Department {% else %} Add Head of Department {% endif %}
+        </h1>
+        <a href="{% url 'head_of_departments:list' %}" class="text-gray-500 hover:text-gray-700">
+            <i class="bi bi-x-lg"></i>
+        </a>
+    </div>
 
-                    <form method="post" class="bg-white rounded-lg shadow-sm p-6">
-                        {% csrf_token %}
-                        <div class="space-y-6">
-                            <div>
-                                <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
-                                    {{ form.name.label }}
-                                </label>
-                                {{ form.name }}
-                            </div>
-                            <div>
-                                <label for="{{ form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
-                                    {{ form.status.label }}
-                                </label>
-                                {{ form.status }}
-                            </div>
+    <form method="post" class="bg-white rounded-lg shadow-sm p-6">
+        {% csrf_token %}
 
-                            <div class="flex items-center justify-end space-x-4">
-                                {% if head %}
-                                    <a href="{% url 'head_of_departments:list'%}"
-                                        class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                        Cancel
-                                    </a>
-                                    <button type="submit"
-                                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                        Update Head of Department
-                                    </button>
-                                {% else %}
-                                    <a href="{% url 'head_of_departments:list'%}"
-                                        class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                        Cancel
-                                    </a>
-                                    <button type="submit"
-                                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                        Save Head of Department
-                                    </button>
-                                {% endif %}
-                            </div>
-                        </div>
-                    </form>
-                </div>
+        <!-- Umumiy xatolar -->
+        {% if form.non_field_errors %}
+        <div class="mb-4 p-3 rounded-lg bg-red-100 border border-red-400 text-red-700">
+            {% for error in form.non_field_errors %}
+            <p>{{ error }}</p>
+            {% endfor %}
+        </div>
+        {% endif %}
+
+        <div class="space-y-6">
+            <div>
+                <label for="{{ form.name.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.name.label }}
+                </label>
+                {{ form.name }}
+                {% if form.name.errors %}
+                <p class="text-red-500 text-sm mt-1">
+                    {% for error in form.name.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </div>
+
+            <div>
+                <label for="{{ form.status.id_for_label }}" class="block text-sm font-medium text-gray-700 mb-2">
+                    {{ form.status.label }}
+                </label>
+                {{ form.status }}
+                {% if form.status.errors %}
+                <p class="text-red-500 text-sm mt-1">
+                    {% for error in form.status.errors %}
+                    {{ error }}
+                    {% endfor %}
+                </p>
+                {% endif %}
+            </div>
+
+            <div class="flex items-center justify-end space-x-4">
+                <a href="{% url 'head_of_departments:list' %}"
+                   class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                    Cancel
+                </a>
+                <button type="submit"
+                        class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
+                    {% if head %} Update Head of Department {% else %} Save Head of Department {% endif %}
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
 {% endblock %}
-

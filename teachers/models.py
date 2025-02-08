@@ -3,6 +3,7 @@ from django.shortcuts import reverse
 from departments.base_models import BaseModel
 from departments.models import Department
 from subjects.models import Subject
+from django.conf import settings
 
 
 class Teacher(BaseModel):
@@ -31,6 +32,7 @@ class Teacher(BaseModel):
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='teachers', null=True, blank=True)
     subjects = models.ManyToManyField(Subject, related_name='teachers', blank=True)
+    author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
 
     def get_detail_url(self):
         return reverse('teachers:detail', args=[self.pk])

@@ -1,19 +1,17 @@
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from departments.models import Department
+from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import SubjectForm
 from .models import Subject
+from django.core.paginator import Paginator
 
 
 class SubjectListView(ListView):
     model = Subject
     template_name = 'subjects/list.html'
     context_object_name = 'subjects'
-
-    def get_context_data(self, **kwargs):
-        ctx = super().get_context_data(**kwargs)
-        ctx['departments'] = Department.objects.all()
-        return ctx
+    paginate_by = 10
 
     def get_queryset(self):
         subjects = Subject.objects.all()
@@ -30,27 +28,54 @@ class SubjectListView(ListView):
             subjects = subjects.filter(grade_level=grade_level)
         if search_query:
             subjects = subjects.filter(name__icontains=search_query)
+
         return subjects
 
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        page = self.request.GET.get('page')
+        paginator = Paginator(self.get_queryset(), self.paginate_by)
+        subjects_page = paginator.get_page(page)
+
+        context['subjects'] = subjects_page
+        context['paginator'] = paginator
+        context['departments'] = Department.objects.all()
+        return context
 
 class SubjectDetailView(DetailView):
     model = Subject
     template_name = 'subjects/detail.html'
     context_object_name = 'subject'
 
-class SubjectCreateView(CreateView):
+class SubjectCreateView(LoginRequiredMixin, CreateView):
     model = Subject
     form_class = SubjectForm
     template_name = 'subjects/form.html'
     success_url = reverse_lazy('subjects:list')
 
-class SubjectUpdateView(UpdateView):
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+class SubjectUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Subject
     form_class = SubjectForm
     template_name = 'subjects/form.html'
     success_url = reverse_lazy('subjects:list')
 
-class SubjectDeleteView(DeleteView):
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        return super().form_valid(form)
+
+    def test_func(self):
+        subject = self.get_object()
+        return self.request.user == subject.author
+
+class SubjectDeleteView(LoginRequiredMixin, UserPassesTestMixin, DeleteView):
     model = Subject
     template_name = 'subjects/confirm_delete.html'
     success_url = reverse_lazy('subjects:list')
+
+    def test_func(self):
+        subject = self.get_object()
+        return self.request.user == subject.author

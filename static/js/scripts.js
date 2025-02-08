@@ -23,3 +23,27 @@ document.addEventListener("DOMContentLoaded", function() {
         }
     });
 });
+
+function createStars() {
+    const background = document.querySelector('.cosmic-background');
+    for (let i = 0; i < 100; i++) {
+        const star = document.createElement('div');
+        star.classList.add('star');
+        star.style.width = `${Math.random() * 3}px`;
+        star.style.height = star.style.width;
+        star.style.left = `${Math.random() * 100}%`;
+        star.style.top = `${Math.random() * 100}%`;
+        star.style.animationDelay = `${Math.random() * 5}s`;
+        background.appendChild(star);
+    }
+}
+createStars();
+
+// Live profile picture preview
+document.getElementById("id_image").addEventListener("change", function(event) {
+    let reader = new FileReader();
+    reader.onload = function() {
+        document.getElementById("profilePreview").src = reader.result;
+    };
+    reader.readAsDataURL(event.target.files[0]);
+});
