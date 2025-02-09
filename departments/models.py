@@ -3,6 +3,7 @@ from head_of_departments.models import HeadDepartment
 from .base_models import BaseModel
 from django.shortcuts import reverse
 from django.conf import settings
+from django.utils.text import slugify
 
 
 class Department(BaseModel):

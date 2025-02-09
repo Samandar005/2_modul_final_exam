@@ -13,17 +13,14 @@
                             <i class="bi bi-box-arrow-right me-1"></i>Logout
                         </button>
                     </form>
-                    <a href="{% url 'users:profile' %}" class="ml-4 text-gray-700 hover:text-gray-900">
-                        <i class="bi bi-person-circle me-1"></i>Profile
+                    <a href="{% url 'users:update_profile' %}" class="ml-4 text-gray-700 hover:text-gray-900">
+                        <i class="bi bi-person-circle me-1"></i>Update Profile
                     </a>
                 </div>
             {% else %}
                 <div class="flex items-center">
-                    <a href="{% url 'users:login' %}" class="mx-2 text-gray-700 hover:text-gray-900">
+                    <a href="{% url 'users:login' %}" class="mx-2 text-blue-600 hover:text-blue-800">
                         <i class="bi bi-box-arrow-in-right me-1"></i>Login
-                    </a>
-                    <a href="{% url 'users:signup' %}" class="mx-2 text-blue-600 hover:text-blue-800">
-                        <i class="bi bi-person-plus-fill me-1"></i>Sign Up
                     </a>
                 </div>
             {% endif %}

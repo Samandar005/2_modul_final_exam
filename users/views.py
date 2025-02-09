@@ -34,23 +34,17 @@ class UserLoginView(FormView):
             return super().form_valid(form)
         return self.form_invalid(form)
 
-class ProfileView(LoginRequiredMixin, UpdateView):
-    form_class = UserProfileForm
-    template_name = 'users/profile.html'
-    success_url = reverse_lazy('users:profile')
 
-    def get_object(self, queryset=None):
-        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
-        return profile
 
 class UpdateProfileView(LoginRequiredMixin, UpdateView):
     model = UserProfile
     form_class = UserProfileForm
     template_name = 'users/update_profile.html'
-    success_url = reverse_lazy('users:profile')
+    success_url = reverse_lazy('home')
 
     def get_object(self, queryset=None):
-        return self.request.user.profile
+        profile, created = UserProfile.objects.get_or_create(user=self.request.user)
+        return profile
 
     def get_form_kwargs(self):
         kwargs = super().get_form_kwargs()
