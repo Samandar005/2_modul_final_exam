@@ -1,5 +1,6 @@
 from django.core.paginator import Paginator
 from django.urls import reverse_lazy
+from django.shortcuts import get_object_or_404
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Department
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
@@ -59,12 +60,13 @@ class DepartmentListView(ListView):
         context['heads'] = HeadDepartment.objects.all()
         return context
 
-
-
 class DepartmentDetailView(DetailView):
     model = Department
     template_name = 'departments/detail.html'
     context_object_name = 'department'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Department, slug=self.kwargs.get('slug'))
 
 class DepartmentCreateView(LoginRequiredMixin, CreateView):
     model = Department

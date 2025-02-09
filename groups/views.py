@@ -3,6 +3,7 @@ from django.views.generic import ListView, CreateView, UpdateView, DeleteView, D
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from teachers.models import Teacher
 from .models import Group
+from django.shortcuts import get_object_or_404
 from .forms import GroupForm
 from django.core.paginator import Paginator
 
@@ -47,6 +48,9 @@ class GroupDetailView(DetailView):
     model = Group
     template_name = 'groups/detail.html'
     context_object_name = 'group'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Group, slug=self.kwargs.get('slug'))
 
 class GroupCreateView(LoginRequiredMixin, CreateView):
     model = Group

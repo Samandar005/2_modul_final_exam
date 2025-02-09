@@ -94,7 +94,7 @@
                                 <div class="space-y-4">
                                     <div>
                                         <label class="block text-sm text-gray-500">Total Groups</label>
-                                        <p class="text-2xl font-bold">4</p>
+                                        <p class="text-2xl font-bold">{{ subject.groups.count }}</p>
                                     </div>
                                     <div>
                                         <label class="block text-sm text-gray-500">Total Students</label>
@@ -110,24 +110,17 @@
                             <div class="bg-white rounded-lg shadow-sm p-6">
                                 <h3 class="text-lg font-semibold mb-4">Teachers</h3>
                                 <div class="space-y-4">
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                                            <i class="bi bi-person text-xl text-gray-400"></i>
+                                    {% for teacher in subject.teachers.all %}
+                                        <div class="flex items-center space-x-3">
+                                            <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
+                                                <i class="bi bi-person text-xl text-gray-400"></i>
+                                            </div>
+                                            <div>
+                                                <p class="font-medium">{{ teacher.first_name }} {{ teacher.last_name }}</p>
+                                                <p class="text-sm text-gray-500">{{ teacher.position }}</p>
+                                            </div>
                                         </div>
-                                        <div>
-                                            <p class="font-medium">Dr. Jane Smith</p>
-                                            <p class="text-sm text-gray-500">Lead Teacher</p>
-                                        </div>
-                                    </div>
-                                    <div class="flex items-center space-x-3">
-                                        <div class="w-10 h-10 rounded-full bg-gray-100 flex items-center justify-center">
-                                            <i class="bi bi-person text-xl text-gray-400"></i>
-                                        </div>
-                                        <div>
-                                            <p class="font-medium">Prof. John Doe</p>
-                                            <p class="text-sm text-gray-500">Assistant Teacher</p>
-                                        </div>
-                                    </div>
+                                    {% endfor %}
                                 </div>
                             </div>
                         </div>
@@ -156,29 +149,18 @@
                             <h2 class="text-lg font-semibold">Current Groups</h2>
                         </div>
                         <div class="p-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                <div class="p-4 border rounded-lg">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h3 class="font-medium">Group A</h3>
-                                        <span class="text-sm text-gray-500">30 students</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500">Monday, Wednesday 9:00 AM</p>
-                                </div>
-                                <div class="p-4 border rounded-lg">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h3 class="font-medium">Group B</h3>
-                                        <span class="text-sm text-gray-500">28 students</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500">Tuesday, Thursday 11:00 AM</p>
-                                </div>
-                                <div class="p-4 border rounded-lg">
-                                    <div class="flex items-center justify-between mb-2">
-                                        <h3 class="font-medium">Group C</h3>
-                                        <span class="text-sm text-gray-500">32 students</span>
-                                    </div>
-                                    <p class="text-sm text-gray-500">Monday, Wednesday 2:00 PM</p>
-                                </div>
-                            </div>
+                           <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for group in subject.groups.all %}
+        <div class="p-4 border rounded-lg">
+            <div class="flex items-center justify-between mb-2">
+                <h3 class="font-medium">{{ group.name }}</h3>
+                <span class="text-sm text-gray-500">{{ group.max_students }} students</span>
+            </div>
+            <p class="text-sm text-gray-500">{{ group.get_schedule_display }}</p>
+        </div>
+    {% endfor %}
+</div>
+
                         </div>
                     </div>
                 </div>

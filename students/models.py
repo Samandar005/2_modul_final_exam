@@ -4,6 +4,7 @@ from django.conf import settings
 from departments.base_models import BaseModel
 from groups.models import Group
 from django.shortcuts import reverse
+from django.utils.text import slugify
 
 
 class Student(BaseModel):
@@ -49,10 +50,20 @@ class Student(BaseModel):
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     group = models.ForeignKey(Group, on_delete=CASCADE, related_name='students', blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.first_name)
+        super(Student, self).save(*args, **kwargs)
 
     def get_detail_url(self):
-        return reverse('students:detail', args=[self.pk])
+        return reverse('students:detail', args=[
+            self.created_at.year,
+            self.created_at.month,
+            self.created_at.day,
+            self.slug
+        ])
 
     def get_update_url(self):
         return reverse('students:update', args=[self.pk])

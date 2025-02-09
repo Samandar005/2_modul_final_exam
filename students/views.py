@@ -2,6 +2,7 @@ from django.db.models import Q
 from django.urls import reverse_lazy
 from django.views.generic import ListView, DetailView, CreateView, UpdateView, DeleteView
 from .models import Student
+from django.shortcuts import get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import StudentForm
 from groups.models import Group
@@ -50,6 +51,10 @@ class StudentDetailView(DetailView):
     model = Student
     template_name = 'students/detail.html'
     context_object_name = 'student'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Student, slug=self.kwargs.get('slug'))
+
 
 class StudentCreateView(LoginRequiredMixin, CreateView):
     model = Student

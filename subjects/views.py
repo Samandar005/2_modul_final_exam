@@ -5,7 +5,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from .forms import SubjectForm
 from .models import Subject
 from django.core.paginator import Paginator
-
+from django.shortcuts import get_object_or_404
 
 class SubjectListView(ListView):
     model = Subject
@@ -46,6 +46,9 @@ class SubjectDetailView(DetailView):
     model = Subject
     template_name = 'subjects/detail.html'
     context_object_name = 'subject'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Subject, slug=self.kwargs.get('slug'))
 
 class SubjectCreateView(LoginRequiredMixin, CreateView):
     model = Subject

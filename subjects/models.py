@@ -3,6 +3,7 @@ from departments.base_models import BaseModel
 from departments.models import Department
 from django.shortcuts import reverse
 from django.conf import settings
+from django.utils.text import slugify
 
 
 class Subject(BaseModel):
@@ -42,13 +43,25 @@ class Subject(BaseModel):
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     department = models.ForeignKey(Department,  on_delete=models.CASCADE, related_name='subjects', null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Subject, self).save(*args, **kwargs)
+
+    def get_detail_url(self):
+        return reverse('subjects:detail', args=[
+            self.created_at.year,
+            self.created_at.month,
+            self.created_at.day,
+            self.slug
+        ])
+
 
     @property
     def prerequisite_list(self):
         return [prerequisite.strip() for prerequisite in self.prerequisites.split(',')] if self.prerequisites else []
-
-    def get_detail_url(self):
-        return reverse('subjects:detail', args=[self.pk])
 
     def get_update_url(self):
         return reverse('subjects:update', args=[self.pk])

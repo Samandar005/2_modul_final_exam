@@ -7,6 +7,7 @@ from .models import Teacher
 from .forms import TeacherForm
 from django.db.models import Q
 from django.core.paginator import Paginator
+from django.shortcuts import get_object_or_404
 
 
 class TeacherListView(ListView):
@@ -52,6 +53,9 @@ class TeacherDetailView(DetailView):
     model = Teacher
     template_name = 'teachers/detail.html'
     context_object_name = 'teacher'
+
+    def get_object(self, queryset=None):
+        return get_object_or_404(Teacher, slug=self.kwargs.get('slug'))
 
 class TeacherCreateView(LoginRequiredMixin, CreateView):
     model = Teacher

@@ -2,10 +2,11 @@ from django.db import models
 from subjects.models import Subject
 from teachers.models import Teacher
 from django.shortcuts import reverse
+from django.utils.text import slugify
 from django.conf import settings
+from departments.base_models import BaseModel
 
-
-class Group(models.Model):
+class Group(BaseModel):
     GRADE_LEVEL_CHOICES = [
         ('1', 'Grade 1'),
         ('2', 'Grade 2'),
@@ -43,10 +44,20 @@ class Group(models.Model):
     subjects = models.ManyToManyField(Subject, related_name='groups', blank=True)
     teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE, related_name='groups', blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Group, self).save(*args, **kwargs)
 
     def get_detail_url(self):
-        return reverse('groups:detail', args=[self.pk])
+        return reverse('groups:detail', args=[
+            self.created_at.year,
+            self.created_at.month,
+            self.created_at.day,
+            self.slug
+        ])
 
     def get_update_url(self):
         return reverse('groups:update', args=[self.pk])

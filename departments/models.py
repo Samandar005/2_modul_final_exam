@@ -21,10 +21,20 @@ class Department(BaseModel):
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
     head_of_department = models.ForeignKey(HeadDepartment, on_delete=models.CASCADE, related_name='departments', null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, blank=True)
 
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.name)
+        super(Department, self).save(*args, **kwargs)
 
     def get_detail_url(self):
-        return reverse('departments:detail', args=[self.pk])
+        return reverse('departments:detail', args=[
+            self.created_at.year,
+            self.created_at.month,
+            self.created_at.day,
+            self.slug
+        ])
 
     def get_update_url(self):
         return reverse('departments:update', args=[self.pk])

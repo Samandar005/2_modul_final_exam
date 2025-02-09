@@ -4,6 +4,7 @@ from departments.base_models import BaseModel
 from departments.models import Department
 from subjects.models import Subject
 from django.conf import settings
+from django.utils.text import slugify
 
 
 class Teacher(BaseModel):
@@ -33,9 +34,20 @@ class Teacher(BaseModel):
     department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='teachers', null=True, blank=True)
     subjects = models.ManyToManyField(Subject, related_name='teachers', blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    slug = models.SlugField(unique=True, blank=True)
+
+    def save(self, *args, **kwargs):
+        if not self.slug:
+            self.slug = slugify(self.first_name)
+        super(Teacher, self).save(*args, **kwargs)
 
     def get_detail_url(self):
-        return reverse('teachers:detail', args=[self.pk])
+        return reverse('teachers:detail', args=[
+            self.created_at.year,
+            self.created_at.month,
+            self.created_at.day,
+            self.slug
+        ])
 
     def get_update_url(self):
         return reverse('teachers:update', args=[self.pk])
