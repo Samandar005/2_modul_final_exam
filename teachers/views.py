@@ -8,7 +8,7 @@ from .forms import TeacherForm
 from django.db.models import Q
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
-
+from students.models import Student
 
 class TeacherListView(ListView):
     model = Teacher
@@ -56,6 +56,15 @@ class TeacherDetailView(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(Teacher, slug=self.kwargs.get('slug'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        teacher = self.get_object()
+        students = Student.objects.filter(group__in=teacher.groups.all()).distinct()
+        context['students'] = students
+        context['total_students'] = students.count()
+        return context
+
 
 class TeacherCreateView(LoginRequiredMixin, CreateView):
     model = Teacher

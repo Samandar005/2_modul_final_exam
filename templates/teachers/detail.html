@@ -5,184 +5,159 @@
 
 
 {% block content %}
- <div class="max-w-4xl mx-auto">
-                    <!-- Header -->
-                    <div class="mb-8 flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
-                                <img src="{{ teacher.image.url }}" alt="image" class="w-full h-full object-cover">
-                            </div>
-                            <div>
-                                <h1 class="text-2xl font-bold">{{ teacher.first_name }} {{ teacher.last_name }}</h1>
-                                <p class="text-gray-500">Teacher ID: {{ teacher.id }}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                <a href="{% url 'teachers:list' %}">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                           <span class="ml-2">Exit</span>
-                                </a>
-                            </button>
-                            {% if user == teacher.author %}
-                                <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                    <a href="{{ teacher.get_update_url }}">
-                                        <i class="bi bi-pencil"></i>
-                                        <span class="ml-2">Edit</span>
-                                    </a>
-                                </button>
-                                <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
-                                    <i class="bi bi-trash"></i>
-                                    <span class="ml-2"><a href="{{ teacher.get_delete_url }}">Delete</a></span>
-                                </button>
-                            {% endif %}
-                        </div>
+<div class="max-w-4xl mx-auto">
+    <!-- Header -->
+    <div class="mb-8 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                <img src="{{ teacher.image.url }}" alt="image" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold">{{ teacher.first_name }} {{ teacher.last_name }}</h1>
+                <p class="text-gray-500">Teacher ID: {{ teacher.id }}</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                <a href="{% url 'teachers:list' %}">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span class="ml-2">Exit</span>
+                </a>
+            </button>
+            {% if user == teacher.author %}
+            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                <a href="{{ teacher.get_update_url }}">
+                    <i class="bi bi-pencil"></i>
+                    <span class="ml-2">Edit</span>
+                </a>
+            </button>
+            <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+                <i class="bi bi-trash"></i>
+                <span class="ml-2"><a href="{{ teacher.get_delete_url }}">Delete</a></span>
+            </button>
+            {% endif %}
+        </div>
+    </div>
+
+    <!-- Teacher Info -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Basic Info -->
+        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-lg font-semibold mb-4">Personal Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm text-gray-500">First Name</label>
+                    <p class="text-gray-900">{{ teacher.first_name }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Last Name</label>
+                    <p class="text-gray-900">{{ teacher.last_name }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Email</label>
+                    <p class="text-gray-900">{{ teacher.email }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Phone</label>
+                    <p class="text-gray-900">{{ teacher.phone_number }}</p>
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-sm text-gray-500">Address</label>
+                    <p class="text-gray-900">{{ teacher.address }}</p>
+                </div>
+            </div>
+
+            <h2 class="text-lg font-semibold mt-8 mb-4">Professional Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm text-gray-500">Department</label>
+                    <p class="text-gray-900">{{ teacher.department }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Position</label>
+                    <p class="text-gray-900">{{ teacher.position }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Join Date</label>
+                    <p class="text-gray-900">{{ teacher.join_date }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Employment Type</label>
+                    <p class="text-gray-900">{{ teacher.get_employment_type_display }}</p>
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-sm text-gray-500">Qualification</label>
+                    <p class="text-gray-900">{{ teacher.qualification }}</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-semibold mb-4">Teaching Stats</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-500">Total Classes</label>
+                        <p class="text-2xl font-bold">{{ teacher.groups.count }}</p>
                     </div>
-
-                    <!-- Teacher Info -->
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                        <!-- Basic Info -->
-                        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
-                            <h2 class="text-lg font-semibold mb-4">Personal Information</h2>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm text-gray-500">First Name</label>
-                                    <p class="text-gray-900">{{ teacher.first_name }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Last Name</label>
-                                    <p class="text-gray-900">{{ teacher.last_name }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Email</label>
-                                    <p class="text-gray-900">{{ teacher.email }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Phone</label>
-                                    <p class="text-gray-900">{{ teacher.phone_number }}</p>
-                                </div>
-                                <div class="col-span-2">
-                                    <label class="block text-sm text-gray-500">Address</label>
-                                    <p class="text-gray-900">{{ teacher.address }}</p>
-                                </div>
-                            </div>
-
-                            <h2 class="text-lg font-semibold mt-8 mb-4">Professional Information</h2>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm text-gray-500">Department</label>
-                                    <p class="text-gray-900">{{ teacher.department }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Position</label>
-                                    <p class="text-gray-900">{{ teacher.position }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Join Date</label>
-                                    <p class="text-gray-900">{{ teacher.join_date }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Employment Type</label>
-                                    <p class="text-gray-900">{{ teacher.get_employment_type_display }}</p>
-                                </div>
-                                <div class="col-span-2">
-                                    <label class="block text-sm text-gray-500">Qualification</label>
-                                    <p class="text-gray-900">{{ teacher.qualification }}</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Stats -->
-                        <div class="space-y-6">
-                            <div class="bg-white rounded-lg shadow-sm p-6">
-                                <h3 class="text-lg font-semibold mb-4">Teaching Stats</h3>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Total Classes</label>
-                                        <p class="text-2xl font-bold">{{ teacher.groups.count }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Total Students</label>
-                                        <p class="text-2xl font-bold">180</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Average Rating</label>
-                                        <p class="text-2xl font-bold">4.8/5.0</p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="bg-white rounded-lg shadow-sm p-6">
-                                <h3 class="text-lg font-semibold mb-4">Subjects</h3>
-                                <div class="space-y-2">
-                                    {% for subject in teacher.subjects.all %}
-                                        <div class="flex items-center space-x-2">
-                                            <i class="bi bi-check-circle text-green-600"></i>
-                                            <span>{{ subject.name }}</span>
-                                        </div>
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tabs -->
-                    <div class="mb-6">
-                        <div class="border-b">
-                            <nav class="flex space-x-8">
-                                <button class="px-1 py-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600">
-                                    Schedule
-                                </button>
-                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
-                                    Students
-                                </button>
-                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
-                                    Performance
-                                </button>
-                            </nav>
-                        </div>
-                    </div>
-
-                    <!-- Schedule -->
-                    <div class="bg-white rounded-lg shadow-sm">
-                        <div class="p-6 border-b">
-                            <h2 class="text-lg font-semibold">Weekly Schedule</h2>
-                        </div>
-                        <div class="p-6">
-                            <div class="space-y-4">
-                                <div class="flex items-center p-4 border rounded-lg">
-                                    <div class="w-16 text-center">
-                                        <p class="font-medium">MON</p>
-                                        <p class="text-sm text-gray-500">9:00</p>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3 class="font-medium">Physics 101</h3>
-                                        <p class="text-sm text-gray-500">Group A - Room 201</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center p-4 border rounded-lg">
-                                    <div class="w-16 text-center">
-                                        <p class="font-medium">WED</p>
-                                        <p class="text-sm text-gray-500">11:00</p>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3 class="font-medium">Advanced Physics</h3>
-                                        <p class="text-sm text-gray-500">Group B - Room 305</p>
-                                    </div>
-                                </div>
-                                <div class="flex items-center p-4 border rounded-lg">
-                                    <div class="w-16 text-center">
-                                        <p class="font-medium">FRI</p>
-                                        <p class="text-sm text-gray-500">14:00</p>
-                                    </div>
-                                    <div class="ml-4">
-                                        <h3 class="font-medium">Quantum Mechanics</h3>
-                                        <p class="text-sm text-gray-500">Group C - Lab 102</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
+                    <div>
+                        <label class="block text-sm text-gray-500">Total Students</label>
+                        <p class="text-2xl font-bold">{{ total_students }}</p>
                     </div>
                 </div>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-semibold mb-4">Subjects</h3>
+                <div class="space-y-2">
+                    {% for subject in teacher.subjects.all %}
+                    <div class="flex items-center space-x-2">
+                        <i class="bi bi-check-circle text-green-600"></i>
+                        <span>{{ subject.name }}</span>
+                    </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="mb-6">
+        <div class="border-b">
+            <nav class="flex space-x-8">
+                <button id="students-tab"
+                        class="px-1 py-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600">
+                    Students
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Students Section -->
+    <div id="students-section" class="bg-white rounded-lg shadow-sm">
+        <div class="p-6 border-b">
+            <h2 class="text-lg font-semibold">Students</h2>
+        </div>
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for student in students %}
+                <div class="flex items-center space-x-4 p-4 border rounded-lg">
+                    <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="{{ student.image.url }}" alt="image" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-medium">{{ student.first_name }} {{ student.last_name }}</h3>
+                        <p class="text-sm text-gray-500">Group: {{ student.group.name }}</p>
+                    </div>
+                </div>
+                {% empty %}
+                <p class="text-gray-500">No students found.</p>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+</div>
 {% endblock %}
 

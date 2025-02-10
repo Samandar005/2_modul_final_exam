@@ -6,138 +6,175 @@
 
 {% block content %}
 <div class="max-w-4xl mx-auto">
-                    <!-- Header -->
-                    <div class="mb-8 flex items-center justify-between">
-                        <div class="flex items-center space-x-4">
-                            <div class="p-3 bg-purple-50 rounded-lg">
-                                <i class="bi bi-collection text-2xl text-purple-600"></i>
-                            </div>
-                            <div>
-                                <h1 class="text-2xl font-bold">{{ group.name }}</h1>
-                                <p class="text-gray-500">Group ID: {{ group.id }}</p>
-                            </div>
-                        </div>
-                        <div class="flex items-center space-x-4">
-                            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                <a href="{% url 'groups:list' %}">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                    <span class="ml-2">Exit</span>
-                                </a>
-                            </button>
-                            {% if user == group.author %}
-                                <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
-                                    <a href="{{ group.get_update_url }}">
-                                        <i class="bi bi-pencil"></i>
-                                        <span class="ml-2">Edit</span>
-                                    </a>
-                                </button>
-                                <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
-                                    <a href="{{ group.get_delete_url }}">
-                                        <i class="bi bi-trash"></i>
-                                        <span class="ml-2">Delete</span>
-                                    </a>
-                                </button>
-                            {% endif %}
-                        </div>
-                    </div>
+    <!-- Header -->
+    <div class="mb-8 flex items-center justify-between">
+        <div class="flex items-center space-x-4">
+            <div class="p-3 bg-purple-50 rounded-lg">
+                <i class="bi bi-collection text-2xl text-purple-600"></i>
+            </div>
+            <div>
+                <h1 class="text-2xl font-bold">{{ group.name }}</h1>
+                <p class="text-gray-500">Group ID: {{ group.id }}</p>
+            </div>
+        </div>
+        <div class="flex items-center space-x-4">
+            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                <a href="{% url 'groups:list' %}">
+                    <i class="bi bi-box-arrow-right"></i>
+                    <span class="ml-2">Exit</span>
+                </a>
+            </button>
+            {% if user == group.author %}
+            <button class="px-4 py-2 border rounded-lg hover:bg-gray-50">
+                <a href="{{ group.get_update_url }}">
+                    <i class="bi bi-pencil"></i>
+                    <span class="ml-2">Edit</span>
+                </a>
+            </button>
+            <button class="px-4 py-2 bg-red-50 text-red-600 rounded-lg hover:bg-red-100">
+                <a href="{{ group.get_delete_url }}">
+                    <i class="bi bi-trash"></i>
+                    <span class="ml-2">Delete</span>
+                </a>
+            </button>
+            {% endif %}
+        </div>
+    </div>
 
-                    <!-- Group Info -->
-                    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
-                        <!-- Basic Info -->
-                        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
-                            <h2 class="text-lg font-semibold mb-4">Group Information</h2>
-                            <div class="grid grid-cols-2 gap-6">
-                                <div>
-                                    <label class="block text-sm text-gray-500">Grade Level</label>
-                                    <p class="text-gray-900">{{ group.get_grade_level_display }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Class Teacher</label>
-                                    <p class="text-gray-900">{{ group.teacher }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Schedule</label>
-                                    <p class="text-gray-900">{{ group.get_schedule_display }}</p>
-                                </div>
-                                <div>
-                                    <label class="block text-sm text-gray-500">Academic Year</label>
-                                    <p class="text-gray-900">{{ group.academic_year }}</p>
-                                </div>
-                                <div class="col-span-2">
-                                    <label class="block text-sm text-gray-500">Description</label>
-                                    <p class="text-gray-900">{{ group.description }}</p>
-                                </div>
-                            </div>
-                        </div>
+    <!-- Group Info -->
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-8">
+        <!-- Basic Info -->
+        <div class="lg:col-span-2 bg-white rounded-lg shadow-sm p-6">
+            <h2 class="text-lg font-semibold mb-4">Group Information</h2>
+            <div class="grid grid-cols-2 gap-6">
+                <div>
+                    <label class="block text-sm text-gray-500">Grade Level</label>
+                    <p class="text-gray-900">{{ group.get_grade_level_display }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Class Teacher</label>
+                    <p class="text-gray-900">{{ group.teacher }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Schedule</label>
+                    <p class="text-gray-900">{{ group.get_schedule_display }}</p>
+                </div>
+                <div>
+                    <label class="block text-sm text-gray-500">Academic Year</label>
+                    <p class="text-gray-900">{{ group.academic_year }}</p>
+                </div>
+                <div class="col-span-2">
+                    <label class="block text-sm text-gray-500">Description</label>
+                    <p class="text-gray-900">{{ group.description }}</p>
+                </div>
+            </div>
+        </div>
 
-                        <!-- Stats -->
-                        <div class="space-y-6">
-                            <div class="bg-white rounded-lg shadow-sm p-6">
-                                <h3 class="text-lg font-semibold mb-4">Group Stats</h3>
-                                <div class="space-y-4">
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Total Students</label>
-                                        <p class="text-2xl font-bold">{{ group.students.count }}</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Average Attendance</label>
-                                        <p class="text-2xl font-bold">95%</p>
-                                    </div>
-                                    <div>
-                                        <label class="block text-sm text-gray-500">Average GPA</label>
-                                        <p class="text-2xl font-bold">3.8</p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Tabs -->
-                    <div class="mb-6">
-                        <div class="border-b">
-                            <nav class="flex space-x-8">
-                                <button class="px-1 py-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600">
-                                    Students
-                                </button>
-                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
-                                    Schedule
-                                </button>
-                                <button class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300">
-                                    Subjects
-                                </button>
-                            </nav>
-                        </div>
-                    </div>
-
-                    <!-- Students List -->
-                    <div class="bg-white rounded-lg shadow-sm">
-                        <div class="p-6 border-b">
-                            <div class="flex items-center justify-between">
-                                <h2 class="text-lg font-semibold">Students</h2>
-                                {% if user == group.author %}
-                                    <button class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700">
-                                        <i class="bi bi-plus"></i>
-                                        <a href="{% url 'students:create' %}"><span class="ml-2">Add Student</span></a>
-                                    </button>
-                                {% endif %}
-                            </div>
-                        </div>
-                        <div class="p-6">
-                            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                                {% for student in group.students.all %}
-                                    <div class="flex items-center space-x-4 p-4 border rounded-lg">
-                                        <div class="w-12 h-12 rounded-full bg-gray-100 flex items-center justify-center">
-                                            <i class="bi bi-person text-2xl text-gray-400"></i>
-                                        </div>
-                                        <div>
-                                            <h3 class="font-medium">{{ student.first_name  }} {{ student.last_name }}</h3>
-                                            <p class="text-sm text-gray-500">ID: {{ student.id }}</p>
-                                        </div>
-                                    </div>
-                                {% endfor %}
-                            </div>
-                        </div>
+        <!-- Stats -->
+        <div class="space-y-6">
+            <div class="bg-white rounded-lg shadow-sm p-6">
+                <h3 class="text-lg font-semibold mb-4">Group Stats</h3>
+                <div class="space-y-4">
+                    <div>
+                        <label class="block text-sm text-gray-500">Total Students</label>
+                        <p class="text-2xl font-bold">{{ group.students.count }}</p>
                     </div>
                 </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Tabs -->
+    <div class="mb-6">
+        <div class="border-b">
+            <nav class="flex space-x-8">
+                <button id="students-tab"
+                        class="px-1 py-4 text-sm font-medium text-blue-600 border-b-2 border-blue-600 focus:outline-none">
+                    Students
+                </button>
+                <button id="subjects-tab"
+                        class="px-1 py-4 text-sm font-medium text-gray-500 border-b-2 border-transparent hover:border-gray-300 focus:outline-none">
+                    Subjects
+                </button>
+            </nav>
+        </div>
+    </div>
+
+    <!-- Students Section -->
+    <div id="students-section" class="bg-white rounded-lg shadow-sm">
+        <div class="p-6 border-b">
+            <div class="flex items-center justify-between">
+                <h2 class="text-lg font-semibold">Students</h2>
+                {% if user == group.author %}
+                <a href="{% url 'students:create' %}"
+                   class="px-4 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 flex items-center">
+                    <i class="bi bi-plus"></i>
+                    <span class="ml-2">Add Student</span>
+                </a>
+                {% endif %}
+            </div>
+        </div>
+
+        <div class="p-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+                {% for student in group.students.all %}
+                <div class="flex items-center space-x-4 p-4 border rounded-lg">
+                     <div class="w-16 h-16 rounded-full bg-gray-100 flex items-center justify-center overflow-hidden">
+                        <img src="{{ student.image.url }}" alt="image" class="w-full h-full object-cover">
+                    </div>
+                    <div>
+                        <h3 class="font-medium">{{ student.first_name }} {{ student.last_name }}</h3>
+                        <p class="text-sm text-gray-500">ID: {{ student.id }}</p>
+                    </div>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <!-- Subjects Section (Hidden by Default) -->
+    <div id="subjects-section" class="bg-white rounded-lg shadow-sm hidden">
+        <div class="p-6">
+            <h2 class="text-lg font-semibold">Subjects</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mt-4">
+                {% for subject in group.subjects.all %}
+                <div class="p-4 border rounded-lg">
+                    <h3 class="font-medium">{{ subject.name }}</h3>
+                    <p class="text-sm text-gray-500">{{ subject.description }}</p>
+                </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const studentsTab = document.getElementById("students-tab");
+            const subjectsTab = document.getElementById("subjects-tab");
+            const studentsSection = document.getElementById("students-section");
+            const subjectsSection = document.getElementById("subjects-section");
+
+            function activateTab(activeTab, inactiveTab, showSection, hideSection) {
+                activeTab.classList.add("border-blue-600", "text-blue-600");
+                activeTab.classList.remove("border-transparent", "text-gray-500");
+
+                inactiveTab.classList.remove("border-blue-600", "text-blue-600");
+                inactiveTab.classList.add("border-transparent", "text-gray-500");
+
+                showSection.classList.remove("hidden");
+                hideSection.classList.add("hidden");
+            }
+
+            subjectsTab.addEventListener("click", function () {
+                activateTab(subjectsTab, studentsTab, subjectsSection, studentsSection);
+            });
+
+            studentsTab.addEventListener("click", function () {
+                activateTab(studentsTab, subjectsTab, studentsSection, subjectsSection);
+            });
+        });
+    </script>
+
+</div>
 {% endblock %}
 

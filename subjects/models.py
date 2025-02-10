@@ -58,10 +58,11 @@ class Subject(BaseModel):
             self.slug
         ])
 
-
     @property
     def prerequisite_list(self):
-        return [prerequisite.strip() for prerequisite in self.prerequisites.split(',')] if self.prerequisites else []
+        if not self.prerequisites:
+            return []
+        return [prerequisite.strip() for prerequisite in self.prerequisites.split(',') if prerequisite.strip()]
 
     def get_update_url(self):
         return reverse('subjects:update', args=[self.pk])

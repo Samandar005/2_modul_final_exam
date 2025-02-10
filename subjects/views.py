@@ -6,6 +6,8 @@ from .forms import SubjectForm
 from .models import Subject
 from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
+from students.models import Student
+
 
 class SubjectListView(ListView):
     model = Subject
@@ -49,6 +51,13 @@ class SubjectDetailView(DetailView):
 
     def get_object(self, queryset=None):
         return get_object_or_404(Subject, slug=self.kwargs.get('slug'))
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        subject = self.get_object()
+        students = Student.objects.filter(group__in=subject.groups.all()).distinct()
+        context['total_students'] = students.count()
+        return context
 
 class SubjectCreateView(LoginRequiredMixin, CreateView):
     model = Subject
