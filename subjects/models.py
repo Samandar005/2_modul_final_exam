@@ -4,6 +4,7 @@ from departments.models import Department
 from django.shortcuts import reverse
 from django.conf import settings
 from django.utils.text import slugify
+import re
 
 
 class Subject(BaseModel):
@@ -23,10 +24,10 @@ class Subject(BaseModel):
     ]
 
     PREREQUISITE_CHOICES = [
-        ('math', 'Basic Mathematics'),
-        ('physics', 'Introduction to Physics'),
-        ('chemistry', 'Basic Chemistry'),
-        ('english', 'English Language'),
+        ('Basic Mathematics', 'Basic Mathematics'),
+        ('Introduction to Physics', 'Introduction to Physics'),
+        ('Basic Chemistry', 'Basic Chemistry'),
+        ('English Language', 'English Language'),
     ]
 
     STATUS_CHOICES = [
@@ -41,7 +42,7 @@ class Subject(BaseModel):
     prerequisites = models.CharField(max_length=255, blank=True)
     grade_level = models.CharField(max_length=2, choices=GRADE_LEVEL_CHOICES)
     status = models.CharField(max_length=2, choices=STATUS_CHOICES, default='in')
-    department = models.ForeignKey(Department,  on_delete=models.CASCADE, related_name='subjects', null=True, blank=True)
+    department = models.ForeignKey(Department, on_delete=models.CASCADE, related_name='subjects', null=True, blank=True)
     author = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     slug = models.SlugField(unique=True, blank=True)
 
@@ -62,7 +63,7 @@ class Subject(BaseModel):
     def prerequisite_list(self):
         if not self.prerequisites:
             return []
-        return [prerequisite.strip() for prerequisite in self.prerequisites.split(',') if prerequisite.strip()]
+        return re.sub(r"[\[\]']", "", self.prerequisites).split(',')
 
     def get_update_url(self):
         return reverse('subjects:update', args=[self.pk])
