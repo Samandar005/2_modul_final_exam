@@ -68,6 +68,11 @@ class DepartmentDetailView(DetailView):
     def get_object(self, queryset=None):
         return get_object_or_404(Department, slug=self.kwargs.get('slug'))
 
+    def get_context_data(self, **kwargs):
+        ctx = super().get_context_data(**kwargs)
+        ctx['subjects_active'] = ', '.join(Subject.objects.filter(status='ac').values_list('name', flat=True))
+        return ctx
+
 class DepartmentCreateView(LoginRequiredMixin, CreateView):
     model = Department
     form_class = DepartmentForm
