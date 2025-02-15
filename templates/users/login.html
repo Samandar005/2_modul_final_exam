@@ -47,15 +47,14 @@
                     {{ form.password }}
                     <div class="text-danger">{{ form.password.errors }}</div>
                     <button
-                            type="button"
-                            id="togglePassword"
-                            class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
+                        type="button"
+                        id="togglePassword"
+                        class="absolute inset-y-0 right-0 pr-3 flex items-center text-gray-400 hover:text-gray-600"
                     >
-                        <i class="bi bi-eye"></i>
+                        <i class="bi bi-eye" id="eyeIcon"></i>
                     </button>
                 </div>
             </div>
-
             <!-- Remember Me -->
             <div class="flex items-center">
                 <input
@@ -80,4 +79,21 @@
     </div>
 </div>
 </body>
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const passwordField = document.querySelector("#{{ form.password.auto_id }}");
+    const toggleButton = document.getElementById("togglePassword");
+    const eyeIcon = document.getElementById("eyeIcon");
+
+    toggleButton.addEventListener("click", function () {
+        if (passwordField.type === "password") {
+            passwordField.type = "text";
+            eyeIcon.classList.replace("bi-eye", "bi-eye-slash");
+        } else {
+            passwordField.type = "password";
+            eyeIcon.classList.replace("bi-eye-slash", "bi-eye");
+        }
+    });
+});
+</script>
 {% endblock %}
