@@ -12,7 +12,7 @@ from groups.models import Group
 from subjects.models import Subject
 
 
-class HomePageView(ListView):
+class HomePageView(LoginRequiredMixin, ListView):
     model = Student
     template_name = 'dashboard.html'
     context_object_name = 'students'
@@ -28,7 +28,7 @@ class HomePageView(ListView):
         return ctx
 
 
-class DepartmentListView(ListView):
+class DepartmentListView(LoginRequiredMixin, ListView):
     model = Department
     template_name = 'departments/list.html'
     context_object_name = 'departments'
@@ -60,7 +60,7 @@ class DepartmentListView(ListView):
         context['heads'] = HeadDepartment.objects.all()
         return context
 
-class DepartmentDetailView(DetailView):
+class DepartmentDetailView(LoginRequiredMixin, DetailView):
     model = Department
     template_name = 'departments/detail.html'
     context_object_name = 'department'

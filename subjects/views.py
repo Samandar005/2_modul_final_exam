@@ -9,7 +9,7 @@ from django.shortcuts import get_object_or_404
 from students.models import Student
 
 
-class SubjectListView(ListView):
+class SubjectListView(LoginRequiredMixin, ListView):
     model = Subject
     template_name = 'subjects/list.html'
     context_object_name = 'subjects'
@@ -44,7 +44,7 @@ class SubjectListView(ListView):
         context['departments'] = Department.objects.all()
         return context
 
-class SubjectDetailView(DetailView):
+class SubjectDetailView(LoginRequiredMixin, DetailView):
     model = Subject
     template_name = 'subjects/detail.html'
     context_object_name = 'subject'

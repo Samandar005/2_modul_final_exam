@@ -9,7 +9,7 @@ from groups.models import Group
 from django.core.paginator import Paginator
 
 
-class StudentListView(ListView):
+class StudentListView(LoginRequiredMixin, ListView):
     model = Student
     template_name = 'students/list.html'
     context_object_name = 'students'
@@ -47,7 +47,7 @@ class StudentListView(ListView):
         return context
 
 
-class StudentDetailView(DetailView):
+class StudentDetailView(LoginRequiredMixin, DetailView):
     model = Student
     template_name = 'students/detail.html'
     context_object_name = 'student'

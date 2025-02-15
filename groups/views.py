@@ -8,7 +8,7 @@ from .forms import GroupForm
 from django.core.paginator import Paginator
 
 
-class GroupListView(ListView):
+class GroupListView(LoginRequiredMixin, ListView):
     model = Group
     template_name = 'groups/list.html'
     context_object_name = 'groups'
@@ -44,7 +44,7 @@ class GroupListView(ListView):
         return context
 
 
-class GroupDetailView(DetailView):
+class GroupDetailView(LoginRequiredMixin, DetailView):
     model = Group
     template_name = 'groups/detail.html'
     context_object_name = 'group'

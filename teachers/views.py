@@ -10,7 +10,7 @@ from django.core.paginator import Paginator
 from django.shortcuts import get_object_or_404
 from students.models import Student
 
-class TeacherListView(ListView):
+class TeacherListView(LoginRequiredMixin, ListView):
     model = Teacher
     template_name = 'teachers/list.html'
     context_object_name = 'teachers'
@@ -49,7 +49,7 @@ class TeacherListView(ListView):
         return context
 
 
-class TeacherDetailView(DetailView):
+class TeacherDetailView(LoginRequiredMixin, DetailView):
     model = Teacher
     template_name = 'teachers/detail.html'
     context_object_name = 'teacher'

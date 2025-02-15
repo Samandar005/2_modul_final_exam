@@ -6,7 +6,7 @@ from .forms import HeadOfDepartmentForm
 from django.core.paginator import Paginator
 
 
-class HeadOfDepartmentListView(ListView):
+class HeadOfDepartmentListView(LoginRequiredMixin, ListView):
     model = HeadDepartment
     template_name = 'head_of_departments/list.html'
     context_object_name = 'heads'
